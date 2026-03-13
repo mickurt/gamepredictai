@@ -23,72 +23,8 @@
                 <p>Leverage the power of Expert AI to predict revenue, optimize pricing, and analyze player sentiment before
                     you even launch.</p>
 
-                <div class="auth-box card-glass">
-                    <div class="auth-tabs">
-                        <button class="auth-tab active" onclick="switchAuth('signup')">Sign Up</button>
-                        <button class="auth-tab" onclick="switchAuth('login')">Login</button>
-                    </div>
-
-                    <form id="signupForm" class="auth-form">
-                        <div class="form-group">
-                            <label>Professional Email</label>
-                            <input type="email" id="signupEmail" placeholder="you@studio.com" class="input-glass" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" id="signupPassword" placeholder="••••••••" class="input-glass" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Organization / Studio</label>
-                            <input type="text" id="signupOrg" placeholder="Epic Games, IndieDev..." class="input-glass"
-                                required>
-                        </div>
-                        <button type="submit" class="btn-primary">Request Access</button>
-                    </form>
-
-                    <form id="loginForm" class="auth-form" style="display:none;">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="loginEmail" placeholder="you@studio.com" class="input-glass" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" id="loginPassword" placeholder="••••••••" class="input-glass" required>
-                        </div>
-                        <button type="submit" class="btn-primary">Login</button>
-                        <a href="#" onclick="switchAuth('lost_password'); return false;"
-                            style="color:var(--primary); font-size:0.85rem; margin-top:10px; text-align:center; text-decoration:none;">Lost
-                            Password?</a>
-                    </form>
-
-                    <form id="lostPasswordForm" class="auth-form" style="display:none;">
-                        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px; text-align:center;">Enter
-                            your email to receive a password reset link.</p>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="lostPasswordEmail" placeholder="you@studio.com" class="input-glass"
-                                required>
-                        </div>
-                        <button type="submit" class="btn-primary">Send Reset Link</button>
-                        <a href="#" onclick="switchAuth('login'); return false;"
-                            style="color:var(--text-muted); font-size:0.85rem; margin-top:10px; text-align:center; text-decoration:none;">Back
-                            to Login</a>
-                    </form>
-
-                    <form id="resetPasswordForm" class="auth-form" style="display:none;">
-                        <h3 style="margin-bottom:15px; color:var(--text); text-align:center;">Create New Password</h3>
-                        <div class="form-group">
-                            <label>New Password</label>
-                            <input type="password" id="newPassword" placeholder="••••••••" class="input-glass" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Confirm Password</label>
-                            <input type="password" id="confirmNewPassword" placeholder="••••••••" class="input-glass"
-                                required>
-                        </div>
-                        <button type="submit" class="btn-primary">Reset Password</button>
-                    </form>
-                    <div id="authMessage" style="margin-top:15px; font-size:0.9rem; text-align:center;"></div>
+                <div style="margin-top: 30px;">
+                    <button class="btn-primary" style="font-size: 1.1rem; padding: 15px 40px; border-radius: 50px;" onclick="document.getElementById('authSection').scrollIntoView({behavior: 'smooth'}); setTimeout(() => document.getElementById('signupEmail').focus(), 500);">Request Access / Login</button>
                 </div>
             </div>
 
@@ -202,8 +138,75 @@
 
             </div>
             
-            <div style="text-align: center; margin: 40px 0 100px 0; z-index: 2; position: relative;">
-                <button class="btn-primary" style="font-size: 1.2rem; padding: 18px 50px; border-radius: 50px; background: linear-gradient(90deg, #3a7bd5, #00d2ff);" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); document.getElementById('signupEmail').focus();">Start Predicting Now - Request Access</button>
+            <div id="authSection" class="landing-hero" style="margin-top: 40px; margin-bottom: 100px; z-index: 2; position: relative;">
+                <h2 style="margin-bottom: 20px;">Ready to Optimize Your Game's Launch?</h2>
+                <div class="auth-box card-glass">
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" onclick="switchAuth('signup')">Sign Up</button>
+                        <button class="auth-tab" onclick="switchAuth('login')">Login</button>
+                    </div>
+
+                    <form id="signupForm" class="auth-form">
+                        <div class="form-group">
+                            <label>Professional Email</label>
+                            <input type="email" id="signupEmail" placeholder="you@studio.com" class="input-glass" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="signupPassword" placeholder="••••••••" class="input-glass" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Organization / Studio</label>
+                            <input type="text" id="signupOrg" placeholder="Epic Games, IndieDev..." class="input-glass"
+                                required>
+                        </div>
+                        <button type="submit" class="btn-primary">Request Access</button>
+                    </form>
+
+                    <form id="loginForm" class="auth-form" style="display:none;">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="loginEmail" placeholder="you@studio.com" class="input-glass" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="loginPassword" placeholder="••••••••" class="input-glass" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Login</button>
+                        <a href="#" onclick="switchAuth('lost_password'); return false;"
+                            style="color:var(--primary); font-size:0.85rem; margin-top:10px; text-align:center; text-decoration:none;">Lost
+                            Password?</a>
+                    </form>
+
+                    <form id="lostPasswordForm" class="auth-form" style="display:none;">
+                        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px; text-align:center;">Enter
+                            your email to receive a password reset link.</p>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="lostPasswordEmail" placeholder="you@studio.com" class="input-glass"
+                                required>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Reset Link</button>
+                        <a href="#" onclick="switchAuth('login'); return false;"
+                            style="color:var(--text-muted); font-size:0.85rem; margin-top:10px; text-align:center; text-decoration:none;">Back
+                            to Login</a>
+                    </form>
+
+                    <form id="resetPasswordForm" class="auth-form" style="display:none;">
+                        <h3 style="margin-bottom:15px; color:var(--text); text-align:center;">Create New Password</h3>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="newPassword" placeholder="••••••••" class="input-glass" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="confirmNewPassword" placeholder="••••••••" class="input-glass"
+                                required>
+                        </div>
+                        <button type="submit" class="btn-primary">Reset Password</button>
+                    </form>
+                    <div id="authMessage" style="margin-top:15px; font-size:0.9rem; text-align:center;"></div>
+                </div>
             </div>
         </div>
 
