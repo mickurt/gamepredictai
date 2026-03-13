@@ -300,11 +300,11 @@ select.input-glass option {
 
 /* --- LANDING PAGE STYLES --- */
 .landing-page {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -601,11 +601,11 @@ select.input-glass option {
 
     /* Landing Page Mobile */
     .landing-page {
-        position: absolute;
-        height: auto;
-        min-height: 100vh;
+        position: fixed;
+        height: 100vh;
         width: 100%;
         overflow-y: auto;
+        padding-top: 20px;
     }
 
     .landing-hero {
