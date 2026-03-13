@@ -605,16 +605,22 @@ select.input-glass option {
         height: 100vh;
         width: 100%;
         overflow-y: auto;
-        padding-top: 20px;
+        padding-top: 10px;
     }
 
     .landing-hero {
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+    
+    .landing-features {
+        gap: 40px;
         margin-bottom: 40px;
     }
 
     .feature-card, .feature-card.reverse {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
     }
 
     .features-title {
