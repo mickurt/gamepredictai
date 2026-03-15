@@ -33,8 +33,15 @@ window.switchAuth = function (mode) {
     }
 };
 
-document.addEventListener('DOMContentLoaded', async () => {
+// --- API CONFIGURATION ---
+const API_BASE = (window.location.hostname.includes('hf.space') || 
+                  window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1') 
+                  ? '' 
+                  : 'https://mickurt-gaming-ai-predictor.hf.space';
 
+document.addEventListener('DOMContentLoaded', async () => {
+    
     const urlParams = new URLSearchParams(window.location.search);
     const resetToken = urlParams.get('reset_token');
     if (resetToken) {
@@ -53,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             msg.style.color = '#fff';
 
             try {
-                const res = await fetch('/api/signup', {
+                const res = await fetch(`${API_BASE}/api/signup`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password, organization })
@@ -85,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             msg.style.color = '#fff';
 
             try {
-                const res = await fetch('/api/login', {
+                const res = await fetch(`${API_BASE}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
@@ -116,7 +123,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             msg.style.color = '#fff';
 
             try {
-                const res = await fetch('/api/lost_password', {
+                const res = await fetch(`${API_BASE}/api/lost_password`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email })
@@ -155,7 +162,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             msg.style.color = '#fff';
 
             try {
-                const res = await fetch('/api/reset_password', {
+                const res = await fetch(`${API_BASE}/api/reset_password`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ token: resetToken, new_password: newPassword })
@@ -205,7 +212,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             formData.append('similar_games', similars);
             formData.append('api_key', apiKey);
 
-            const res = await fetch('/api/analyze_sentiment', { method: 'POST', body: formData });
+            const res = await fetch(`${API_BASE}/api/analyze_sentiment`, { method: 'POST', body: formData });
 
             if (!res.ok) {
                 const err = await res.text();
@@ -283,7 +290,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Load Genres
     try {
-        const res = await fetch('/api/genres');
+        const res = await fetch(`${API_BASE}/api/genres`);
         const genres = await res.json();
         genreSelect.innerHTML = '';
         Object.keys(genres).forEach(g => {
@@ -354,7 +361,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         formData.append('api_key', apiKey);
 
         try {
-            const res = await fetch('/api/analyze_image', {
+            const res = await fetch(`${API_BASE}/api/analyze_image`, {
                 method: 'POST',
                 body: formData
             });
@@ -408,7 +415,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         formData.append('user_id', window.currentUserId || "Guest");
 
         try {
-            const res = await fetch('/api/predict', {
+            const res = await fetch(`${API_BASE}/api/predict`, {
                 method: 'POST',
                 body: formData
             });
