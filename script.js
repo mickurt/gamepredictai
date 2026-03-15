@@ -446,16 +446,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     function renderResults(data) {
-        document.getElementById('optPrice').textContent = `$${data.best_price.toFixed(2)}`;
+        // document.getElementById('optPrice').textContent = `$${data.best_price.toFixed(2)}`;
         // Format big numbers
         document.getElementById('maxProfit').textContent = `$${Math.floor(data.max_profit).toLocaleString()}`;
         
         // --- SHOW BUZZ SCORE ---
+        // Enhanced persistence: use either the returned data or the local global variable
+        const displayScore = data.sentiment_ia_score || currentSentimentScore;
         const buzzBadge = document.getElementById('sentimentResult');
-        if (data.sentiment_ia_score && buzzBadge) {
+
+        if (displayScore && buzzBadge) {
             buzzBadge.style.display = 'inline-block';
-            document.getElementById('buzzScore').textContent = data.sentiment_ia_score;
-        } else if (buzzBadge) {
+            document.getElementById('buzzScore').textContent = displayScore;
+            console.log("Rendering Buzz Score:", displayScore);
+        } else if (buzzBadge && !displayScore) {
             buzzBadge.style.display = 'none';
         }
 
