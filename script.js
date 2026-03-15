@@ -298,6 +298,68 @@ document.addEventListener('DOMContentLoaded', async () => {
     let monteCarloChartInstance = null;
     let marketingChartInstance = null;
     let pricingChartInstance = null;
+
+    // --- RESET / NEW SEARCH ---
+    const resetBtn = document.getElementById('resetBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            // 1. Reset Form
+            form.reset();
+            
+            // 2. Clear AI persistence
+            currentSentimentScore = null;
+            currentBuzzReason = null;
+            
+            // 3. Clear UI specific elements
+            if (previewImage) {
+                previewImage.src = "";
+                previewImage.style.display = 'none';
+            }
+            if (dropZone) dropZone.querySelector('p').style.display = 'block';
+            if (analyzeBtn) analyzeBtn.style.display = 'none';
+            
+            const sr = document.getElementById('sentimentResult');
+            if (sr) sr.style.display = 'none';
+            
+            const ac = document.getElementById('aiContext');
+            if (ac) ac.innerHTML = "Perform a prediction to see AI insights.";
+            
+            // 4. Reset Results Area
+            resultsArea.style.opacity = '0.5';
+            resultsArea.style.pointerEvents = 'none';
+            
+            // 5. Destroy Charts
+            if (profitChartInstance) { profitChartInstance.destroy(); profitChartInstance = null; }
+            if (salesChartInstance) { salesChartInstance.destroy(); salesChartInstance = null; }
+            if (compSalesChartInstance) { compSalesChartInstance.destroy(); compSalesChartInstance = null; }
+            if (monteCarloChartInstance) { monteCarloChartInstance.destroy(); monteCarloChartInstance = null; }
+            if (marketingChartInstance) { marketingChartInstance.destroy(); marketingChartInstance = null; }
+            if (pricingChartInstance) { pricingChartInstance.destroy(); pricingChartInstance = null; }
+            
+            // 6. Reset values in cards
+            const mp = document.getElementById('maxProfit');
+            if (mp) mp.textContent = "$ ---";
+            const bi = document.getElementById('benchmarkInfo');
+            if (bi) bi.innerHTML = '--- <span style="font-size:0.8rem">copies</span>';
+            
+            // 7. Clear tables
+            const mb = document.getElementById('marketingBody');
+            if (mb) mb.innerHTML = '';
+            const db = document.getElementById('dynamicBody');
+            if (db) db.innerHTML = '';
+            const cb = document.getElementById('comparablesBody');
+            if (cb) cb.innerHTML = '';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar) sidebar.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            console.log("🔄 Search reset successfully.");
+        });
+    }
+
+    // --- DRAG & DROP ---
     let selectedFile = null;
     let currentPredictionData = null; // Store latest result
 

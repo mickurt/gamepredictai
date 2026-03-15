@@ -7,7 +7,7 @@
     <title>Gamepredict.ai - Premium Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=41">
+    <link rel="stylesheet" href="style.css?v=43">
 </head>
 
 <body>
@@ -321,7 +321,10 @@
                     <input type="text" id="similarGames" placeholder="Valheim, Rust..." class="input-glass">
                 </div>
 
-                <button type="submit" class="btn-primary">🚀 RUN PREDICTION</button>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn-primary" style="margin-top:0;">🚀 RUN PREDICTION</button>
+                    <button type="button" id="resetBtn" class="btn-secondary" style="background: rgba(255, 255, 255, 0.05);">🔄 NEW SEARCH</button>
+                </div>
             </form>
         </div>
 
@@ -554,7 +557,7 @@
 
     </div>
 
-    <script src="script.js?v=42"></script>
+    <script src="script.js?v=43"></script>
 </body>
 
 </html>
