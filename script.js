@@ -458,6 +458,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else if (buzzBadge) {
             buzzBadge.style.display = 'none';
         }
+
+        // --- UPDATE WISHLISTS FIELD IF ESTIMATED ---
+        const wishlistInput = document.getElementById('wishlists');
+        if (data.wishlists && (!wishlistInput.value || wishlistInput.value == "0")) {
+            wishlistInput.value = data.wishlists;
+            wishlistInput.style.borderColor = "#00ff88";
+            setTimeout(() => wishlistInput.style.borderColor = "", 2000);
+        }
         
         // Update Benchmark Card to show Volume
         const salesStr = data.est_total_sales ? data.est_total_sales.toLocaleString() : "---";
@@ -1203,5 +1211,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
+
+    // --- CUSTOM VALIDATION (English) ---
+    const allInputs = document.querySelectorAll('input[required], select[required]');
+    allInputs.forEach(input => {
+        input.oninvalid = function(e) {
+            e.target.setCustomValidity("");
+            if (!e.target.validity.valid) {
+                 e.target.setCustomValidity("Please enter a value for this required field.");
+            }
+        };
+        input.oninput = function(e) {
+            e.target.setCustomValidity("");
+        };
+    });
 
 });
