@@ -275,6 +275,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    if (analyzeSentimentBtn) {
+        analyzeSentimentBtn.onclick = runBuzzAnalysis;
+    }
+
     // --- INIT ---
     const genreSelect = document.getElementById('genreSelect');
     const form = document.getElementById('predictionForm');
@@ -482,8 +486,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // AI Context
         let contextText = data.context_review || `Based on your parameters, AI classifies this as a <b>${data.segment_label}</b> project.`;
+        
+        if (data.sentiment_ia_score) {
+            contextText = `<b>AI Buzz detected:</b> ${data.sentiment_ia_score}/10. <br>` + contextText;
+        }
+
         if (data.used_similars && data.used_similars.length > 0) {
-            contextText += `< br > <br><b>Visual Benchmark:</b> Analysis based on similar titles like: <i>${data.used_similars.join(', ')}</i>.`;
+            contextText += `<br><br><b>Visual Benchmark:</b> Analysis based on similar titles like: <i>${data.used_similars.join(', ')}</i>.`;
         }
         if (data.game_specific_match) {
             contextText += `<br><br><b>🎯 Exact Match:</b> Found data for "<i>${data.game_specific_match}</i>". Using specific metrics.`;
