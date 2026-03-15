@@ -275,10 +275,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    if (analyzeSentimentBtn) {
-        analyzeSentimentBtn.onclick = runBuzzAnalysis;
-    }
-
     // --- INIT ---
     const genreSelect = document.getElementById('genreSelect');
     const form = document.getElementById('predictionForm');
@@ -450,10 +446,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     function renderResults(data) {
-        // Text Updates
         document.getElementById('optPrice').textContent = `$${data.best_price.toFixed(2)}`;
         // Format big numbers
         document.getElementById('maxProfit').textContent = `$${Math.floor(data.max_profit).toLocaleString()}`;
+        
+        // --- SHOW BUZZ SCORE ---
+        const buzzBadge = document.getElementById('sentimentResult');
+        if (data.sentiment_ia_score && buzzBadge) {
+            buzzBadge.style.display = 'inline-block';
+            document.getElementById('buzzScore').textContent = data.sentiment_ia_score;
+        } else if (buzzBadge) {
+            buzzBadge.style.display = 'none';
+        }
+        
         // Update Benchmark Card to show Volume
         const salesStr = data.est_total_sales ? data.est_total_sales.toLocaleString() : "---";
         document.getElementById('benchmarkInfo').innerHTML = `
