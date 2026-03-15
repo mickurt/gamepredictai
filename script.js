@@ -45,6 +45,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const resetToken = urlParams.get('reset_token');
     if (resetToken) {
+        // CLEAN VIEW: Hide the rest of the landing page for reset
+        const hero = document.getElementById('landing-hero-content');
+        const features = document.getElementById('featuresSection');
+        if (hero) hero.style.display = 'none';
+        if (features) features.style.display = 'none';
+        
+        document.getElementById('landingPage').classList.add('reset-mode');
         switchAuth('reset_password');
     }
 

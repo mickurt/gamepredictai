@@ -325,6 +325,16 @@ select.input-glass option {
     z-index: 2;
 }
 
+.landing-page.reset-mode {
+    justify-content: center;
+}
+
+.landing-page.reset-mode .landing-container {
+    padding-top: 0;
+    justify-content: center;
+    height: 100vh;
+}
+
 .landing-hero {
     text-align: center;
     width: 100%;
