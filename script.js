@@ -405,9 +405,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const formData = new FormData();
         formData.append('genre', genreSelect.value);
-        formData.append('budget', document.getElementById('budget').value || "500000");
-        formData.append('wishlists', document.getElementById('wishlists').value || "10000");
-        formData.append('sentiment', document.getElementById('sentiment').value || "85");
+        formData.append('budget', document.getElementById('budget').value || "0");
+        formData.append('wishlists', document.getElementById('wishlists').value || "");
+        formData.append('sentiment', document.getElementById('sentiment').value || "0");
         formData.append('month', document.getElementById('month').value || "10");
         formData.append('langs', document.getElementById('langs').value || "5");
         formData.append('similar_games', document.getElementById('similarGames').value || "");
