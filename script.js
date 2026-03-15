@@ -197,6 +197,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const gameName = document.getElementById('gameName');
     const sentimentResult = document.getElementById('sentimentResult');
     let currentSentimentScore = null;
+    let currentBuzzReason = null;
 
     // --- ANALYZE SENTIMENT (IA) ---
     async function runBuzzAnalysis() {
@@ -230,6 +231,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (data.score) {
                 currentSentimentScore = data.score;
+                currentBuzzReason = data.reason;
                 const buzzBadge = document.getElementById('sentimentResult');
                 if (buzzBadge) {
                     buzzBadge.style.display = 'inline-block';
@@ -457,12 +459,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         // --- SHOW BUZZ SCORE ---
         // Enhanced persistence: use either the returned data or the local global variable
         const displayScore = data.sentiment_ia_score || currentSentimentScore;
+        const displayReason = data.reason || currentBuzzReason;
         const buzzBadge = document.getElementById('sentimentResult');
 
         if (displayScore && buzzBadge) {
             buzzBadge.style.display = 'inline-block';
             document.getElementById('buzzScore').textContent = displayScore;
-            document.getElementById('buzzText').textContent = data.reason ? `(${data.reason})` : ""; // Ensure reason is shown in results
+            document.getElementById('buzzText').textContent = displayReason ? `(${displayReason})` : ""; 
             console.log("Rendering Buzz Score in report:", displayScore);
         } else if (buzzBadge && !displayScore) {
             buzzBadge.style.display = 'none';
