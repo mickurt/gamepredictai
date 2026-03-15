@@ -230,9 +230,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (data.score) {
                 currentSentimentScore = data.score;
-                sentimentResult.style.display = 'inline-block';
-                document.getElementById('buzzScore').textContent = data.score;
-                document.getElementById('buzzText').textContent = data.reason ? `(${data.reason})` : "";
+                const buzzBadge = document.getElementById('sentimentResult');
+                if (buzzBadge) {
+                    buzzBadge.style.display = 'inline-block';
+                    document.getElementById('buzzScore').textContent = data.score;
+                    document.getElementById('buzzText').textContent = data.reason ? `(${data.reason})` : "";
+                    console.log("✅ Buzz Analysis UI Updated:", data.score);
+                }
 
                 // Auto-update inputs (only if empty or <= 0)
                 const sIn = document.getElementById('sentiment');
@@ -458,7 +462,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (displayScore && buzzBadge) {
             buzzBadge.style.display = 'inline-block';
             document.getElementById('buzzScore').textContent = displayScore;
-            console.log("Rendering Buzz Score:", displayScore);
+            document.getElementById('buzzText').textContent = data.reason ? `(${data.reason})` : ""; // Ensure reason is shown in results
+            console.log("Rendering Buzz Score in report:", displayScore);
         } else if (buzzBadge && !displayScore) {
             buzzBadge.style.display = 'none';
         }
