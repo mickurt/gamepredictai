@@ -216,7 +216,7 @@ class GameRevenuePredictor:
             Return a JSON object ONLY. DO NOT use markdown code blocks.
             IMPORTANT: Use double quotes for all keys and strings.
             Result Format:
-            {
+            {{
                 "score": <integer 1-10 for Hype/Buzz>,
                 "sentiment_percent": <integer 0-100 representing Score>,
                 "release_date": "<YYYY-MM-DD or 'Unknown' - THE REAL RELEASE DATE>",
@@ -226,7 +226,7 @@ class GameRevenuePredictor:
                 "previous_sentiment": <integer 0-100 score of previous game or null>,
                 "previous_buzz": <integer 1-10 buzz of previous game or null>,
                 "similar_games": "<String: Game 1, Game 2, Game 3>"
-            }
+            }}
             """
             
             import re
