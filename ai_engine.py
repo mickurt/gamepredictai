@@ -954,14 +954,18 @@ class GameRevenuePredictor:
         marketing_efficiency = []
         
         # Define saturation based on base budget and segment
-        saturation_point = max(10000000, budget * 3)
+        # AAA titles have much higher saturation points (can absorb hundreds of millions)
+        saturation_point = max(20000000, budget * 2) if label == "AAA" else max(10000000, budget * 3)
         
         for m_budget in marketing_budgets:
-            max_multiplier = 2.0 if label == "AAA" else (1.5 if label == "AA" else 1.2)
+            # AAA can see up to 350% lift if base was small, AA 250%, Indie 180%
+            max_multiplier = 3.5 if label == "AAA" else (2.5 if label == "AA" else 1.8)
             lift_ratio = (m_budget / (m_budget + saturation_point)) * (max_multiplier - 1.0)
             
             lift_percent = lift_ratio * 100
             extra_sales = final_sales_display * lift_ratio
+            
+            # ROI on high-price titles should be much better
             extra_revenue = extra_sales * best_price * 0.55 * lifecycle_decay_factor
             
             roi = ((extra_revenue - m_budget) / m_budget) * 100
