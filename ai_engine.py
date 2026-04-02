@@ -57,7 +57,16 @@ class GameRevenuePredictor:
 
         try:
             genai.configure(api_key=api_key)
-            models_to_try = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro']
+            # Exactly the models requested
+            models_to_try = [
+                'gemini-3.1-flash-lite', 
+                'gemini-2.5-flash-pro', 
+                'gemini-2.5-flash', 
+                'gemini-3-flash', 
+                'gemini-2.5-flash-lite', 
+                'gemma-3-27b', 
+                'gemma-3-12b'
+            ]
             
             for model_name in models_to_try:
                 try:
