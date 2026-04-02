@@ -519,17 +519,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('maxProfit').textContent = `$${Math.floor(data.max_profit).toLocaleString()}`;
         
         // --- SHOW BUZZ SCORE ---
-        // Enhanced persistence: use either the returned data or the local global variable
-        const displayScore = data.sentiment_ia_score || currentSentimentScore;
+        let displayScore = data.sentiment_ia_score || currentSentimentScore;
         const displayReason = data.reason || currentBuzzReason;
         const buzzBadge = document.getElementById('sentimentResult');
 
+        // Fallback: If no score from AI, we might have it in the result if engine calculated it
+        if (!displayScore && data.sentiment_ia_score === 0) displayScore = 0.1; // Ensure 0 is showable
+
         if (displayScore && buzzBadge) {
             buzzBadge.style.display = 'inline-block';
-            document.getElementById('buzzScore').textContent = displayScore;
-            document.getElementById('buzzText').textContent = displayReason ? `(${displayReason})` : ""; 
-            console.log("Rendering Buzz Score in report:", displayScore);
-        } else if (buzzBadge && !displayScore) {
+            const scoreEl = document.getElementById('buzzScore');
+            const textEl = document.getElementById('buzzText');
+            if (scoreEl) scoreEl.textContent = displayScore;
+            if (textEl) textEl.textContent = displayReason ? `(${displayReason})` : ""; 
+            console.log("✅ Rendering Buzz Score:", displayScore);
+        } else if (buzzBadge) {
+            // Keep it hidden ONLY if truly no score
             buzzBadge.style.display = 'none';
         }
 
