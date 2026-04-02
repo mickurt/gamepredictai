@@ -862,10 +862,10 @@ class GameRevenuePredictor:
             # If we used real_sales_data, we force Year 1 to match exactly the input snapshot
             # and distribute the rest over 5 years.
             if real_sales_data and real_sales_data > 0:
-                 y1_real = int(real_sales_data)
-                 remaining = final_sales_display - y1_real
+                 y1_val = int(year1_est)
+                 remaining = final_sales_display - y1_val
                  dist_others = [0.25, 0.12, 0.05, 0.03] # Years 2-5 sum to 0.45 approx
-                 evolution_sales = [y1_real] + [int(remaining * (r/0.45)) for r in dist_others]
+                 evolution_sales = [y1_val] + [int(remaining * (r/0.45)) for r in dist_others]
             else:
                  dist_ratios = [0.55, 0.25, 0.12, 0.05, 0.03]
                  evolution_sales = [int(final_sales_display * r) for r in dist_ratios]
