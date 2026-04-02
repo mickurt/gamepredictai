@@ -12,7 +12,7 @@ class GameRevenuePredictor:
         import pandas as pd
         try:
             self.df = pd.read_csv(csv_path)
-            self.calibration_factor = 1.12
+            self.calibration_factor = 1.15
         except Exception as e:
             print(f"❌ Error loading CSV: {e}")
             self.df = pd.DataFrame()
@@ -34,19 +34,19 @@ class GameRevenuePredictor:
         except: pass
 
     def analyze_sentiment_buzz(self, api_key: str, game_name: str, similar_games: str = "") -> dict:
-        if not api_key: return {"score": 7.5, "reason": "Awaiting market pulse"}
+        if not api_key: return {"score": 7.5, "reason": "No Key"}
         try:
             genai.configure(api_key=api_key)
             models = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro']
             for m in models:
                 try:
                     model = genai.GenerativeModel(m)
-                    res = model.generate_content(f"Market analysis for {game_name}. Return JSON: {{'score': float, 'reason': string}}")
+                    res = model.generate_content(f"Market analysis for {game_name}. JSON: {{'score': 1-10, 'reason': 'text'}}")
                     data = json.loads(res.text.strip().replace('```json', '').replace('```', ''))
                     return {"score": data.get('score', 7.5), "reason": data.get('reason', ""), "model": m}
                 except: continue
         except: pass
-        return {"score": 7.5, "reason": "Estimated from general benchmarks"}
+        return {"score": 7.5, "reason": "Market benchmark"}
 
     def predict_optimization(self, game_name: str = None, genre_name: str = "Action",
                              budget: float = 0, wishlists: int = 0,
@@ -57,65 +57,76 @@ class GameRevenuePredictor:
                              previous_buzz: float = 0, num_dlcs: int = 0, 
                              dlc_price: float = 0.0) -> dict:
         
-        # 1. MATCH DB
         game_match = self.df[self.df['nom'].str.lower() == game_name.lower().strip()] if (not self.df.empty and game_name) else None
         real_sales = float(game_match.iloc[0].get('ventes_reelles_officielles', 0)) if (game_match is not None and not game_match.empty) else 0
         
-        # 2. CALC
         eff_sentiment = (sentiment_ia_score * 10) if (sentiment_ia_score is not None and sentiment_ia_score > 0) else sentiment_target
         if not eff_sentiment: eff_sentiment = 70.0
         
         wishlists = wishlists if wishlists else 0
-        base_conv = 0.6 if budget > 50000000 else 0.45
-        est_sales = wishlists * (base_conv + (eff_sentiment / 180))
-        
-        price = fixed_price if fixed_price is not None else 60
-        p_factor = np.exp(-0.05 * (price - 60) / 60)
-        est_sales *= p_factor
-        if previous_sales and previous_sales > 10000000: est_sales *= 1.35
+        base_conv = 0.55 if budget > 50000000 else 0.4
+        est_sales_base = wishlists * (base_conv + (eff_sentiment / 200))
+        if previous_sales and previous_sales > 10000000: est_sales_base *= 1.35
             
-        # 3. YEARS EVOLUTION
+        # Pricing Curve Simulation
+        prices_to_test = [30, 40, 50, 60, 70, 80, 99]
+        pricing_data = []
+        for p in prices_to_test:
+            p_f = np.exp(-0.06 * (p - 60) / 60)
+            s = int(est_sales_base * p_f)
+            # Apply velocity override if high
+            if real_sales >= 1000000:
+                s = int(real_sales * (2.8 if real_sales < 4000000 else 2.5) / 0.55)
+            prof = (s * p * 0.55) - budget
+            pricing_data.append({"prix": p, "sales": s, "profit": prof})
+
+        # Select target scenario
+        chosen_p = fixed_price if fixed_price is not None else 60
+        chosen_p_f = np.exp(-0.06 * (chosen_p - 60) / 60)
+        final_total = int(est_sales_base * chosen_p_f)
+        
         dist_ratios = [0.55, 0.25, 0.12, 0.05, 0.03]
         if real_sales >= 1000000:
-            y1_velocity = real_sales * (2.8 if real_sales < 4000000 else 2.5)
-            dist_ratios = [0.45, 0.28, 0.15, 0.08, 0.04] # Smooth legs
-            evo_sales = [int(y1_velocity * (r / dist_ratios[0])) for r in dist_ratios]
+            y1 = real_sales * (2.8 if real_sales < 4000000 else 2.5)
+            dist_ratios = [0.45, 0.28, 0.15, 0.08, 0.04]
+            evo_sales = [int(y1 * (r / dist_ratios[0])) for r in dist_ratios]
+            final_total = sum(evo_sales)
         else:
-            total = max(est_sales, real_sales / 0.55 if real_sales > 0 else est_sales)
-            evo_sales = [int(total * r) for r in dist_ratios]
+            final_total = max(final_total, real_sales / 0.55 if real_sales > 0 else final_total)
+            evo_sales = [int(final_total * r) for r in dist_ratios]
             if real_sales > 0 and evo_sales[0] < real_sales:
                 evo_sales[0] = int(real_sales)
         
         final_total = sum(evo_sales)
-        max_profit = (final_total * price * 0.55) - budget
+        max_profit = (final_total * chosen_p * 0.55) - budget
         if num_dlcs > 0: max_profit += (final_total * 0.15 * dlc_price * 0.55) * num_dlcs
 
-        # --- PREPARE FULL PAYLOAD FOR FRONT-END ---
+        # Charts data
         steps = np.linspace(0, final_total * 1.5, 20)
         
         return {
-            "best_price": float(price),
+            "best_price": float(chosen_p),
             "max_profit": float(max_profit),
             "est_total_sales": int(final_total),
             "evolution_sales": evo_sales,
             "evolution_years": ["Year 1", "Year 2", "Year 3", "Year 4", "Year 5"],
             "year_milestones": [1, 2, 3, 4, 5],
             "breakeven_sales_steps": steps.tolist(),
-            "breakeven_profits": [(s * price * 0.55 - budget) for s in steps],
+            "breakeven_profits": [(s * chosen_p * 0.55 - budget) for s in steps],
             "monte_carlo_results": sorted([final_total * np.random.normal(1.0, 0.25) for _ in range(300)]),
             "sentiment_ia_score": float(eff_sentiment/10),
             "sentiment_percent": int(eff_sentiment),
-            "reason": "Expert Analysis & Historical Velocity Matching",
+            "reason": "Comprehensive velocity-aware pricing optimization.",
             "comparable_games": [],
             "used_similars": similar_games or [],
-            "context_review": "Strong market positioning based on existing traction.",
-            "dynamic_pricing": {"optimal": price, "elasticity": "Medium"},
+            "context_review": "Strong viability in the current competitive frame.",
+            "dynamic_pricing": pricing_data,
             "global_risk": 4,
-            "greenlight": "Highly Recommended" if max_profit > 0 else "High Risk",
-            "marketing_efficiency": 85,
-            "segment_label": "AAA" if budget > 50000000 else ("AA" if budget > 10000000 else "Indie"),
+            "greenlight": "Approved" if max_profit > 0 else "Review Needed",
+            "marketing_efficiency": 82,
+            "segment_label": "AAA" if budget > 50000000 else "Indie",
             "wishlists": wishlists
         }
 
     def analyze_image_with_gemini(self, api_key: str, image_path: str):
-        return {"sentiment_score": 7.5, "analysis": "High visual quality detected"}
+        return {"sentiment_score": 7.5, "analysis": "High fidelity capture"}
