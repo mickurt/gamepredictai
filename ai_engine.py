@@ -93,6 +93,7 @@ class GameRevenuePredictor:
                              wishlists: int = 0, prev_sales: float = 0, 
                              prev_score: float = 0, genre_name: str = "Action",
                              sentiment_ia_score: float = None,
+                             reviews_target: float = 80.0,
                              num_dlcs: int = 0, dlc_price: float = 0) -> dict:
         
         game_match = self.df[self.df['nom'].str.lower() == game_name.lower().strip()] if not self.df.empty else None
