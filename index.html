@@ -345,12 +345,12 @@
         <!-- Main Content / Results -->
         <div class="main-content">
             <div id="resultsArea" style="opacity: 0.5; pointer-events: none; transition: all 0.5s ease;">
-                <div class="header-result" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div id="sentimentResult" class="badge"
+                    style="display:none; margin-bottom: 15px; border: 2px solid #00ff88; color: #00ff88; background: rgba(0, 255, 136, 0.15); padding: 12px 24px; border-radius: 12px; font-weight: 700; box-shadow: 0 0 15px rgba(0, 255, 136, 0.3); font-size: 1rem; width: 100%; box-sizing: border-box; text-align: left;">
+                    🔥 Buzz Score: <span id="buzzScore"></span>/10 <span id="buzzText" style="font-weight: 400; font-size: 0.85rem; margin-left: 8px; color: rgba(255,255,255,0.9);"></span>
+                </div>
+                <div class="header-result" style="display: flex; justify-content: space-between; align-items: center; gap: 15px;">
                     <h2>Strategic Report</h2>
-                    <div id="sentimentResult" class="badge"
-                        style="display:none; border: 2px solid #00ff88; color: #00ff88; background: rgba(0, 255, 136, 0.15); padding: 10px 20px; border-radius: 50px; font-weight: 700; box-shadow: 0 0 15px rgba(0, 255, 136, 0.3); font-size: 1rem;">
-                        🔥 Buzz Score: <span id="buzzScore"></span>/10 <span id="buzzText" style="font-weight: 400; font-size: 0.85rem; margin-left: 8px; color: rgba(255,255,255,0.9);"></span>
-                    </div>
                 </div>
 
                 <div class="highlight-cards" style="grid-template-columns: 1fr 1fr;">
