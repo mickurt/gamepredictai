@@ -395,10 +395,14 @@ select.input-glass option {
 }
 
 .auth-box {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
     padding: 40px;
     border-radius: 20px;
     background: rgba(0, 0, 0, 0.4);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
 }
 
 .card-glass {
