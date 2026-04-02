@@ -20,6 +20,12 @@ class GameRevenuePredictor:
         self.rf_model = None
         self.train_model()
 
+    def get_genres(self) -> List[str]:
+        if self.df.empty:
+            return ["Action", "Adventure", "Strategy", "RPG", "Simulation", "Sports", "Racing"]
+        # Return unique genres sorted
+        return sorted(self.df['genre'].dropna().unique().tolist())
+
     def train_model(self):
         try:
             if self.df.empty: return
