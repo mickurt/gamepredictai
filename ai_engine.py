@@ -87,8 +87,12 @@ class GameRevenuePredictor:
         try:
             genai.configure(api_key=api_key)
             
-            # Requested Models by User
-            models_to_try = ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro']
+            # Requested Models by User + STABLE FALLBACK
+            models_to_try = [
+                'gemini-2.5-flash', 'gemini-2.5-pro', 
+                'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro',
+                'gemini-1.5-flash' # SECURITY FALLBACK
+            ]
             
             prompt = """
             Analyze this game screenshot or artwork. 
@@ -227,8 +231,12 @@ class GameRevenuePredictor:
             
             import re
             
-            # User Preferred Models
-            models_to_try = ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro']
+            # User Preferred Models + STABLE FALLBACK
+            models_to_try = [
+                'gemini-2.5-flash', 'gemini-2.5-pro', 
+                'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro',
+                'gemini-1.5-flash' # SECURITY FALLBACK 
+            ]
             
             last_error = None
             
