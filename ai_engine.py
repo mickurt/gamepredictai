@@ -85,7 +85,7 @@ class GameRevenuePredictor:
     def predict_optimization(self, game_name: str, fixed_price: float = None, 
                              target_price: float = None, budget: float = 0, 
                              wishlists: int = 0, prev_sales: float = 0, 
-                             prev_score: float = 0, genre: str = "Action",
+                             prev_score: float = 0, genre_name: str = "Action",
                              sentiment_ia_score: float = None,
                              num_dlcs: int = 0, dlc_price: float = 0) -> dict:
         
