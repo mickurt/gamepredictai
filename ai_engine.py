@@ -93,6 +93,7 @@ class GameRevenuePredictor:
                              wishlists: int = 0, prev_sales: float = 0, 
                              prev_score: float = 0, genre_name: str = "Action",
                              sentiment_ia_score: float = None,
+                             sentiment_target: float = 80.0,
                              reviews_target: float = 80.0,
                              num_dlcs: int = 0, dlc_price: float = 0) -> dict:
         
@@ -100,11 +101,13 @@ class GameRevenuePredictor:
         real_sales_data = float(game_match.iloc[0].get('ventes_reelles_officielles', 0)) if (game_match is not None and not game_match.empty) else 0
         real_game_price = float(game_match.iloc[0].get('prix', 60)) if (game_match is not None and not game_match.empty) else 60
 
-        sentiment_target = (sentiment_ia_score if sentiment_ia_score is not None else 7.0) * 10
+        # Decide baseline sentiment: AI score if available, else user target, else fallback 70
+        effective_sentiment = sentiment_ia_score * 10 if sentiment_ia_score is not None else sentiment_target
+        if effective_sentiment is None: effective_sentiment = 70.0
         
         # Heuristic conversion logic
         base_conversion = 0.6 if budget > 50000000 else 0.4
-        est_total_sales = wishlists * (base_conversion + (sentiment_target / 200))
+        est_total_sales = wishlists * (base_conversion + (effective_sentiment / 200))
         
         # Brand Momentum
         if prev_sales > 10000000:
@@ -150,7 +153,7 @@ class GameRevenuePredictor:
             "est_total_sales": int(final_sales_display),
             "evolution_sales": evolution_sales,
             "evolution_years": ["Year 1", "Year 2", "Year 3", "Year 4", "Year 5"],
-            "sentiment_ia_score": float(sentiment_target/10),
+            "sentiment_ia_score": float(effective_sentiment/10),
             "reason": "Market analysis integrated with real velocity data"
         }
 
