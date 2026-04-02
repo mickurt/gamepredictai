@@ -21,9 +21,11 @@ body {
     background: var(--bg-gradient);
     color: var(--text);
     min-height: 100vh;
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 /* Glassmorphism Container */
@@ -334,11 +336,37 @@ select.input-glass option {
 
 .landing-hero {
     text-align: center;
+    padding: 100px 20px;
+    position: relative;
     width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    animation: fadeIn 1s ease-out;
-    margin-bottom: 60px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .landing-hero {
+        padding: 60px 15px;
+    }
+    .landing-hero h2 {
+        font-size: 1.8rem;
+    }
+    .landing-features {
+        padding: 20px 10px;
+    }
+    .feature-card {
+        padding: 30px 15px;
+        flex-direction: column !important;
+    }
+    .feature-visual {
+        width: 100% !important;
+        margin-top: 20px;
+    }
+    .mock-table-container {
+        font-size: 0.75rem;
+        overflow-x: auto;
+    }
+    .floating-blobs {
+        display: none; /* Hide blobs on small mobile to avoid overflow issues */
+    }
 }
 
 .logo-large h1 {
