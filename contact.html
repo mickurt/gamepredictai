@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Gamepredict.ai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=46">
+    <style>
+        body {
+            overflow-y: auto;
+            display: block;
+            height: auto;
+            min-height: 100vh;
+        }
+        .back-link {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            transition: 0.3s;
+            z-index: 10;
+        }
+        .back-link:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Home
+    </a>
+
+    <div class="contact-container">
+        <div class="contact-header">
+            <div class="logo-large" style="margin-bottom: 20px;">
+                <h1 style="font-size: 2.5rem;">GAMEPREDICT<span>.AI</span></h1>
+            </div>
+            <h2>Get in Touch</h2>
+            <p>Our experts are ready to help you maximize your game's potential.</p>
+        </div>
+
+        <div class="contact-form-wrapper">
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" placeholder="John Doe" class="input-glass" required>
+                </div>
+                <div class="form-group">
+                    <label>Organisation</label>
+                    <input type="text" id="organisation" placeholder="Epic Games, IndieDev..." class="input-glass" required>
+                </div>
+                <div class="form-group full-width">
+                    <label>E-Mail Address</label>
+                    <input type="email" id="email" placeholder="john@studio.com" class="input-glass" required>
+                </div>
+                <div class="form-group full-width">
+                    <label>Message Body</label>
+                    <textarea id="message" placeholder="How can we help you?" class="input-glass" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">🚀 Send Message</button>
+                <div id="contactStatus"></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="floating-blobs">
+        <div class="blob color-1"></div>
+        <div class="blob color-2"></div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const statusDiv = document.getElementById('contactStatus');
+            const btn = e.target.querySelector('button');
+            
+            const formData = {
+                full_name: document.getElementById('fullName').value,
+                organisation: document.getElementById('organisation').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            };
+
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            statusDiv.textContent = '';
+
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    statusDiv.style.color = '#00ff88';
+                    statusDiv.textContent = '✨ Message sent! We will get back to you soon.';
+                    e.target.reset();
+                } else {
+                    statusDiv.style.color = '#ff4444';
+                    statusDiv.textContent = '❌ Error: ' + (result.message || 'Something went wrong.');
+                }
+            } catch (err) {
+                statusDiv.style.color = '#ff4444';
+                statusDiv.textContent = '❌ Connection error. Please try again later.';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🚀 Send Message';
+            }
+        });
+    </script>
+</body>
+</html>

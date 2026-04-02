@@ -20,8 +20,7 @@
 body {
     background: var(--bg-gradient);
     color: var(--text);
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -236,6 +235,7 @@ select.input-glass option {
     font-weight: 700;
     background: -webkit-linear-gradient(var(--primary), white);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -300,18 +300,15 @@ select.input-glass option {
 
 /* --- LANDING PAGE STYLES --- */
 .landing-page {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     background: var(--bg-gradient);
     z-index: 100;
-    overflow-y: auto;
-    overflow-x: hidden;
+    padding-bottom: 80px;
 }
 
 .landing-container {
@@ -717,4 +714,111 @@ select.input-glass option {
 .btn-outline:hover {
     background: var(--primary);
     color: var(--bg-dark);
+}
+
+/* --- FOOTER --- */
+.landing-footer {
+    width: 100%;
+    max-width: 1100px;
+    padding: 40px 20px;
+    margin-top: 40px;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    z-index: 2;
+    position: relative;
+}
+
+.footer-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.footer-link:hover {
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+}
+
+/* --- CONTACT PAGE --- */
+.contact-container {
+    max-width: 800px;
+    width: 90%;
+    margin: 50px auto;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.contact-header h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #fff, var(--primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.contact-header p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.contact-form-wrapper {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.contact-form .form-group.full-width {
+    grid-column: span 2;
+}
+
+.contact-form textarea.input-glass {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.contact-form .btn-primary {
+    grid-column: span 2;
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 18px;
+    margin-top: 10px;
+}
+
+#contactStatus {
+    grid-column: span 2;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .contact-form {
+        grid-template-columns: 1fr;
+    }
+    .contact-form .form-group.full-width {
+        grid-column: span 1;
+    }
+    .contact-form .btn-primary {
+        grid-column: span 1;
+    }
 }
