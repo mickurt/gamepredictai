@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const res = await fetch(`${API_BASE}/api/genres`);
         const genres = await res.json();
         genreSelect.innerHTML = '';
-        Object.keys(genres).forEach(g => {
+        genres.forEach(g => {
             const opt = document.createElement('option');
             opt.value = g;
             opt.textContent = g;
@@ -514,29 +514,36 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     function renderResults(data) {
-        // document.getElementById('optPrice').textContent = `$${data.best_price.toFixed(2)}`;
-        // Format big numbers
-        document.getElementById('maxProfit').textContent = `$${Math.floor(data.max_profit).toLocaleString()}`;
+        // --- UPDATE PRIMARY CARDS ---
+        try {
+            const maxProfitEl = document.getElementById('maxProfit');
+            if (maxProfitEl) maxProfitEl.textContent = `$${Math.floor(data.max_profit || 0).toLocaleString()}`;
+            
+            const salesStr = data.est_total_sales ? data.est_total_sales.toLocaleString() : "---";
+            const benchEl = document.getElementById('benchmarkInfo');
+            if (benchEl) {
+                benchEl.innerHTML = `<div style="font-size:1.4rem; color:#fff">${salesStr} <span style="font-size:0.8rem">copies</span></div>`;
+                const salesCard = benchEl.parentElement;
+                if (salesCard && salesCard.querySelector('h3')) salesCard.querySelector('h3').textContent = "Est. Total Sales";
+            }
+        } catch(e) { console.error("Error rendering primary cards:", e); }
         
         // --- SHOW BUZZ SCORE ---
-        let displayScore = data.sentiment_ia_score || currentSentimentScore;
-        const displayReason = data.reason || currentBuzzReason;
-        const buzzBadge = document.getElementById('sentimentResult');
+        try {
+            let displayScore = data.sentiment_ia_score || currentSentimentScore;
+            const displayReason = data.reason || currentBuzzReason;
+            const buzzBadge = document.getElementById('sentimentResult');
 
-        // Fallback: If no score from AI, we might have it in the result if engine calculated it
-        if (!displayScore && data.sentiment_ia_score === 0) displayScore = 0.1; // Ensure 0 is showable
-
-        if (displayScore && buzzBadge) {
-            buzzBadge.style.display = 'inline-block';
-            const scoreEl = document.getElementById('buzzScore');
-            const textEl = document.getElementById('buzzText');
-            if (scoreEl) scoreEl.textContent = displayScore;
-            if (textEl) textEl.textContent = displayReason ? `(${displayReason})` : ""; 
-            console.log("✅ Rendering Buzz Score:", displayScore);
-        } else if (buzzBadge) {
-            // Keep it hidden ONLY if truly no score
-            buzzBadge.style.display = 'none';
-        }
+            if (displayScore && buzzBadge) {
+                buzzBadge.style.display = 'inline-block';
+                const scoreEl = document.getElementById('buzzScore');
+                const textEl = document.getElementById('buzzText');
+                if (scoreEl) scoreEl.textContent = displayScore;
+                if (textEl) textEl.textContent = displayReason ? `(${displayReason})` : ""; 
+            } else if (buzzBadge) {
+                buzzBadge.style.display = 'none';
+            }
+        } catch(e) { console.error("Error rendering buzz score:", e); }
 
         // --- UPDATE WISHLISTS FIELD IF ESTIMATED ---
         const wishlistInput = document.getElementById('wishlists');
