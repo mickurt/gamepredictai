@@ -84,6 +84,13 @@ class GameRevenuePredictor:
         real_sales = float(game_match.iloc[0].get('ventes_reelles_officielles', 0)) if (game_match is not None and not game_match.empty) else 0
         bench_price = float(game_match.iloc[0].get('prix', 60)) if (game_match is not None and not game_match.empty) else 60
         
+        # Guard against None values from the API
+        budget = float(budget or 0)
+        wishlists = int(wishlists or 0)
+        previous_sales = float(previous_sales or 0)
+        num_dlcs = int(num_dlcs or 0)
+        dlc_price = float(dlc_price or 0)
+        
         # 2. SENTIMENT & BRAND
         eff_sentiment = (sentiment_ia_score * 10) if (sentiment_ia_score is not None and sentiment_ia_score > 0) else sentiment_target
         if not eff_sentiment: eff_sentiment = 70.0
