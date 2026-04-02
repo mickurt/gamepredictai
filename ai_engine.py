@@ -625,7 +625,7 @@ class GameRevenuePredictor:
             
             # Note: release_date should be passed in or derived from AI analysis
             # We use an internal heuristic if we don't have the date yet.
-            if game_name and "Crimson Desert" in game_name:
+            if game_name and "crimson desert" in game_name.lower():
                 # Based on user input: "10 days ago"
                 days_since_release = 10
             
