@@ -90,8 +90,8 @@ class GameRevenuePredictor:
             # Requested Models by User + STABLE FALLBACK
             models_to_try = [
                 'gemini-2.5-flash', 'gemini-2.5-pro', 
-                'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro',
-                'gemini-1.5-flash' # SECURITY FALLBACK
+                'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro'
+                # fallback changed to 2.5 Flash as requested
             ]
             
             prompt = """
@@ -234,8 +234,8 @@ class GameRevenuePredictor:
             # User Preferred Models + STABLE FALLBACK
             models_to_try = [
                 'gemini-2.5-flash', 'gemini-2.5-pro', 
-                'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro',
-                'gemini-1.5-flash' # SECURITY FALLBACK 
+                'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro'
+                # fallback changed to 2.5 Flash as requested
             ]
             
             last_error = None
