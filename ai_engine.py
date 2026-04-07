@@ -87,10 +87,8 @@ class GameRevenuePredictor:
         try:
             genai.configure(api_key=api_key)
             
-            # Requested Models by User + STABLE FALLBACK
+            # Restricted Models: Gemini 3.x only
             models_to_try = [
-                'gemma-4-31b', 'gemma-4-26b',
-                'gemini-2.5-flash', 'gemini-2.5-pro', 
                 'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro'
             ]
             
@@ -231,10 +229,8 @@ class GameRevenuePredictor:
             
             import re
             
-            # User Preferred Models + STABLE FALLBACK
+            # Restricted Models: Gemini 3.x only
             models_to_try = [
-                'gemma-4-31b', 'gemma-4-26b',
-                'gemini-2.5-flash', 'gemini-2.5-pro', 
                 'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro'
             ]
             
