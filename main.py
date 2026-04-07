@@ -42,12 +42,19 @@ SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "")
 try:
     if SUPABASE_URL and SUPABASE_KEY:
         supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-        print("✅ Supabase client initialized and connected.")
+        # Diagnostic: check key prefix (without revealing full key)
+        key_start = SUPABASE_KEY[:6] if len(SUPABASE_KEY) > 6 else "---"
+        is_service = "✅ (Service Role Key detected?)" if SUPABASE_KEY.startswith("eyJ") and len(SUPABASE_KEY) > 50 else "⚠️ (Short key: Anon?)"
+        print(f"✅ Supabase client initialized. Key starts with: {key_start}... {is_service}")
+        
+        # Immediate Connection Test
+        test = supabase.table('users').select('id').limit(1).execute()
+        print(f"🔗 Database connection test: SUCCESS ({len(test.data)} user(s) found).")
     else:
-        print("⚠️ Supabase credentials missing (URL or KEY) -> DB disabled")
+        print("❌ Supabase credentials missing (URL or KEY) -> DB disabled")
         supabase = None
 except Exception as e:
-    print(f"❌ Supabase init error: {e}")
+    print(f"❌ CRITICAL Supabase init error: {e}")
     supabase = None
 
 # --- EMAIL HELPER (RESEND) ---
@@ -128,7 +135,8 @@ async def contact(req: ContactRequest):
 @app.post("/api/signup")
 async def signup(req: SignupRequest):
     if not supabase:
-        return JSONResponse(status_code=503, content={"message": "Database disconnected. Please check environment variables (SUPABASE_URL/KEY)."})
+        print("❌ CRITICAL: Supabase client is NOT initialized. Possible RLS or Private Key issue.")
+        return JSONResponse(status_code=503, content={"message": "Database disconnected. Check Service Role Key."})
     
     email_normalized = req.email.lower().strip()
     
@@ -186,7 +194,8 @@ async def validate_user(token: str):
 @app.post("/api/login")
 async def login(req: LoginRequest):
     if not supabase:
-        return JSONResponse(status_code=503, content={"message": "Database disconnected. Please check environment variables (SUPABASE_URL/KEY)."})
+        print("❌ CRITICAL: Supabase client is NOT initialized. Possible RLS or Private Key issue.")
+        return JSONResponse(status_code=503, content={"message": "Database disconnected. Check Service Role Key."})
     
     email_normalized = req.email.lower().strip()
     res = supabase.table('users').select('id, password, is_validated, email').ilike('email', email_normalized).execute()
