@@ -87,10 +87,11 @@ class GameRevenuePredictor:
         try:
             genai.configure(api_key=api_key)
             
-            # Current Models: Gemini 2.5, 3.0, 3.1
+            # Requested Models by User + STABLE FALLBACK
             models_to_try = [
-                'gemini-2.5-flash', 'gemini-2.5-pro',
-                'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro'
+                'gemini-2.5-flash', 'gemini-2.5-pro', 
+                'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro',
+                'gemma-4-26b', 'gemma-4-31b' # SECURITY FALLBACK
             ]
             
             prompt = """
@@ -230,10 +231,11 @@ class GameRevenuePredictor:
             
             import re
             
-            # Current Models: Gemini 2.5, 3.0, 3.1
+            # User Preferred Models + STABLE FALLBACK
             models_to_try = [
-                'gemini-2.5-flash', 'gemini-2.5-pro',
-                'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro'
+                'gemini-2.5-flash', 'gemini-2.5-pro', 
+                'gemini-3.0-flash', 'gemini-3.1-flash-lite', 'gemini-3.1-pro',
+                'gemini-1.5-flash' # SECURITY FALLBACK 
             ]
             
             last_error = None
