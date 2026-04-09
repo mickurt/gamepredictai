@@ -354,9 +354,13 @@
                     </div>
                 </div>
 
-                <div class="highlight-cards" style="grid-template-columns: 1fr 1fr;">
-                    <div class="card">
-                        <h3>Est. Max Profit</h3>
+                <div class="highlight-cards" style="grid-template-columns: 1fr 1fr 1fr;">
+                    <div class="card" style="border-left: 4px solid #00d2ff; background: rgba(0, 210, 255, 0.05);">
+                        <h3 style="color: #00d2ff;">Est. Max Revenues</h3>
+                        <div class="value" id="maxRevenues">$ ---</div>
+                    </div>
+                    <div class="card" style="border-left: 4px solid #00ff88; background: rgba(0, 255, 136, 0.05);">
+                        <h3 style="color: #00ff88;">Est. Max Profit</h3>
                         <div class="value" id="maxProfit">$ ---</div>
                     </div>
                     <div class="card">
@@ -399,8 +403,7 @@
                                 <th style="color:var(--primary); font-size: 0.8rem;">PERIOD</th>
                                 <th style="font-size: 0.8rem;">EST. SALES</th>
                                 <th style="font-size: 0.8rem;">EST. REVENUE</th>
-                                <th style="font-size: 0.8rem; ">ANNUAL NET (Op. Profit)</th>
-                                <th style="font-size: 0.8rem;">CUMULATIVE NET PROFIT</th>
+                                <th style="font-size: 0.8rem; color: #00d2ff;">CUMULATIVE REVENUES</th>
                             </tr>
                         </thead>
                         <tbody id="evolutionBody">
@@ -602,7 +605,7 @@
     </div>
 
     <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v51</div>
-    <script src="script.js?v=52"></script>
+    <script src="script.js?v=53"></script>
 </body>
 
 </html>

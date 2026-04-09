@@ -518,6 +518,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // document.getElementById('optPrice').textContent = `$${data.best_price.toFixed(2)}`;
         // Format big numbers
         document.getElementById('maxProfit').textContent = `$${Math.floor(data.max_profit).toLocaleString()}`;
+        document.getElementById('maxRevenues').textContent = data.est_total_revenue ? `$${Math.floor(data.est_total_revenue).toLocaleString()}` : "$ ---";
         
         // --- SHOW BUZZ SCORE ---
         let displayScore = data.sentiment_ia_score || currentSentimentScore;
@@ -878,15 +879,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         const tableBody = document.getElementById('evolutionBody');
         const tableElement = document.getElementById('evolutionTable');
         
-        if (tableBody && tableElement && data.evolution_revenue && data.evolution_profit) {
+        if (tableBody && tableElement && data.evolution_revenue && data.evolution_revenue_cumulative) {
             tableBody.innerHTML = '';
             tableElement.style.display = 'table';
             
             data.evolution_years.forEach((year, i) => {
                 const sales = data.evolution_sales[i] || 0;
                 const revenue = data.evolution_revenue[i] || 0;
-                const annualProfit = data.evolution_profit_annual ? data.evolution_profit_annual[i] : (data.evolution_revenue[i] || 0);
-                const cumProfit = data.evolution_profit[i] || 0;
+                const cumRevenue = data.evolution_revenue_cumulative[i] || 0;
                 
                 const row = document.createElement('tr');
                 row.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
@@ -894,15 +894,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 row.innerHTML = `
                     <td style="font-weight:600; color:var(--primary); padding: 12px;">${year}</td>
                     <td style="padding: 12px; font-weight: 500;">${sales.toLocaleString()} <span style="font-size:0.7rem; opacity:0.5;">units</span></td>
-                    <td style="padding: 12px; color:#00d2ff; font-weight:600;">$${Math.round(revenue).toLocaleString()}</td>
-                    <td style="padding: 12px; color:${annualProfit >= 0 ? '#00ff88' : '#ff4444'}; font-weight:600;">
-                        $${Math.round(annualProfit).toLocaleString()}
-                        ${annualProfit < 0 ? '<span style="font-size:0.6rem; opacity:0.6; display:block;">(Loss)</span>' : ''}
-                    </td>
-                    <td style="padding: 12px; color:${cumProfit >= 0 ? '#00ff88' : '#ff4444'}; font-weight:700;">
-                        $${Math.round(cumProfit).toLocaleString()}
-                        ${cumProfit < 0 ? '<span style="font-size:0.7rem; font-weight:400; display:block; opacity:0.6;">(Investment Phase)</span>' : ''}
-                    </td>
+                    <td style="padding: 12px; color:rgba(255,255,255,0.8); font-weight:500;">$${Math.round(revenue).toLocaleString()}</td>
+                    <td style="padding: 12px; color:#00d2ff; font-weight:700;">$${Math.round(cumRevenue).toLocaleString()}</td>
                 `;
                 tableBody.appendChild(row);
             });

@@ -897,6 +897,7 @@ class GameRevenuePredictor:
         # Determine year-end milestones and annual financials
         year_milestones = []
         evolution_revenue = []
+        evolution_revenue_cumulative = []
         evolution_profit = [] # Cumulative
         evolution_profit_annual = [] # Non-cumulative
         running_total_sales = 0
@@ -915,6 +916,9 @@ class GameRevenuePredictor:
             
             evolution_revenue.append(total_y_net_rev)
             
+            running_total_revenue += total_y_net_rev
+            evolution_revenue_cumulative.append(running_total_revenue)
+            
             # ANNUAL PROFIT (Corrected: Year 1 takes the budget hit)
             if i_y == 0:
                 y_annual_net = total_y_net_rev - budget
@@ -922,8 +926,6 @@ class GameRevenuePredictor:
                 y_annual_net = total_y_net_rev
                 
             evolution_profit_annual.append(float(y_annual_net))
-            
-            running_total_revenue += total_y_net_rev
             
             # CUMULATIVE PROFIT (The running sum of annual profits)
             cum_profit_at_year = running_total_revenue - budget
@@ -934,6 +936,8 @@ class GameRevenuePredictor:
                 "cumulative_sales": int(running_total_sales),
                 "cumulative_profit": float(cum_profit_at_year)
             })
+
+        est_total_revenue = running_total_revenue
 
         # Comparable games benchmark
         comparable_games = self.find_comparable_games(genre_name, budget, sentiment_target, similar_games)
@@ -1116,6 +1120,7 @@ class GameRevenuePredictor:
             "best_price": best_price,
             "max_profit": max_profit,
             "est_total_sales": int(final_sales_display),
+            "est_total_revenue": est_total_revenue,
             "wishlists": int(wishlists),
             "sentiment_ia_score": sentiment_ia_score,
             "benchmark_price": float(bench_price),
@@ -1129,6 +1134,7 @@ class GameRevenuePredictor:
             "evolution_years": evolution_years,
             "evolution_sales": evolution_sales,
             "evolution_revenue": evolution_revenue,
+            "evolution_revenue_cumulative": evolution_revenue_cumulative,
             "evolution_profit": evolution_profit,
             "evolution_profit_annual": evolution_profit_annual,
             "breakeven_sales_steps": sales_steps.tolist(),
