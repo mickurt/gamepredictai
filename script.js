@@ -1490,21 +1490,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('pdfInsight').textContent = data.context_review || "Predictive analysis indicates strong market potential based on current genre benchmarks and platform engagement trends.";
 
         const element = document.getElementById('pdfTemplate');
-        element.style.display = 'block'; // Show briefly for capture
         
         const opt = {
             margin: 0,
             filename: `GamePredict_Brochure_${document.getElementById('pdfGameName').textContent}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0b0e14' },
+            html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#0b0e14' },
             jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
 
         // Generate
-        html2pdf().set(opt).from(element).save().then(() => {
-            element.style.display = 'none'; // Hide back
-        });
+        html2pdf().set(opt).from(element).save();
     }
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v54 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v55 active");
 });
