@@ -1315,8 +1315,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (historyBtn) {
         historyBtn.addEventListener('click', async () => {
             const userId = window.currentUserId || localStorage.getItem('gamepredict_user_id');
+            console.log("📜 Opening history for user:", userId);
+            
             if (!userId) {
-                alert("Please login to see your history.");
+                alert("Please login again to access your history.");
+                // Force return to landing if session lost
+                document.getElementById('dashboardApp').style.display = 'none';
+                document.getElementById('landingPage').style.display = 'block';
                 return;
             }
 
@@ -1324,8 +1329,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             historyListContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--text-muted);">Fetching your history...</p>';
 
             try {
-                const res = await fetch(`${API_BASE}/api/predictions/${userId}`);
+                const url = `${API_BASE}/api/predictions/${userId}`;
+                console.log("🔗 Fetching from:", url);
+                
+                const res = await fetch(url);
                 const data = await res.json();
+                console.log("📥 History data received:", data);
 
                 if (res.ok) {
                     if (data.length === 0) {
@@ -1374,16 +1383,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                         });
                     });
                 } else {
-                    historyListContainer.innerHTML = `<p style="text-align: center; padding: 40px; color: #ff4444;">Error: ${data.message}</p>`;
+                    console.error("❌ API Error:", data.message);
+                    historyListContainer.innerHTML = `<p style="text-align: center; padding: 40px; color: #ff4444;">Server Error: ${data.message || 'Unknown error'}</p>`;
                 }
             } catch (err) {
-                historyListContainer.innerHTML = `<p style="text-align: center; padding: 40px; color: #ff4444;">Failed to connect to history service.</p>`;
+                console.error("❌ Catch Error:", err);
+                historyListContainer.innerHTML = `<p style="text-align: center; padding: 40px; color: #ff4444;">Failed to connect to history service. (Check your internet or session)</p>`;
             }
         });
     }
 
     if (closeHistory) {
-        closeHistory.addEventListener('click', () => {
+        closeHistory.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("✖ Closing history modal");
             historyModal.style.display = 'none';
         });
     }
