@@ -1491,6 +1491,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const el = document.getElementById(id);
                 if (el) el.textContent = val;
             };
+            const safeSetHTML = (id, val) => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = val;
+            };
 
             safeSet('pdfDate', "DATE: " + new Date().toLocaleDateString());
             safeSet('pdfGameName', document.getElementById('gameName').value || "PROJECT UNKNOWN");
@@ -1511,7 +1515,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             safeSet('pdfBudget', "$" + parseInt(document.getElementById('budget').value || 0).toLocaleString());
             safeSet('pdfWishlists', parseInt(data.wishlists || 0).toLocaleString());
-            safeSet('pdfInsight', data.context_review || "AI analysis completed.");
+            safeSetHTML('pdfInsight', data.context_review || "AI analysis completed.");
 
             // --- CAPTURE CHARTS AS IMAGES ---
             const captureChart = (canvasId, imgId) => {
@@ -1544,13 +1548,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <tbody>
                 `;
 
-                data.evolution_revenue_cumulative.forEach(item => {
+                data.evolution_revenue_cumulative.forEach((cumRev, index) => {
+                    const year = data.evolution_years ? data.evolution_years[index] : (index + 1);
+                    const sales = data.evolution_sales ? data.evolution_sales[index] : 0;
+                    const revenue = data.evolution_revenue ? data.evolution_revenue[index] : 0;
+                    
                     tableHtml += `
                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 10px;">${item.year}</td>
-                            <td style="padding: 10px;">${Math.floor(item.sales).toLocaleString()}</td>
-                            <td style="padding: 10px;">$${Math.floor(item.revenue).toLocaleString()}</td>
-                            <td style="padding: 10px; font-weight: 700; color: #00d2ff;">$${Math.floor(item.cumulative_revenue).toLocaleString()}</td>
+                            <td style="padding: 10px;">Year ${year}</td>
+                            <td style="padding: 10px;">${Math.floor(sales).toLocaleString()}</td>
+                            <td style="padding: 10px;">$${Math.floor(revenue).toLocaleString()}</td>
+                            <td style="padding: 10px; font-weight: 700; color: #00d2ff;">$${Math.floor(cumRev).toLocaleString()}</td>
                         </tr>
                     `;
                 });
@@ -1572,5 +1580,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v67 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v68 active");
 });
