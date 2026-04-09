@@ -900,23 +900,25 @@ class GameRevenuePredictor:
         running_total_sales = 0
         running_total_revenue = 0
         
+        # Determine DLC revenue share factor if any
+        # total_dlc_net_revenue was calculated earlier
+        dlc_share_per_unit = (total_dlc_net_revenue / final_sales_display) if final_sales_display > 0 else 0
+        
         for i_y, y_sales in enumerate(evolution_sales):
             running_total_sales += y_sales
             
-            # Annual Net Revenue (after Steam cut and decay)
+            # Annual Net Revenue (after Steam cut and decay) + DLC Share
             y_rev = float(y_sales * final_price * 0.55 * lifecycle_decay_factor)
-            evolution_revenue.append(y_rev)
+            y_dlc_rev = float(y_sales * dlc_share_per_unit)
+            total_y_net_rev = y_rev + y_dlc_rev
             
-            # Yearly Profit Calculation
-            # Year 1 subtracts the total budget
-            if i_y == 0:
-                y_profit = y_rev - budget
-            else:
-                y_profit = y_rev
-            evolution_profit.append(float(y_profit))
+            evolution_revenue.append(total_y_net_rev)
             
-            running_total_revenue += y_rev
+            running_total_revenue += total_y_net_rev
+            
+            # CUMULATIVE PROFIT (The formula the user wants: Total Revenue to date - Total Budget)
             cum_profit_at_year = running_total_revenue - budget
+            evolution_profit.append(float(cum_profit_at_year))
             
             year_milestones.append({
                 "year": evolution_years[i_y],
