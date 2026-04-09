@@ -893,12 +893,31 @@ class GameRevenuePredictor:
             cum_net = (s * final_price * 0.55 * lifecycle_decay_factor) - budget
             cumulative_profits.append(float(cum_net))
 
-        # Determine year-end milestones for the chart
+        # Determine year-end milestones and annual financials
         year_milestones = []
+        evolution_revenue = []
+        evolution_profit = []
         running_total_sales = 0
+        running_total_revenue = 0
+        
         for i_y, y_sales in enumerate(evolution_sales):
             running_total_sales += y_sales
-            cum_profit_at_year = (running_total_sales * final_price * 0.55 * lifecycle_decay_factor) - budget
+            
+            # Annual Net Revenue (after Steam cut and decay)
+            y_rev = float(y_sales * final_price * 0.55 * lifecycle_decay_factor)
+            evolution_revenue.append(y_rev)
+            
+            # Yearly Profit Calculation
+            # Year 1 subtracts the total budget
+            if i_y == 0:
+                y_profit = y_rev - budget
+            else:
+                y_profit = y_rev
+            evolution_profit.append(float(y_profit))
+            
+            running_total_revenue += y_rev
+            cum_profit_at_year = running_total_revenue - budget
+            
             year_milestones.append({
                 "year": evolution_years[i_y],
                 "cumulative_sales": int(running_total_sales),
@@ -1098,6 +1117,8 @@ class GameRevenuePredictor:
             "curve_sales": sales_curve,
             "evolution_years": evolution_years,
             "evolution_sales": evolution_sales,
+            "evolution_revenue": evolution_revenue,
+            "evolution_profit": evolution_profit,
             "breakeven_sales_steps": sales_steps.tolist(),
             "breakeven_profits": cumulative_profits,
             "year_milestones": year_milestones,

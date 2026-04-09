@@ -867,6 +867,35 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             }
         });
+
+        // --- NEW: Financial Table Evolution ---
+        const tableBody = document.getElementById('evolutionBody');
+        const tableElement = document.getElementById('evolutionTable');
+        
+        if (tableBody && tableElement && data.evolution_revenue && data.evolution_profit) {
+            tableBody.innerHTML = '';
+            tableElement.style.display = 'table';
+            
+            data.evolution_years.forEach((year, i) => {
+                const sales = data.evolution_sales[i] || 0;
+                const revenue = data.evolution_revenue[i] || 0;
+                const profit = data.evolution_profit[i] || 0;
+                
+                const row = document.createElement('tr');
+                row.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
+                
+                row.innerHTML = `
+                    <td style="font-weight:600; color:var(--primary); padding: 12px;">${year}</td>
+                    <td style="padding: 12px; font-weight: 500;">${sales.toLocaleString()} <span style="font-size:0.7rem; opacity:0.5;">units</span></td>
+                    <td style="padding: 12px; color:#00d2ff; font-weight:600;">$${Math.round(revenue).toLocaleString()}</td>
+                    <td style="padding: 12px; color:${profit >= 0 ? '#00ff88' : '#ff4444'}; font-weight:700;">
+                        $${Math.round(profit).toLocaleString()}
+                        ${profit < 0 ? '<span style="font-size:0.7rem; font-weight:400; display:block; opacity:0.6;">(Investment Phase)</span>' : ''}
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
     }
 
     function renderComparables(comparables) {

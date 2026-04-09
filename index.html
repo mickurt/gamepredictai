@@ -392,6 +392,20 @@
                 <div class="chart-container">
                     <canvas id="salesChart"></canvas>
                 </div>
+                <div style="overflow-x: auto; margin-top: 15px;">
+                    <table class="comparable-table" id="evolutionTable" style="display:none; background: rgba(0, 210, 255, 0.02); border: 1px solid rgba(0, 210, 255, 0.1);">
+                        <thead>
+                            <tr>
+                                <th style="color:var(--primary); font-size: 0.8rem;">PERIOD</th>
+                                <th style="font-size: 0.8rem;">EST. SALES</th>
+                                <th style="font-size: 0.8rem;">EST. REVENUE</th>
+                                <th style="font-size: 0.8rem;">EST. PROFIT (NET)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="evolutionBody">
+                        </tbody>
+                    </table>
+                </div>
 
                 <h3 style="margin-top:20px; font-size:1.1rem; opacity:0.8;">Dynamic Pricing Simulation</h3>
                 <div style="overflow-x: auto;">
