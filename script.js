@@ -1471,4 +1471,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }, 800);
     };
 
+    console.log("🚀 GamePredict.ai App Loaded / Version v51 active");
 });
