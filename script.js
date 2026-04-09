@@ -1494,10 +1494,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        if (typeof html2pdf === 'undefined') {
-            alert("Error: PDF library (html2pdf) not loaded yet. Please wait 2 seconds and try again.");
-            return;
-        }
+        // Library check removed as we use native print() now
         
         // Populate Template
         document.getElementById('pdfDate').textContent = "DATE: " + new Date().toLocaleDateString();
@@ -1536,5 +1533,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v62 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v63 active");
 });
