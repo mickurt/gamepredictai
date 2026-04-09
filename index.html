@@ -347,9 +347,8 @@
         <!-- Main Content / Results -->
         <div class="main-content" style="position: relative;">
             <button id="exportPdfBtn" class="btn-primary" 
-                    onclick="console.log('HTML Onclick triggered')"
-                    style="display:none; position: absolute; top: 20px; right: 30px; padding: 12px 24px; font-size: 0.9rem; background: linear-gradient(135deg, #00d2ff 0%, #0078ff 100%); color: #fff; border: none; font-weight: 800; border-radius: 10px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 20px rgba(0, 210, 255, 0.5); z-index: 9999; pointer-events: auto !important;">
-                📄 EXPORT PDF BROCHURE
+                    style="display:none; position: absolute; top: 20px; right: 30px; padding: 12px 24px; font-size: 0.95rem; background: linear-gradient(135deg, #00d2ff 0%, #0078ff 100%); color: #fff; border: 3px solid #ff4444; font-weight: 800; border-radius: 10px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 20px rgba(0, 210, 255, 0.5); z-index: 99999; pointer-events: auto !important;">
+                📄 EXPORT PDF BROCHURE <span id="pdfStatus"></span>
             </button>
             <div id="resultsArea" style="opacity: 0.5; pointer-events: none; transition: all 0.5s ease; position: relative;">
                 <div class="header-result" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
@@ -684,8 +683,8 @@
         </div>
     </div>
 
-    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v59</div>
-    <script src="script.js?v=59"></script>
+    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v60</div>
+    <script src="script.js?v=60"></script>
 </body>
 
 </html>

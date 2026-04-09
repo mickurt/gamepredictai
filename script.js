@@ -522,8 +522,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Show Export PDF Button
         const pdfBtn = document.getElementById('exportPdfBtn');
         if (pdfBtn) {
+            console.log("Found Export Button, attaching listener...");
             pdfBtn.style.display = 'inline-block';
-            pdfBtn.onclick = () => exportMarketingBrochure(data);
+            // Use EventListener for better stability
+            pdfBtn.replaceWith(pdfBtn.cloneNode(true)); // Clear previous listeners
+            const newPdfBtn = document.getElementById('exportPdfBtn');
+            newPdfBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log("🔥 EXPORT CLICKED (EventListener)");
+                newPdfBtn.style.borderColor = "#00ff88"; // Change border to green on click
+                document.getElementById('pdfStatus').textContent = "(⌛ WORKING...)";
+                exportMarketingBrochure(data);
+            });
         }
         
         // --- SHOW BUZZ SCORE ---
@@ -1474,9 +1484,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     function exportMarketingBrochure(data) {
-        console.log("PDF Export Clicked", data);
+        console.log(">>> [DEBUG] Starting PDF Generation Sequence...");
+        alert("Action Received: Generating your Marketing Brochure...");
+        
         if (!data) {
-            alert("Error: No data available for export.");
+            console.error("No data found for PDF export");
+            alert("Error: Missing prediction data.");
+            document.getElementById('pdfStatus').textContent = "(❌ ERROR)";
             return;
         }
 
@@ -1511,12 +1525,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Generate
         try {
-            html2pdf().set(opt).from(element).save();
+            console.log("Calling html2pdf...");
+            html2pdf().set(opt).from(element).save().then(() => {
+                console.log("PDF generated successfully!");
+                document.getElementById('pdfStatus').textContent = "(✅ DONE)";
+                setTimeout(() => { document.getElementById('pdfStatus').textContent = ""; }, 3000);
+            });
         } catch (err) {
             console.error("PDF Generation Error:", err);
-            alert("PDF Generation Error: " + err.message);
+            alert("SYSTEM ERROR: " + err.message);
+            document.getElementById('pdfStatus').textContent = "(❌ FAIL)";
         }
     }
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v59 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v60 active");
 });
