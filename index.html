@@ -630,143 +630,124 @@
         </div>
     </div>
 
-    <!-- PREMIUM MARKETING BROCHURE TEMPLATE (PDF ONLY) -->
-    <div id="pdfTemplate" style="position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; width: 100%; padding: 0; background: #0b0e14; color: #fff; font-family: 'Outfit', sans-serif; z-index: -1;">
-        
-        <!-- PAGE 1: EXECUTIVE SUMMARY -->
-        <div style="padding: 60px; min-height: 100vh; position: relative;">
-            <!-- Background Glow Decor -->
-            <div style="position: absolute; top: 0; right: 0; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,210,255,0.08) 0%, transparent 70%); pointer-events: none;"></div>
-
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 80px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 30px;">
+    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v54</div>
+    
+    <div id="pdfTemplate" style="position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; width: 100%; padding: 40px; background: #0b0e14; color: #fff; font-family: 'Outfit', sans-serif; z-index: -1;">
+        <div style="padding: 30px; border-radius: 15px; background: #0b0e14;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
                 <div>
-                    <h1 style="margin: 0; color: #00d2ff; font-size: 2.8rem; font-weight: 800; letter-spacing: -1px;">GAME<span style="color:#fff">PREDICT.AI</span></h1>
-                    <p style="margin: 5px 0 0 0; opacity: 0.5; font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 400;">Strategic Intelligence Division</p>
+                    <h1 style="margin: 0; color: #00d2ff; font-size: 2.5rem; font-weight: 800; letter-spacing: 2px;">GAME<span style="color:#fff">PREDICT.AI</span></h1>
+                    <p style="margin: 5px 0 0 0; opacity: 0.6; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;">Strategic Marketing Brochure</p>
                 </div>
                 <div style="text-align: right;">
-                    <div id="pdfDate" style="font-size: 0.9rem; opacity: 0.4; margin-bottom: 8px;">DATE: --/--/----</div>
-                    <div style="display: inline-block; background: linear-gradient(90deg, #00ff88, #00d2ff); color: #0b0e14; padding: 6px 16px; border-radius: 4px; font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;">Verified Projection</div>
+                    <div id="pdfDate" style="font-size: 0.9rem; opacity: 0.5;">DATE: --/--/----</div>
+                    <div style="font-size: 0.9rem; color: #00ff88; font-weight: 800; margin-top: 5px; border: 1px solid #00ff88; padding: 4px 12px; border-radius: 4px;">OFFICIAL PROJECTION</div>
                 </div>
             </div>
 
-            <div style="margin-bottom: 90px; text-align: left;">
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                    <div style="width: 40px; height: 1px; background: #00d2ff;"></div>
-                    <div style="font-size: 0.8rem; color: #00d2ff; font-weight: 700; text-transform: uppercase; letter-spacing: 5px;">Project Dossier</div>
-                </div>
-                <h2 id="pdfGameName" style="font-size: 5rem; margin: 0; color: #fff; text-transform: uppercase; letter-spacing: -2px; font-weight: 900; line-height: 1;">PROJECT NAME</h2>
-                <div style="display: flex; gap: 15px; margin-top: 15px;">
-                    <span id="pdfGenrePlatform" style="font-size: 1.2rem; color: #00d2ff; font-weight: 500; opacity: 0.8;">GENRE | PLATFORM</span>
-                </div>
+            <div style="margin-bottom: 50px; text-align: center;">
+                <div style="font-size: 0.9rem; color: #00d2ff; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 3px;">Project Identity</div>
+                <h2 id="pdfGameName" style="font-size: 3.5rem; margin: 0; color: #fff; text-transform: uppercase; letter-spacing: -1px; font-weight: 900;">GAME TITLE</h2>
+                <p id="pdfGenrePlatform" style="font-size: 1.3rem; color: #00d2ff; font-weight: 600; margin: 10px 0; opacity: 0.8;">GENRE | PLATFORM</p>
             </div>
 
-            <!-- Main Metrics Grid -->
-            <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; margin-bottom: 60px;">
-                <div style="background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); padding: 40px; border-radius: 24px; border: 1px solid rgba(0,210,255,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
-                    <h3 style="margin-top: 0; font-size: 0.85rem; text-transform: uppercase; color: #00d2ff; letter-spacing: 2px; margin-bottom: 35px; border-left: 3px solid #00d2ff; padding-left: 15px;">Financial Forecast</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-                        <div>
-                            <span style="display: block; font-size: 0.75rem; opacity: 0.5; margin-bottom: 8px; text-transform: uppercase;">Est. Total Revenue</span>
-                            <span id="pdfMaxRev" style="font-size: 2.4rem; font-weight: 900; color: #fff; letter-spacing: -1px;">$0</span>
-                        </div>
-                        <div>
-                            <span style="display: block; font-size: 0.75rem; opacity: 0.5; margin-bottom: 8px; text-transform: uppercase;">Est. Net Profit</span>
-                            <span id="pdfMaxProfit" style="font-size: 2.4rem; font-weight: 900; color: #00ff88; letter-spacing: -1px;">$0</span>
-                        </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px;">
+                <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border-left: 5px solid #00d2ff;">
+                    <h3 style="margin-top: 0; font-size: 1rem; text-transform: uppercase; color: #00d2ff; letter-spacing: 1px; margin-bottom: 25px;">Financial Performance</h3>
+                    <div style="margin: 20px 0;">
+                        <span style="display: block; font-size: 0.9rem; opacity: 0.6; margin-bottom: 5px;">EST. TOTAL REVENUE</span>
+                        <span id="pdfMaxRev" style="font-size: 2.2rem; font-weight: 900; color: #fff;">$0</span>
+                    </div>
+                    <div style="margin: 20px 0;">
+                        <span style="display: block; font-size: 0.9rem; opacity: 0.6; margin-bottom: 5px;">EST. NET PROFIT</span>
+                        <span id="pdfMaxProfit" style="font-size: 2.2rem; font-weight: 900; color: #00ff88;">$0</span>
                     </div>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); padding: 40px; border-radius: 24px; border: 1px solid rgba(0,255,136,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
-                    <h3 style="margin-top: 0; font-size: 0.85rem; text-transform: uppercase; color: #00ff88; letter-spacing: 2px; margin-bottom: 35px; border-left: 3px solid #00ff88; padding-left: 15px;">Market Engagement</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border-left: 5px solid #00ff88;">
+                    <h3 style="margin-top: 0; font-size: 1rem; text-transform: uppercase; color: #00ff88; letter-spacing: 1px; margin-bottom: 25px;">Market Metrics</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                         <div>
-                            <span style="display: block; font-size: 0.75rem; opacity: 0.5; margin-bottom: 8px; text-transform: uppercase;">Copies Sold</span>
-                            <span id="pdfSales" style="font-size: 2.22rem; font-weight: 900; color: #fff; letter-spacing: -1px;">0</span>
+                            <span style="display: block; font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px;">EST. COPIES</span>
+                            <span id="pdfSales" style="font-size: 1.6rem; font-weight: 900; color: #fff;">0</span>
                         </div>
                         <div>
-                            <span style="display: block; font-size: 0.75rem; opacity: 0.5; margin-bottom: 8px; text-transform: uppercase;">Buzz Score</span>
-                            <span id="pdfScore" style="font-size: 2.2rem; font-weight: 900; color: #00ff88; letter-spacing: -1px;">0/10</span>
+                            <span style="display: block; font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px;">BUZZ SCORE</span>
+                            <span id="pdfScore" style="font-size: 1.6rem; font-weight: 900; color: #00ff88;">0/10</span>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px;">EST. BUDGET</span>
+                            <span id="pdfBudget" style="font-size: 1.6rem; font-weight: 900; color: #fff;">$0</span>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px;">WISHLISTS</span>
+                            <span id="pdfWishlists" style="font-size: 1.6rem; font-weight: 900; color: #00ff88;">0</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- AI Insight Section -->
-            <div style="background: rgba(0,210,255,0.04); padding: 45px; border-radius: 24px; border: 1px solid rgba(0,210,255,0.1); margin-top: 20px;">
-                <h3 style="margin-top: 0; font-size: 0.85rem; text-transform: uppercase; color: #00d2ff; letter-spacing: 3px; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 1.5rem;">🤖</span> AI Strategic Insight
-                </h3>
-                <div id="pdfInsight" style="font-size: 1.2rem; line-height: 1.8; color: rgba(255,255,255,0.85); font-weight: 300; font-style: italic;">
-                    Detailed analytical insight generated by GamePredict.ai will be displayed here.
+            <div style="background: rgba(0,210,255,0.08); padding: 35px; border-radius: 15px; margin-bottom: 40px;">
+                <h3 style="margin-top: 0; font-size: 1rem; text-transform: uppercase; color: #00d2ff; letter-spacing: 1px; margin-bottom: 15px;">AI Strategic Insight</h3>
+                <div id="pdfInsight" style="font-size: 1.1rem; line-height: 1.7; color: rgba(255,255,255,0.9); font-style: italic;">Detailed analytical insight generated by GamePredict.ai will be displayed here.</div>
+            </div>
+
+            <!-- Graphs Section (Page 2 usually) -->
+            <div style="page-break-before: always; padding-top: 40px;">
+                <h2 style="color: #00d2ff; border-bottom: 1px solid rgba(0,210,255,0.3); padding-bottom: 15px; margin-bottom: 30px;">Strategic Data Visualizations</h2>
+                
+                <!-- Full Width Chart 1: Sales -->
+                <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
+                    <h4 style="margin-top: 0; font-size: 1rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 2px;">Sales Evolution & Yearly Forecast</h4>
+                    <img id="pdfSalesChart" style="width: 100%; max-height: 400px; object-fit: contain; margin: 20px 0;">
+                    
+                    <!-- Table integrated right under the chart as requested -->
+                    <div id="pdfSalesTableContainer" style="width: 100%; margin-top: 20px;"></div>
+                </div>
+
+                <!-- Full Width Chart 2: Break Even -->
+                <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 30px; page-break-inside: avoid;">
+                    <h4 style="margin-top: 0; font-size: 1rem; color: #00ff88; text-transform: uppercase; letter-spacing: 2px;">Break-even Analysis</h4>
+                    <img id="pdfBreakEvenChart" style="width: 100%; max-height: 400px; object-fit: contain; margin-top: 20px;">
+                </div>
+
+                <!-- Full Width Chart 3: Pricing -->
+                <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 30px; page-break-inside: avoid;">
+                    <h4 style="margin-top: 0; font-size: 1rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 2px;">Pricing Simulation</h4>
+                    <img id="pdfPricingChart" style="width: 100%; max-height: 400px; object-fit: contain; margin-top: 20px;">
+                </div>
+
+                <!-- Marketing Efficiency (Table Only) -->
+                <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 30px; page-break-inside: avoid;">
+                    <h4 style="margin-top: 0; font-size: 1rem; color: #00ff88; text-transform: uppercase; letter-spacing: 2px;">Marketing Efficiency Model</h4>
+                    <div id="pdfMarketingTableContainer" style="width: 100%; margin-top: 20px;"></div>
                 </div>
             </div>
 
-            <!-- Footer Details Table -->
-            <div style="position: absolute; bottom: 60px; left: 60px; right: 60px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05);">
-                <div>
-                    <small style="display:block; font-size: 0.65rem; opacity: 0.4; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px;">EST. BUDGET</small>
-                    <b id="pdfFooterBudget" style="font-size: 1.2rem; font-weight: 700; color: #fff;">$0</b>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; text-align: center; opacity: 0.7;">
+                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px;">
+                    <small style="display:block; font-size: 0.7rem; opacity: 0.6;">BUDGET</small>
+                    <b id="pdfFooterBudget">$0</b>
                 </div>
-                <div>
-                    <small style="display:block; font-size: 0.65rem; opacity: 0.4; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px;">WISH-LISTS</small>
-                    <b id="pdfFooterWishlists" style="font-size: 1.2rem; font-weight: 700; color: #fff;">0</b>
+                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px;">
+                    <small style="display:block; font-size: 0.7rem; opacity: 0.6;">WISHLISTS</small>
+                    <b id="pdfFooterWishlists">0</b>
                 </div>
-                <div>
-                    <small style="display:block; font-size: 0.65rem; opacity: 0.4; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px;">SEGMENT CONFIDENCE</small>
-                    <b id="pdfFooterConfidence" style="font-size: 1.2rem; font-weight: 700; color: #00ff88;">HIGH</b>
-                </div>
-            </div>
-        </div>
-
-        <!-- PAGE 2: DATA VISUALIZATIONS -->
-        <div style="padding: 80px 60px; min-height: 100vh; background: #0b0e14; page-break-before: always; position: relative;">
-            <div style="margin-bottom: 60px;">
-                <h2 style="color: #00d2ff; font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px;">Strategic Visualizations</h2>
-                <div style="width: 80px; height: 4px; background: linear-gradient(90deg, #00d2ff, transparent);"></div>
-            </div>
-            
-            <!-- Full Width Chart 1: Sales -->
-            <div style="background: rgba(255,255,255,0.02); padding: 40px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 40px;">
-                <h4 style="margin-top: 0; font-size: 0.9rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; margin-bottom: 30px;">Sales Evolution & Yearly Projections</h4>
-                <img id="pdfSalesChart" style="width: 100%; max-height: 400px; object-fit: contain; margin-bottom: 30px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));">
-                <div id="pdfSalesTableContainer" style="width: 100%;"></div>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-                <div style="background: rgba(255,255,255,0.02); padding: 35px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05);">
-                    <h4 style="margin-top: 0; font-size: 0.8rem; color: #f39c12; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 20px;">Break-even Analysis</h4>
-                    <img id="pdfBreakEvenChart" style="width: 100%; height: auto; border-radius: 12px;">
-                </div>
-                <div style="background: rgba(255,255,255,0.02); padding: 35px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05);">
-                    <h4 style="margin-top: 0; font-size: 0.8rem; color: #3a7bd5; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 20px;">Optimal Pricing Model</h4>
-                    <img id="pdfPricingChart" style="width: 100%; height: auto; border-radius: 12px;">
+                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px;">
+                    <small style="display:block; font-size: 0.7rem; opacity: 0.6;">CONFIDENCE</small>
+                    <b id="pdfFooterConfidence">HIGH</b>
                 </div>
             </div>
-        </div>
 
-        <!-- PAGE 3: MARKETING & CONCLUSION -->
-        <div style="padding: 80px 60px; min-height: 100vh; background: #0b0e14; page-break-before: always;">
-            <div style="margin-bottom: 60px;">
-                <h2 style="color: #00ff88; font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px;">Marketing Efficiency</h2>
-                <div style="width: 80px; height: 4px; background: linear-gradient(90deg, #00ff88, transparent);"></div>
-            </div>
-
-            <div style="background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); padding: 50px; border-radius: 30px; border: 1px solid rgba(0,255,136,0.15);">
-                <p style="font-size: 1rem; color: rgba(255,255,255,0.6); margin-bottom: 35px; max-width: 600px;">The following model illustrates the relationship between marketing expenditure and various ROI benchmarks based on AI platform analysis across comparable segments.</p>
-                <div id="pdfMarketingTableContainer" style="width: 100%;"></div>
-            </div>
-
-            <div style="margin-top: 100px; text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 20px; opacity: 0.2;">🛡️</div>
-                <p style="font-size: 0.75rem; color: rgba(255,255,255,0.4); letter-spacing: 4px; text-transform: uppercase;">SECURED BY GAMEPREDICT.AI PROPRIETARY DATA</p>
-                <p style="font-size: 0.65rem; color: rgba(255,255,255,0.2); margin-top: 10px;">The insights provided are projections based on historical data and AI modeling. Actual results may vary based on market volatility and product execution quality.</p>
+            <div style="margin-top: 60px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px;">
+                <p style="font-size: 0.8rem; opacity: 0.5; letter-spacing: 2px; margin: 0;">REPORT SECURED AND VERIFIED BY GAMEPREDICT.AI TECHNOLOGY</p>
+                <p style="font-size: 0.7rem; opacity: 0.3; margin-top: 5px;">© 2026 GAMEPREDICT.AI ALL RIGHTS RESERVED.</p>
             </div>
         </div>
     </div>
 
-    <!-- VERSION TAG -->
-    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v73</div>
-    <script src="script.js?v=73"></script>
+    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v72</div>
+    <script src="script.js?v=72"></script>
 </body>
 
 </html>
