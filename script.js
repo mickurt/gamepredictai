@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     window.currentUserId = data.user_id;
                     localStorage.setItem('gamepredict_user_id', data.user_id);
                     document.getElementById('landingPage').style.display = 'none';
+                    window.scrollTo(0, 0);
                     document.getElementById('dashboardApp').style.display = 'flex';
                 } else {
                     msg.textContent = data.message;
@@ -1517,5 +1518,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v56 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v57 active");
 });
