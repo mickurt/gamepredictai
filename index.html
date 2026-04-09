@@ -664,13 +664,23 @@
                 
                 <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border-left: 5px solid #00ff88;">
                     <h3 style="margin-top: 0; font-size: 1rem; text-transform: uppercase; color: #00ff88; letter-spacing: 1px; margin-bottom: 25px;">Market Metrics</h3>
-                    <div style="margin: 20px 0;">
-                        <span style="display: block; font-size: 0.9rem; opacity: 0.6; margin-bottom: 5px;">EST. COPIES SOLD</span>
-                        <span id="pdfSales" style="font-size: 2.2rem; font-weight: 900; color: #fff;">0</span>
-                    </div>
-                    <div style="margin: 20px 0;">
-                        <span style="display: block; font-size: 0.9rem; opacity: 0.6; margin-bottom: 5px;">BUZZ QUALITY SCORE</span>
-                        <span id="pdfScore" style="font-size: 2.2rem; font-weight: 900; color: #00ff88;">0/10</span>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <span style="display: block; font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px;">EST. COPIES</span>
+                            <span id="pdfSales" style="font-size: 1.6rem; font-weight: 900; color: #fff;">0</span>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px;">BUZZ SCORE</span>
+                            <span id="pdfScore" style="font-size: 1.6rem; font-weight: 900; color: #00ff88;">0/10</span>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px;">EST. BUDGET</span>
+                            <span id="pdfBudget" style="font-size: 1.6rem; font-weight: 900; color: #fff;">$0</span>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px;">WISHLISTS</span>
+                            <span id="pdfWishlists" style="font-size: 1.6rem; font-weight: 900; color: #00ff88;">0</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -702,8 +712,8 @@
         </div>
     </div>
 
-    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v64</div>
-    <script src="script.js?v=64"></script>
+    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v65</div>
+    <script src="script.js?v=65"></script>
 </body>
 
 </html>

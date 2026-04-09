@@ -1522,5 +1522,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v64 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v65 active");
 });
