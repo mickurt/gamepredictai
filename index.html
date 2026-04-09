@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css?v=45">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
@@ -347,7 +348,13 @@
         <div class="main-content">
             <div id="resultsArea" style="opacity: 0.5; pointer-events: none; transition: all 0.5s ease;">
                 <div class="header-result" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                    <h2>Strategic Report</h2>
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <h2 style="margin: 0;">Strategic Report</h2>
+                        <button id="exportPdfBtn" class="btn-primary" 
+                                style="display:none; padding: 8px 18px; font-size: 0.8rem; background: linear-gradient(135deg, #00d2ff 0%, #0078ff 100%); color: #fff; border: none; font-weight: 800; border-radius: 8px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);">
+                            📄 EXPORT PDF BROCHURE
+                        </button>
+                    </div>
                     <div id="sentimentResult" class="badge"
                         style="display:none; border: 2px solid #00ff88; color: #00ff88; background: rgba(0, 255, 136, 0.15); padding: 10px 20px; border-radius: 50px; font-weight: 700; box-shadow: 0 0 15px rgba(0, 255, 136, 0.3); font-size: 1rem;">
                         🔥 Buzz Score: <span id="buzzScore"></span>/10 <span id="buzzText" style="font-weight: 400; font-size: 0.85rem; margin-left: 8px; color: rgba(255,255,255,0.9);"></span>
@@ -604,8 +611,82 @@
         </div>
     </div>
 
-    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v51</div>
-    <script src="script.js?v=53"></script>
+    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v54</div>
+    
+    <!-- PDF BROCHURE TEMPLATE -->
+    <div id="pdfTemplate" style="display: none; width: 850px; padding: 50px; background: #0b0e14; color: #fff; font-family: 'Outfit', sans-serif;">
+        <div style="border: 2px solid #00d2ff; padding: 40px; border-radius: 20px; position: relative; overflow: hidden; background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
+                <div>
+                    <h1 style="margin: 0; color: #00d2ff; font-size: 2.5rem; font-weight: 800; letter-spacing: 2px;">GAME<span style="color:#fff">PREDICT.AI</span></h1>
+                    <p style="margin: 5px 0 0 0; opacity: 0.6; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;">Strategic Marketing Brochure</p>
+                </div>
+                <div style="text-align: right;">
+                    <div id="pdfDate" style="font-size: 0.9rem; opacity: 0.5;">DATE: --/--/----</div>
+                    <div style="font-size: 0.9rem; color: #00ff88; font-weight: 800; margin-top: 5px; border: 1px solid #00ff88; padding: 4px 12px; border-radius: 4px;">OFFICIAL PROJECTION</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 50px; text-align: center;">
+                <div style="font-size: 0.9rem; color: #00d2ff; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 3px;">Project Identity</div>
+                <h2 id="pdfGameName" style="font-size: 3.5rem; margin: 0; color: #fff; text-transform: uppercase; letter-spacing: -1px; font-weight: 900;">GAME TITLE</h2>
+                <p id="pdfGenrePlatform" style="font-size: 1.3rem; color: #00d2ff; font-weight: 600; margin: 10px 0; opacity: 0.8;">GENRE | PLATFORM</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px;">
+                <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border-left: 5px solid #00d2ff;">
+                    <h3 style="margin-top: 0; font-size: 1rem; text-transform: uppercase; color: #00d2ff; letter-spacing: 1px; margin-bottom: 25px;">Financial Performance</h3>
+                    <div style="margin: 20px 0;">
+                        <span style="display: block; font-size: 0.9rem; opacity: 0.6; margin-bottom: 5px;">EST. TOTAL REVENUE</span>
+                        <span id="pdfMaxRev" style="font-size: 2.2rem; font-weight: 900; color: #fff;">$0</span>
+                    </div>
+                    <div style="margin: 20px 0;">
+                        <span style="display: block; font-size: 0.9rem; opacity: 0.6; margin-bottom: 5px;">EST. NET PROFIT</span>
+                        <span id="pdfMaxProfit" style="font-size: 2.2rem; font-weight: 900; color: #00ff88;">$0</span>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border-left: 5px solid #00ff88;">
+                    <h3 style="margin-top: 0; font-size: 1rem; text-transform: uppercase; color: #00ff88; letter-spacing: 1px; margin-bottom: 25px;">Market Metrics</h3>
+                    <div style="margin: 20px 0;">
+                        <span style="display: block; font-size: 0.9rem; opacity: 0.6; margin-bottom: 5px;">EST. COPIES SOLD</span>
+                        <span id="pdfSales" style="font-size: 2.2rem; font-weight: 900; color: #fff;">0</span>
+                    </div>
+                    <div style="margin: 20px 0;">
+                        <span style="display: block; font-size: 0.9rem; opacity: 0.6; margin-bottom: 5px;">BUZZ QUALITY SCORE</span>
+                        <span id="pdfScore" style="font-size: 2.2rem; font-weight: 900; color: #00ff88;">0/10</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(0,210,255,0.08); padding: 35px; border-radius: 15px; margin-bottom: 40px;">
+                <h3 style="margin-top: 0; font-size: 1rem; text-transform: uppercase; color: #00d2ff; letter-spacing: 1px; margin-bottom: 15px;">AI Strategic Insight</h3>
+                <p id="pdfInsight" style="font-size: 1.1rem; line-height: 1.7; color: rgba(255,255,255,0.9); font-style: italic;">Detailed analytical insight generated by GamePredict.ai will be displayed here.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; text-align: center; opacity: 0.7;">
+                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px;">
+                    <small style="display:block; font-size: 0.7rem; opacity: 0.6;">BUDGET</small>
+                    <b id="pdfBudget">$0</b>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px;">
+                    <small style="display:block; font-size: 0.7rem; opacity: 0.6;">WISHLISTS</small>
+                    <b id="pdfWishlists">0</b>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px;">
+                    <small style="display:block; font-size: 0.7rem; opacity: 0.6;">CONFIDENCE</small>
+                    <b>HIGH</b>
+                </div>
+            </div>
+
+            <div style="margin-top: 60px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px;">
+                <p style="font-size: 0.8rem; opacity: 0.5; letter-spacing: 2px; margin: 0;">REPORT SECURED AND VERIFIED BY GAMEPREDICT.AI TECHNOLOGY</p>
+                <p style="font-size: 0.7rem; opacity: 0.3; margin-top: 5px;">© 2026 GAMEPREDICT.AI ALL RIGHTS RESERVED.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=54"></script>
 </body>
 
 </html>

@@ -515,10 +515,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     function renderResults(data) {
-        // document.getElementById('optPrice').textContent = `$${data.best_price.toFixed(2)}`;
-        // Format big numbers
         document.getElementById('maxProfit').textContent = `$${Math.floor(data.max_profit).toLocaleString()}`;
         document.getElementById('maxRevenues').textContent = data.est_total_revenue ? `$${Math.floor(data.est_total_revenue).toLocaleString()}` : "$ ---";
+        
+        // Show Export PDF Button
+        const pdfBtn = document.getElementById('exportPdfBtn');
+        if (pdfBtn) {
+            pdfBtn.style.display = 'inline-block';
+            pdfBtn.onclick = () => exportMarketingBrochure(data);
+        }
         
         // --- SHOW BUZZ SCORE ---
         let displayScore = data.sentiment_ia_score || currentSentimentScore;
@@ -1467,5 +1472,39 @@ document.addEventListener('DOMContentLoaded', async () => {
         }, 800);
     };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v51 active");
+    function exportMarketingBrochure(data) {
+        if (!data) return;
+        
+        // Populate Template
+        document.getElementById('pdfDate').textContent = "DATE: " + new Date().toLocaleDateString();
+        document.getElementById('pdfGameName').textContent = document.getElementById('gameName').value || "PROJECT UNKNOWN";
+        document.getElementById('pdfGenrePlatform').textContent = (document.getElementById('genre').options[document.getElementById('genre').selectedIndex].text) + " | " + 
+                                                                 (document.getElementById('platform').options[document.getElementById('platform').selectedIndex].text);
+        
+        document.getElementById('pdfMaxRev').textContent = "$" + Math.floor(data.est_total_revenue).toLocaleString();
+        document.getElementById('pdfMaxProfit').textContent = "$" + Math.floor(data.max_profit).toLocaleString();
+        document.getElementById('pdfSales').textContent = Math.floor(data.est_total_sales).toLocaleString();
+        document.getElementById('pdfScore').textContent = (data.sentiment_ia_score || "---") + "/10";
+        document.getElementById('pdfBudget').textContent = "$" + parseInt(document.getElementById('budget').value || 0).toLocaleString();
+        document.getElementById('pdfWishlists').textContent = parseInt(data.wishlists || 0).toLocaleString();
+        document.getElementById('pdfInsight').textContent = data.context_review || "Predictive analysis indicates strong market potential based on current genre benchmarks and platform engagement trends.";
+
+        const element = document.getElementById('pdfTemplate');
+        element.style.display = 'block'; // Show briefly for capture
+        
+        const opt = {
+            margin: 0,
+            filename: `GamePredict_Brochure_${document.getElementById('pdfGameName').textContent}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0b0e14' },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        // Generate
+        html2pdf().set(opt).from(element).save().then(() => {
+            element.style.display = 'none'; // Hide back
+        });
+    }
+
+    console.log("🚀 GamePredict.ai App Loaded / Version v54 active");
 });
