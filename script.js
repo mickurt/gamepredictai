@@ -822,7 +822,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // Debug Data
-        console.log("Rendering Evolution Chart with data:", data.evolution_years, data.evolution_sales);
+        console.log("📊 Evolution Check:", {
+            years: data.evolution_years,
+            sales: data.evolution_sales,
+            revenue: data.evolution_revenue ? "YES" : "NO",
+            profit: data.evolution_profit ? "YES" : "NO"
+        });
+
         if (!data.evolution_years || !data.evolution_sales || data.evolution_sales.length === 0) {
             console.warn("No evolution data to render.");
             return;
