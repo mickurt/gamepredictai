@@ -8,7 +8,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css?v=45">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        @media print {
+            body * { visibility: hidden !important; }
+            #pdfTemplate, #pdfTemplate * { visibility: visible !important; }
+            #pdfTemplate { 
+                position: fixed !important; 
+                left: 0 !important; 
+                top: 0 !important; 
+                width: 100% !important; 
+                opacity: 1 !important; 
+                z-index: 999999 !important; 
+                display: block !important;
+                background: #0b0e14 !important;
+                print-color-adjust: exact !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+            @page { margin: 0; size: auto; }
+        }
+    </style>
 </head>
 
 <body>
@@ -683,8 +701,8 @@
         </div>
     </div>
 
-    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v61</div>
-    <script src="script.js?v=61"></script>
+    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v62</div>
+    <script src="script.js?v=62"></script>
 </body>
 
 </html>

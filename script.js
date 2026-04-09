@@ -1523,20 +1523,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
 
-        // Generate
+        // Generate via Native Print (Most Reliable)
         try {
-            console.log("Calling html2pdf...");
-            html2pdf().set(opt).from(element).save().then(() => {
-                console.log("PDF generated successfully!");
-                document.getElementById('pdfStatus').textContent = "(✅ DONE)";
-                setTimeout(() => { document.getElementById('pdfStatus').textContent = ""; }, 3000);
-            });
+            console.log("Triggering Native Print Fallback...");
+            window.print();
+            document.getElementById('pdfStatus').textContent = "(✅ READY)";
+            setTimeout(() => { document.getElementById('pdfStatus').textContent = ""; }, 3000);
         } catch (err) {
-            console.error("PDF Generation Error:", err);
-            alert("SYSTEM ERROR: " + err.message);
+            console.error("Print Error:", err);
+            alert("PRINT ERROR: " + err.message);
             document.getElementById('pdfStatus').textContent = "(❌ FAIL)";
         }
     }
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v61 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v62 active");
 });
