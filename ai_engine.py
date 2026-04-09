@@ -914,11 +914,18 @@ class GameRevenuePredictor:
             total_y_net_rev = y_rev + y_dlc_rev
             
             evolution_revenue.append(total_y_net_rev)
-            evolution_profit_annual.append(total_y_net_rev) # Operating profit for that year
+            
+            # ANNUAL PROFIT (Corrected: Year 1 takes the budget hit)
+            if i_y == 0:
+                y_annual_net = total_y_net_rev - budget
+            else:
+                y_annual_net = total_y_net_rev
+                
+            evolution_profit_annual.append(float(y_annual_net))
             
             running_total_revenue += total_y_net_rev
             
-            # CUMULATIVE PROFIT (Revenue to date - Total Budget)
+            # CUMULATIVE PROFIT (The running sum of annual profits)
             cum_profit_at_year = running_total_revenue - budget
             evolution_profit.append(float(cum_profit_at_year))
             

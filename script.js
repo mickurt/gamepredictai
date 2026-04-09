@@ -895,7 +895,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <td style="font-weight:600; color:var(--primary); padding: 12px;">${year}</td>
                     <td style="padding: 12px; font-weight: 500;">${sales.toLocaleString()} <span style="font-size:0.7rem; opacity:0.5;">units</span></td>
                     <td style="padding: 12px; color:#00d2ff; font-weight:600;">$${Math.round(revenue).toLocaleString()}</td>
-                    <td style="padding: 12px; color:#9b59b6; font-weight:600;">$${Math.round(annualProfit).toLocaleString()}</td>
+                    <td style="padding: 12px; color:${annualProfit >= 0 ? '#00ff88' : '#ff4444'}; font-weight:600;">
+                        $${Math.round(annualProfit).toLocaleString()}
+                        ${annualProfit < 0 ? '<span style="font-size:0.6rem; opacity:0.6; display:block;">(Loss)</span>' : ''}
+                    </td>
                     <td style="padding: 12px; color:${cumProfit >= 0 ? '#00ff88' : '#ff4444'}; font-weight:700;">
                         $${Math.round(cumProfit).toLocaleString()}
                         ${cumProfit < 0 ? '<span style="font-size:0.7rem; font-weight:400; display:block; opacity:0.6;">(Investment Phase)</span>' : ''}
