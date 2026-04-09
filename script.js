@@ -1473,7 +1473,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     function exportMarketingBrochure(data) {
-        if (!data) return;
+        console.log("PDF Export Clicked", data);
+        if (!data) {
+            alert("Error: No data available for export.");
+            return;
+        }
+
+        if (typeof html2pdf === 'undefined') {
+            alert("Error: PDF library (html2pdf) not loaded yet. Please wait 2 seconds and try again.");
+            return;
+        }
         
         // Populate Template
         document.getElementById('pdfDate').textContent = "DATE: " + new Date().toLocaleDateString();
@@ -1495,13 +1504,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             margin: 0,
             filename: `GamePredict_Brochure_${document.getElementById('pdfGameName').textContent}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#0b0e14' },
+            html2canvas: { scale: 2, useCORS: true, logging: true, backgroundColor: '#0b0e14' },
             jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
 
         // Generate
-        html2pdf().set(opt).from(element).save();
+        try {
+            html2pdf().set(opt).from(element).save();
+        } catch (err) {
+            console.error("PDF Generation Error:", err);
+            alert("PDF Generation Error: " + err.message);
+        }
     }
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v55 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v56 active");
 });
