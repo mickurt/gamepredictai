@@ -4,352 +4,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gamepredict.ai - Premium Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>GamePredict.ai | Advanced Gaming ROI Forecaster</title>
+    <!-- SEO Best Practices -->
+    <meta name="description" content="Professional-grade sales and revenue forecasting tool for the gaming industry. Using advanced AI to predict market traction, pricing elasticity, and marketing ROI.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=45">
+    <!-- Use a modern color adjust property for printing -->
     <style>
         @media print {
-            @page { size: portrait; margin: 10mm; }
-            body * { visibility: hidden !important; }
-            #pdfTemplate, #pdfTemplate * { visibility: visible !important; }
-            #pdfTemplate { 
-                position: absolute !important; 
-                left: 0 !important; 
-                top: 0 !important; 
-                width: 100% !important; 
-                height: auto !important;
-                opacity: 1 !important; 
-                z-index: 999999 !important; 
-                display: block !important;
-                background: #0b0e14 !important;
-                print-color-adjust: exact !important;
+            body {
                 -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
-            body { background: #0b0e14 !important; }
+            @page {
+                size: portrait;
+                margin: 0;
+            }
+            .sidebar, .glass-container, #vTag, button, .footer-link {
+                display: none !important;
+            }
+            #pdfTemplate {
+                display: block !important;
+                opacity: 1 !important;
+                position: relative !important;
+                z-index: 1000 !important;
+                background: #0b0e14 !important;
+                height: auto !important;
+            }
         }
     </style>
 </head>
 
 <body>
-    <!-- Landing Page Section -->
-    <div id="landingPage" class="landing-page">
-        <!-- Main Landing Container allowing scroll -->
-        <div class="landing-container">
-            <div id="landing-hero-content" class="landing-hero" style="margin-bottom: 30px;">
-                <div class="logo-large">
-                    <h1>GAMEPREDICT<span>.AI</span></h1>
-                </div>
-                <h2>Revolutionize Your Game's Market Success with Expert AI</h2>
-                <p>Predict revenue, optimize pricing, and analyze player sentiment before you launch.</p>
-
-                <div style="margin-top: 25px;">
-                    <a href="#authSection" style="text-decoration: none;">
-                        <button class="btn-primary" style="font-size: 1.1rem; padding: 15px 40px; border-radius: 50px; position: relative; z-index: 10; cursor: pointer;">Request Access / Login</button>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Features Showcase Section -->
-            <div class="landing-features" id="featuresSection">
-                <div class="feature-card">
-                    <div class="feature-text">
-                        <h3>Dynamic Pricing Simulation</h3>
-                        <p>Find the perfect price point for your game. Our AI simulates millions of scenarios to find the exact price that maximizes your total profit while maintaining optimal player acquisition.</p>
-                    </div>
-                    <div class="feature-visual">
-                        <div class="feature-visual-inner">
-                            <div class="mock-table-container">
-                                <table class="comparable-table" style="margin-top:0; margin-bottom:0;">
-                                    <thead><tr><th style="color:var(--primary);">PRICE</th><th>EXPECTED UNITS SOLD</th><th>EXPECTED REVENUE</th><th>EXPECTED PROFIT</th></tr></thead>
-                                    <tbody>
-                                        <tr><td style="color:var(--primary); font-weight:bold; font-size:1.1rem;">$40</td><td>27,776,693 copies</td><td>$549,978,522</td><td style="color:#00ff88; font-weight:bold;">$449,978,522</td></tr>
-                                        <tr><td style="color:var(--primary); font-weight:bold; font-size:1.1rem;">$50</td><td>23,511,809 copies</td><td>$581,917,293</td><td style="color:#00ff88; font-weight:bold;">$481,917,293</td></tr>
-                                        <tr style="background: rgba(255,255,255,0.1);"><td style="color:var(--primary); font-weight:bold; font-size:1.1rem;">$60 <span style="background:#00ff88; color:#0f0c29; border:none; padding:2px 6px; font-size:0.7rem; font-weight:bold; border-radius:4px; vertical-align:middle; margin-left:5px;">Optimal</span></td><td>19,901,764 copies</td><td>$591,082,403</td><td style="color:#00ff88; font-weight:bold;">$491,082,403</td></tr>
-                                        <tr><td style="color:var(--primary); font-weight:bold; font-size:1.1rem;">$70</td><td>16,846,011 copies</td><td>$583,714,310</td><td style="color:#00ff88; font-weight:bold;">$483,714,310</td></tr>
-                                        <tr><td style="color:var(--primary); font-weight:bold; font-size:1.1rem;">$90</td><td>12,070,024 copies</td><td>$537,719,580</td><td style="color:#00ff88; font-weight:bold;">$437,719,580</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-card reverse">
-                    <div class="feature-text">
-                        <h3>Comparable Games Benchmark</h3>
-                        <p>Understand your competitive landscape. Instantly view historical performance of similar titles, including their budgets, sales, and Metacritic scores to benchmark your expectations and make data-driven decisions.</p>
-                    </div>
-                    <div class="feature-visual">
-                        <div class="feature-visual-inner">
-                            <div class="mock-table-container">
-                                <table class="comparable-table" style="margin-top:0; margin-bottom:0;">
-                                    <thead><tr><th>TITLE</th><th>TYPE</th><th>BUDGET</th><th>PRICE</th><th>META.</th><th>SALES</th><th>SIMILARITY</th></tr></thead>
-                                    <tbody>
-                                        <tr><td style="font-weight:bold; color:white;">Sekiro: Shadows Die Twice - GOTY</td><td style="color:var(--text-muted);">Single Player</td><td>$80.0M</td><td>$59.99</td><td>95</td><td>10.0M</td><td><span class="sim-score" style="background: rgba(0, 255, 136, 0.15);">93.1%</span></td></tr>
-                                        <tr><td style="font-weight:bold; color:white;">Hogwarts Legacy</td><td style="color:var(--text-muted);">Single Player</td><td>$150.0M</td><td>$59.99</td><td>90</td><td>40.0M</td><td><span class="sim-score" style="background: rgba(0, 255, 136, 0.15);">69.8%</span></td></tr>
-                                        <tr><td style="font-weight:bold; color:white;">Apex Legends</td><td style="color:var(--text-muted);">Multiplayer</td><td>$150.0M</td><td>$Free</td><td>67</td><td>100.0M</td><td><span class="sim-score" style="background: rgba(0, 255, 136, 0.15);">65.2%</span></td></tr>
-                                        <tr><td style="font-weight:bold; color:white;">Black Myth: Wukong</td><td style="color:var(--text-muted);">Single Player</td><td>$50.0M</td><td>$59.99</td><td>97</td><td>25.0M</td><td><span class="sim-score" style="background: rgba(0, 255, 136, 0.15);">63.9%</span></td></tr>
-                                        <tr><td style="font-weight:bold; color:white;">Baldur's Gate 3</td><td style="color:var(--text-muted);">Single Player</td><td>$200.0M</td><td>$59.99</td><td>97</td><td>15.0M</td><td><span class="sim-score" style="background: rgba(0, 255, 136, 0.15);">63.8%</span></td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-text">
-                        <h3>Marketing Efficiency Model & ROI</h3>
-                        <p>Optimize your marketing strategy and eliminate wasted spend. See exactly how different marketing budgets impact your overall sales lift and calculated expected ROI, factoring in the laws of diminishing returns.</p>
-                    </div>
-                    <div class="feature-visual">
-                        <div class="feature-visual-inner">
-                            <div class="mock-table-container">
-                                <table class="comparable-table" style="margin-top:0; margin-bottom:0;">
-                                    <thead><tr><th>MARKETING BUDGET</th><th>SALES LIFT</th><th>EXPECTED ROI</th></tr></thead>
-                                    <tbody>
-                                        <tr><td style="font-weight:bold; color:white; font-size:1.1rem;">$5M</td><td style="font-weight:bold;">+1.6%</td><td style="color:#00ff88; font-weight:bold;">91.4%</td></tr>
-                                        <tr><td style="font-weight:bold; color:white; font-size:1.1rem;">$10M</td><td style="font-weight:bold;">+3.2%</td><td style="color:#00ff88; font-weight:bold;">88.3%</td></tr>
-                                        <tr><td style="font-weight:bold; color:white; font-size:1.1rem;">$20M</td><td style="font-weight:bold;">+6.2%</td><td style="color:#00ff88; font-weight:bold;">82.4%</td></tr>
-                                        <tr><td style="font-weight:bold; color:white; font-size:1.1rem;">$50M</td><td style="font-weight:bold;">+14.3%</td><td style="color:#00ff88; font-weight:bold;">66.8%</td></tr>
-                                        <tr><td style="font-weight:bold; color:orange; font-size:1.1rem;">$100M</td><td style="color:orange; font-weight:bold;">+25.0%</td><td style="color:#00ff88; font-weight:bold;">45.9%</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-card reverse">
-                    <div class="feature-text">
-                        <h3>Probability Distribution (Monte Carlo)</h3>
-                        <p>De-risk your investments with advanced Monte Carlo simulations. Get crystal clear visibility into probability curves covering your Worst Case (P10), Expected Baseline (P50), and potential Best Case (P90) scenarios.</p>
-                    </div>
-                    <div class="feature-visual">
-                        <div class="feature-visual-inner" style="display:flex; flex-direction:column; gap:20px; padding: 25px;">
-                            <div style="display: flex; gap: 15px; width: 100%;">
-                                <div style="flex:1; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 15px;">
-                                    <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 5px;">Optimal Price</h3>
-                                    <div style="font-size: 1.8rem; font-weight: 700; color: #00d2ff;">$69.99</div>
-                                </div>
-                                <div style="flex:1; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 15px;">
-                                    <h3 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 5px;">Est. Max Profit</h3>
-                                    <div style="font-size: 1.8rem; font-weight: 700; color: #00d2ff;">$483,728,218</div>
-                                </div>
-                            </div>
-                            <div style="display: flex; gap: 10px; width: 100%;">
-                            <div class="card" style="flex: 1; border-left: 4px solid #ff4444; background: rgba(255, 68, 68, 0.05); padding: 15px; box-shadow: none;">
-                                    <h3 style="color: #ff4444; font-size:0.9rem; margin-bottom:0;">P10 (Worst Case)</h3>
-                                    <div class="value sub" style="color: white; font-size: 1.4rem; font-weight:bold; margin-top: 5px;">8.89M</div>
-                                </div>
-                                <div class="card" style="flex: 1; border-left: 4px solid #f39c12; background: rgba(243, 156, 18, 0.05); padding: 15px; box-shadow: none;">
-                                    <h3 style="color: #f39c12; font-size:0.9rem; margin-bottom:0;">P50 (Expected)</h3>
-                                    <div class="value sub" style="color: white; font-size: 1.4rem; font-weight:bold; margin-top: 5px;">15.22M</div>
-                                </div>
-                                <div class="card" style="flex: 1; border-left: 4px solid #00ff88; background: rgba(0, 255, 136, 0.05); padding: 15px; box-shadow: none;">
-                                    <h3 style="color: #00ff88; font-size:0.9rem; margin-bottom:0;">P90 (Best Case)</h3>
-                                    <div class="value sub" style="color: white; font-size: 1.4rem; font-weight:bold; margin-top: 5px;">26.89M</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            
-            <div id="authSection" class="landing-hero" style="margin-top: 0; margin-bottom: 100px; z-index: 2; position: relative;">
-                <h2 style="margin-bottom: 20px;">Ready to Optimize Your Game's Launch?</h2>
-                <div class="auth-box card-glass">
-                    <div class="auth-tabs">
-                        <button id="tab-signup" class="auth-tab active" onclick="switchAuth('signup')">Sign Up</button>
-                        <button id="tab-login" class="auth-tab" onclick="switchAuth('login')">Login</button>
-                    </div>
-
-                    <!-- New Contact Link for Visibility -->
-                    <div style="text-align: right; margin-bottom: 10px;">
-                        <a href="contact.html" class="footer-link" style="font-size: 0.8rem; opacity: 0.8;">Questions? Contact Us</a>
-                    </div>
-
-                    <form id="signupForm" class="auth-form">
-                        <div class="form-group">
-                            <label>Professional Email</label>
-                            <input type="email" id="signupEmail" placeholder="you@studio.com" class="input-glass" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" id="signupPassword" placeholder="••••••••" class="input-glass" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Organization / Studio</label>
-                            <input type="text" id="signupOrg" placeholder="Epic Games, IndieDev..." class="input-glass"
-                                required>
-                        </div>
-                        <button type="submit" class="btn-primary">Request Access</button>
-                    </form>
-
-                    <form id="loginForm" class="auth-form" style="display:none;">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="loginEmail" placeholder="you@studio.com" class="input-glass" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" id="loginPassword" placeholder="••••••••" class="input-glass" required>
-                        </div>
-                        <button type="submit" class="btn-primary">Login</button>
-                        <a href="#" onclick="switchAuth('lost_password'); return false;"
-                            style="color:var(--primary); font-size:0.85rem; margin-top:10px; text-align:center; text-decoration:none;">Lost
-                            Password?</a>
-                    </form>
-
-                    <form id="lostPasswordForm" class="auth-form" style="display:none;">
-                        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px; text-align:center;">Enter
-                            your email to receive a password reset link.</p>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="lostPasswordEmail" placeholder="you@studio.com" class="input-glass"
-                                required>
-                        </div>
-                        <button type="submit" class="btn-primary">Send Reset Link</button>
-                        <a href="#" onclick="switchAuth('login'); return false;"
-                            style="color:var(--text-muted); font-size:0.85rem; margin-top:10px; text-align:center; text-decoration:none;">Back
-                            to Login</a>
-                    </form>
-
-                    <form id="resetPasswordForm" class="auth-form" style="display:none;">
-                        <h3 style="margin-bottom:15px; color:var(--text); text-align:center;">Create New Password</h3>
-                        <div class="form-group">
-                            <label>New Password</label>
-                            <input type="password" id="newPassword" placeholder="••••••••" class="input-glass" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Confirm Password</label>
-                            <input type="password" id="confirmNewPassword" placeholder="••••••••" class="input-glass"
-                                required>
-                        </div>
-                        <button type="submit" class="btn-primary">Reset Password</button>
-                    </form>
-                    <div id="authMessage" style="margin-top:15px; font-size:0.9rem; text-align:center;"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="floating-blobs">
-            <div class="blob color-1"></div>
-            <div class="blob color-2"></div>
-            <div class="blob color-3" style="width:600px; height:600px; background:#00d2ff; top: 40%; right: -200px; animation-delay:-2s; filter: blur(120px); opacity: 0.2; position: absolute;"></div>
-            <div class="blob color-4" style="width:500px; height:500px; background:#f39c12; top: 60%; left: -200px; animation-delay:-5s; filter: blur(100px); opacity: 0.15; position: absolute;"></div>
-        </div>
-        
-        <div class="landing-footer">
-            <a href="contact.html" class="footer-link">Contact Us</a>
-            <span style="color: rgba(255,255,255,0.1);">|</span>
-            <span class="footer-link" style="cursor: default; opacity: 0.5;">© 2026 Gamepredict.ai</span>
-        </div>
-    </div>
-
-    <!-- Main Dashboard Application (Hidden by default) -->
-    <div id="dashboardApp" class="glass-container" style="display:none;">
-        <!-- Sidebar / Setup -->
+    <div class="glass-container">
+        <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">
-                <h1>GAMEPREDICT<span>.AI</span></h1>
-                <p>Expert Market Analysis</p>
+                <h1>GAME<span>PREDICT.AI</span></h1>
+                <p>Advanced Market Intelligence</p>
             </div>
 
             <form id="predictionForm">
-                <div class="form-group" style="display:none;">
-                    <label>Gemini API Key (Optional for Vision)</label>
-                    <input type="password" id="apiKey" value=""
-                        placeholder="AIzaSy..." class="input-glass">
+                <div class="form-group">
+                    <label for="gameName">Project Name</label>
+                    <input type="text" id="gameName" placeholder="e.g. GTA VI, Starfield..." required class="input-glass">
                 </div>
 
-                    <label>Game Name (Project Title)</label>
-                    <div class="input-group">
-                        <input type="text" id="gameName" placeholder="e.g. Elden Ring 2" class="input-glass"
-                            style="width:100%; margin-bottom:10px;">
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="form-group">
+                        <label for="genre">Genre</label>
+                        <select id="genre" class="input-glass">
+                            <option value="Action">Action</option>
+                            <option value="RPG">RPG</option>
+                            <option value="Simulation">Simulation</option>
+                            <option value="Strategy">Strategy</option>
+                            <option value="Adventure">Adventure</option>
+                            <option value="Sports/Racing">Sports/Racing</option>
+                            <option value="Horror">Horror</option>
+                            <option value="MMO">MMO</option>
+                        </select>
                     </div>
+                    <div class="form-group">
+                        <label for="platform">Platform</label>
+                        <select id="platform" class="input-glass">
+                            <option value="Multi-platform">Multi-platform</option>
+                            <option value="PC Only">PC Only</option>
+                            <option value="Console Only">Console Only</option>
+                            <option value="Mobile Only">Mobile Only</option>
+                        </select>
+                    </div>
+                </div>
 
                 <div class="form-group">
-                    <label>Game Genre</label>
-                    <select id="genreSelect" class="input-glass">
-                        <option>Loading...</option>
+                    <label for="budget">Production Budget ($)</label>
+                    <input type="number" id="budget" value="10000000" min="0" class="input-glass">
+                </div>
+
+                <div class="form-group">
+                    <label for="buzzLevel">Initial Community Buzz (0-10)</label>
+                    <input type="range" id="buzzLevel" min="0" max="10" step="0.5" value="5">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted);">
+                        <span>LOW</span>
+                        <span id="buzzValue">5</span>
+                        <span>HYPED</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="franchisePower">Franchise Power / Track Record</label>
+                    <select id="franchisePower" class="input-glass">
+                        <option value="New IP">New IP (0 Sales History)</option>
+                        <option value="Successor">Successor (Established Franchise)</option>
+                        <option value="Major Hit">Major Hit Predecessor (>5M sales)</option>
                     </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Target Price ($) (Required)</label>
-                    <input type="number" id="fixedPrice" step="0.01" placeholder="e.g. 29.99" class="input-glass" required>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Budget ($)</label>
-                        <input type="number" id="budget" placeholder="e.g. 500000" class="input-glass" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Wishlists</label>
-                        <input type="number" id="wishlists" placeholder="e.g. 10000" class="input-glass">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Prev. Sales</label>
-                        <input type="number" id="prevSales" placeholder="e.g. 2.5M" class="input-glass">
-                    </div>
-                    <div class="form-group">
-                        <label>Prev. Score</label>
-                        <input type="number" id="prevSentiment" placeholder="0-100" max="100" class="input-glass">
-                    </div>
-                    <div class="form-group">
-                        <label>Prev. Buzz (1-10)</label>
-                        <input type="number" id="prevBuzz" placeholder="6" max="10" class="input-glass">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Target Sentiment (%)</label>
-                        <input type="number" id="sentiment" placeholder="e.g. 85" max="100" class="input-glass">
-                    </div>
-                    <div class="form-group">
-                        <label>Languages</label>
-                        <input type="number" id="langs" placeholder="e.g. 5" class="input-glass">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label># of Planned DLCs</label>
-                        <input type="number" id="numDlcs" placeholder="e.g. 0" min="0" class="input-glass">
-                    </div>
-                    <div class="form-group">
-                        <label>Avg DLC Price ($)</label>
-                        <input type="number" id="dlcPrice" placeholder="e.g. 19.99" class="input-glass">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Release Month</label>
-                    <input type="number" id="month" placeholder="1-12" min="1" max="12" class="input-glass">
-                </div>
-
-                <div class="form-group">
-                    <label>Upload Game Screenshot (AI Analysis)</label>
-                    <div class="drop-zone" id="dropZone">
-                        <p>Drag & Drop or Click</p>
-                        <input type="file" id="fileInput" accept="image/*" hidden>
-                        <img id="previewImage" style="display:none;">
-                    </div>
-                    <button type="button" id="analyzeBtn" class="btn-secondary" style="display:none; margin-top:10px;">✨
-                        Analyze with Gemini</button>
-                </div>
-
-                <div class="form-group">
-                    <label>Similar Games (Manual or AI Detected)</label>
-                    <input type="text" id="similarGames" placeholder="Valheim, Rust..." class="input-glass">
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
@@ -363,6 +113,7 @@
                 </div>
             </form>
         </div>
+
         <!-- Main Content / Results -->
         <div class="main-content" style="position: relative;">
             <div id="resultsArea" style="opacity: 0.5; pointer-events: none; transition: all 0.5s ease; position: relative;">
@@ -380,177 +131,51 @@
                         <div class="value" id="maxRevenues">$ ---</div>
                     </div>
                     <div class="card" style="border-left: 4px solid #00ff88; background: rgba(0, 255, 136, 0.05);">
-                        <h3 style="color: #00ff88;">Est. Max Profit</h3>
-                        <div class="value" id="maxProfit">$ ---</div>
-                    </div>
-                    <div class="card">
-                        <h3>Est. Total Sales</h3>
-                        <div class="value sub" id="benchmarkInfo">--- <span style="font-size:0.8rem">copies</span></div>
-                    </div>
-                </div>
-
-                <h3 style="margin-top:20px; font-size:1.1rem; opacity:0.8;">Probability Distribution (Monte Carlo)</h3>
-                <div class="highlight-cards"
-                    style="margin-top: 15px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
-                    <div class="card" style="border-left: 4px solid #ff4444; background: rgba(255, 68, 68, 0.05);">
-                        <h3 style="color: #ff4444;">P10 (Worst Case)</h3>
-                        <div class="value sub" id="p10Sales" style="color: white; font-size: 1.2rem; margin-top: 5px;">
-                            ---</div>
+                        <h3 style="color: #00ff88;">Est. Net Profit</h3>
+                        <div class="value" id="netProfit">$ ---</div>
                     </div>
                     <div class="card" style="border-left: 4px solid #f39c12; background: rgba(243, 156, 18, 0.05);">
-                        <h3 style="color: #f39c12;">P50 (Expected)</h3>
-                        <div class="value sub" id="p50Sales" style="color: white; font-size: 1.2rem; margin-top: 5px;">
-                            ---</div>
-                    </div>
-                    <div class="card" style="border-left: 4px solid #00ff88; background: rgba(0, 255, 136, 0.05);">
-                        <h3 style="color: #00ff88;">P90 (Best Case)</h3>
-                        <div class="value sub" id="p90Sales" style="color: white; font-size: 1.2rem; margin-top: 5px;">
-                            ---</div>
-                    </div>
-                </div>
-                <div class="chart-container" style="margin-top: 15px; height: 250px;">
-                    <canvas id="monteCarloChart"></canvas>
-                </div>
-
-                <h3 style="margin-top:20px; font-size:1.1rem; opacity:0.8;">Sales Evolution (Simulated)</h3>
-                <div class="chart-container">
-                    <canvas id="salesChart"></canvas>
-                </div>
-                <div style="overflow-x: auto; margin-top: 15px;">
-                    <table class="comparable-table" id="evolutionTable" style="display:none; background: rgba(0, 210, 255, 0.02); border: 1px solid rgba(0, 210, 255, 0.1);">
-                        <thead>
-                            <tr>
-                                <th style="color:var(--primary); font-size: 0.8rem;">PERIOD</th>
-                                <th style="font-size: 0.8rem;">EST. SALES</th>
-                                <th style="font-size: 0.8rem;">EST. REVENUE</th>
-                                <th style="font-size: 0.8rem; color: #00d2ff;">CUMULATIVE REVENUES</th>
-                            </tr>
-                        </thead>
-                        <tbody id="evolutionBody">
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3 style="margin-top:20px; font-size:1.1rem; opacity:0.8;">Dynamic Pricing Simulation</h3>
-                <div style="overflow-x: auto;">
-                    <table class="comparable-table" id="pricingTable" style="display:none;">
-                        <thead>
-                            <tr>
-                                <th style="color:var(--primary);">Price</th>
-                                <th>Expected Units Sold</th>
-                                <th>Expected Revenue</th>
-                                <th>Expected Profit</th>
-                            </tr>
-                        </thead>
-                        <tbody id="pricingBody">
-                        </tbody>
-                    </table>
-                </div>
-                <div class="chart-container" style="margin-top: 15px; height: 250px;">
-                    <canvas id="pricingChart"></canvas>
-                </div>
-
-                <h3 style="margin-top:20px; font-size:1.1rem; opacity:0.8;">Comparable Games Benchmark</h3>
-                <div style="overflow-x: auto;">
-                    <table class="comparable-table" id="comparablesTable" style="display:none;">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Type</th>
-                                <th>Budget</th>
-                                <th>Price</th>
-                                <th>Meta.</th>
-                                <th>Sales</th>
-                                <th>Similarity</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="comparablesBody">
-                        </tbody>
-                    </table>
-                    <p id="comparablesEmpty" style="color: var(--text-muted); font-size: 0.9rem; padding: 10px 0;">Run a
-                        prediction to view comparable games.</p>
-                </div>
-
-                <h3 style="margin-top:20px; font-size:1.1rem; opacity:0.8;">Break-even Analysis (Profit / Sales)</h3>
-                <div class="chart-container">
-                    <canvas id="profitSalesChart"></canvas>
-                </div>
-
-                <h3 style="margin-top:20px; font-size:1.1rem; opacity:0.8;">Marketing Efficiency Model</h3>
-                <div style="overflow-x: auto;">
-                    <table class="comparable-table" id="marketingTable" style="display:none;">
-                        <thead>
-                            <tr>
-                                <th>Marketing Budget</th>
-                                <th>Sales Lift</th>
-                                <th>Expected ROI</th>
-                            </tr>
-                        </thead>
-                        <tbody id="marketingBody">
-                        </tbody>
-                    </table>
-                </div>
-                <div class="chart-container" style="margin-top: 15px; height: 250px;">
-                    <canvas id="marketingChart"></canvas>
-                </div>
-
-                <h3 style="margin-top:20px; font-size:1.1rem; opacity:0.8;">Global Risk Index</h3>
-                <div class="highlight-cards"
-                    style="margin-top: 15px; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
-                    <div class="card" id="riskCardOverall"
-                        style="border-left: 4px solid #f39c12; background: rgba(243, 156, 18, 0.05);">
-                        <h3 id="riskOverallTitle" style="color: #f39c12;">Overall Risk</h3>
-                        <div class="value sub" id="riskOverall"
-                            style="color: white; font-size: 1.6rem; margin-top: 5px;">---/10</div>
-                    </div>
-                    <div class="card"
-                        style="border-left: 4px solid rgba(255,255,255,0.2); background: rgba(255,255,255, 0.02);">
-                        <h3 style="color: var(--text-muted);">Market</h3>
-                        <div class="value sub" id="riskMarket"
-                            style="color: white; font-size: 1.1rem; margin-top: 5px;">---</div>
-                    </div>
-                    <div class="card"
-                        style="border-left: 4px solid rgba(255,255,255,0.2); background: rgba(255,255,255, 0.02);">
-                        <h3 style="color: var(--text-muted);">Budget</h3>
-                        <div class="value sub" id="riskBudget"
-                            style="color: white; font-size: 1.1rem; margin-top: 5px;">---</div>
-                    </div>
-                    <div class="card"
-                        style="border-left: 4px solid rgba(255,255,255,0.2); background: rgba(255,255,255, 0.02);">
-                        <h3 style="color: var(--text-muted);">Genre</h3>
-                        <div class="value sub" id="riskGenre" style="color: white; font-size: 1.1rem; margin-top: 5px;">
-                            ---</div>
-                    </div>
-                    <div class="card"
-                        style="border-left: 4px solid rgba(255,255,255,0.2); background: rgba(255,255,255, 0.02);">
-                        <h3 style="color: var(--text-muted);">Buzz</h3>
-                        <div class="value sub" id="riskBuzz" style="color: white; font-size: 1.1rem; margin-top: 5px;">
-                            ---</div>
-                    </div>
-                    <div class="card" id="riskCardFranchise"
-                        style="border-left: 4px solid rgba(255,255,255,0.2); background: rgba(255,255,255, 0.02); display: none;">
-                        <h3 style="color: var(--text-muted);">Franchise</h3>
-                        <div class="value sub" id="riskFranchise"
-                            style="color: white; font-size: 1.1rem; margin-top: 5px;">
-                            ---</div>
+                        <h3 style="color: #f39c12;">Predicted Sales</h3>
+                        <div class="value" id="predSales">--- units</div>
                     </div>
                 </div>
 
-                <h3 style="margin-top:20px; font-size:1.1rem; opacity:0.8;">Greenlight Score</h3>
-                <div class="card" id="greenlightCard"
-                    style="margin-top: 15px; border-left: 4px solid #f39c12; background: rgba(243, 156, 18, 0.05); text-align: center; padding: 30px;">
-                    <h3 style="color: var(--text-muted); font-size: 1rem; margin-bottom: 10px;">Final Investment
-                        Recommendation</h3>
-                    <div class="value" id="greenlightScoreText"
-                        style="color: white; font-size: 3.5rem; font-weight: 800; text-shadow: 0 0 10px rgba(255,255,255,0.2);">
-                        ---<span style="font-size: 1.5rem; opacity: 0.5;">/10</span></div>
-                    <div id="greenlightRecText"
-                        style="color: #f39c12; font-size: 1.5rem; margin-top: 15px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">
-                        ---</div>
+                <!-- Graphs Grid -->
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Sales Evolution (Simulated)</h3>
+                            <span class="info-tag">5-Year Trend</span>
+                        </div>
+                        <canvas id="salesChart"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Break-even Analysis (Profit / Sales)</h3>
+                            <span class="info-tag">ROI Threshold</span>
+                        </div>
+                        <canvas id="profitSalesChart"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Dynamic Pricing Simulation</h3>
+                            <span class="info-tag">Price Elasticity</span>
+                        </div>
+                        <canvas id="pricingChart"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Marketing Efficiency Model</h3>
+                            <span class="info-tag">Diminishing Returns</span>
+                        </div>
+                        <canvas id="marketingChart"></canvas>
+                    </div>
                 </div>
 
-                <div class="ai-insight card-glass">
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 20px; margin-top: 30px; border: 1px solid var(--glass-border);">
                     <h3>🤖 AI Context</h3>
                     <p id="aiContext">Run a prediction to see AI analysis of your segment.</p>
                 </div>
@@ -571,24 +196,39 @@
             <div class="loader" id="loader"></div>
         </div>
 
+        <!-- History Modal -->
+        <div id="historyModal" class="modal-overlay" style="display:none;">
+            <div class="modal">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <h2 style="margin:0;">Global Prediction Library</h2>
+                    <button id="closeHistoryBtn" class="btn-secondary" style="padding: 8px 15px; background: rgba(255,255,255,0.1); border:none; border-radius:8px;">Close</button>
+                </div>
+                <!-- Mini Badge Search Info -->
+                <div style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                    <div style="background: rgba(0, 210, 255, 0.1); color: #00d2ff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Stored in Cloud</div>
+                </div>
+                <div id="historyListContainer">
+                    <p style="text-align: center; padding: 40px; color: var(--text-muted);">Loading your database records...</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Feedback Modal -->
         <div id="feedbackModal" class="modal-overlay" style="display:none;">
-            <div class="modal-container">
-                <div class="modal-content card-glass">
+            <div class="modal">
+                <div class="modal-content">
                     <h3>Submit Feedback / Report</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
-                        Help us improve our AI. Your current prediction data and results will be sent to the team.
-                    </p>
+                    <p style="opacity: 0.7; font-size: 0.9rem; margin-bottom: 20px;">Your feedback helps us improve the prediction accuracy.</p>
+                    
                     <form id="feedbackForm">
                         <div class="form-group">
-                            <label>Your Comment</label>
-                            <textarea id="feedbackComment" class="input-glass"
-                                style="width: 100%; height: 100px; padding: 10px; margin-bottom: 20px; font-family: inherit; color: white;"
-                                placeholder="What do you think of this prediction? Any discrepancies?"
-                                required></textarea>
+                            <label>Context / Message</label>
+                            <textarea id="feedbackComment" class="input-glass" 
+                                      style="width: 100%; min-height: 120px; padding: 15px; margin-top: 10px;"
+                                      placeholder="Describe the issue or suggestion..."></textarea>
                         </div>
-                        <div style="display: flex; gap: 10px;">
-                            <button type="submit" class="btn-primary">🚀 Send Report</button>
+                        <div style="display: flex; gap: 10px; margin-top: 20px;">
+                            <button type="submit" class="btn-primary" style="flex:1;">Send Feedback</button>
                             <button type="button" id="closeFeedbackBtn" class="btn-secondary">Cancel</button>
                         </div>
                     </form>
@@ -596,158 +236,132 @@
                 </div>
             </div>
         </div>
-
-        <!-- Comparable Curve Modal -->
-        <div id="comparableModal" class="modal-overlay" style="display:none;">
-            <div class="modal-container" style="max-width: 700px;">
-                <div class="modal-content card-glass">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h3 id="compModalTitle">Historical Sales Curve</h3>
-                        <button type="button" id="closeCompModalBtn"
-                            style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button>
-                    </div>
-                    <div class="chart-container" style="height: 300px; margin-bottom: 0;">
-                        <canvas id="compSalesChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <!-- History Modal -->
-    <div id="historyModal" class="modal" style="display:none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center;">
-        <div class="modal-content card-glass" style="width: 90%; max-width: 1000px; max-height: 85vh; overflow-y: auto; padding: 40px; border: 1px solid var(--glass-border); border-radius: 20px; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
-            <span class="close-btn" id="closeHistory" style="position: absolute; right: 25px; top: 20px; font-size: 30px; color: var(--text-muted); cursor: pointer; transition: color 0.3s ease;">&times;</span>
-            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px;">
-                <h2 style="margin: 0; color: var(--primary); font-size: 1.8rem;">📜 Prediction History</h2>
-                <div style="background: rgba(0, 210, 255, 0.1); color: #00d2ff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Stored in Cloud</div>
-            </div>
-            <div id="historyListContainer">
-                <p style="text-align: center; padding: 40px; color: var(--text-muted);">Loading your database records...</p>
-            </div>
-        </div>
-    </div>
+    <!-- ============================================== -->
+    <!-- PREMIUM MARKETING BROCHURE TEMPLATE (v73)      -->
+    <!-- ============================================== -->
+    <div id="pdfTemplate" style="position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; width: 100%; min-height: 100vh; padding: 0; background: #0b0e14; color: #fff; font-family: 'Outfit', sans-serif; z-index: -1;">
+        
+        <!-- Page 1: Executive Summary -->
+        <div style="padding: 50px; position: relative; overflow: hidden; min-height: 100vh; border-bottom: 2px solid rgba(0,210,255,0.1);">
+            <!-- Decorative Glow Backgrounds -->
+            <div style="position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,210,255,0.15) 0%, transparent 70%);"></div>
+            <div style="position: absolute; bottom: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,255,136,0.1) 0%, transparent 70%);"></div>
 
-    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v54</div>
-    
-    <div id="pdfTemplate" style="position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; width: 100%; padding: 40px; background: #0b0e14; color: #fff; font-family: 'Outfit', sans-serif; z-index: -1;">
-        <div style="padding: 30px; border-radius: 15px; background: #0b0e14;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
+            <!-- Header -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 80px; position: relative;">
                 <div>
-                    <h1 style="margin: 0; color: #00d2ff; font-size: 2.5rem; font-weight: 800; letter-spacing: 2px;">GAME<span style="color:#fff">PREDICT.AI</span></h1>
-                    <p style="margin: 5px 0 0 0; opacity: 0.6; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;">Strategic Marketing Brochure</p>
+                    <h1 style="margin: 0; color: #00d2ff; font-size: 2.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase;">GAME<span style="color:#fff">PREDICT.AI</span></h1>
+                    <div style="height: 4px; width: 60px; background: #00ff88; margin-top: 10px; border-radius: 2px;"></div>
                 </div>
                 <div style="text-align: right;">
-                    <div id="pdfDate" style="font-size: 0.9rem; opacity: 0.5;">DATE: --/--/----</div>
-                    <div style="font-size: 0.9rem; color: #00ff88; font-weight: 800; margin-top: 5px; border: 1px solid #00ff88; padding: 4px 12px; border-radius: 4px;">OFFICIAL PROJECTION</div>
+                    <div id="pdfDate" style="font-size: 0.85rem; opacity: 0.5; font-weight: 300; letter-spacing: 1px;">DATE: --/--/----</div>
+                    <div style="margin-top: 15px; background: rgba(0,255,136,0.1); border: 1px solid #00ff88; color: #00ff88; padding: 6px 15px; border-radius: 5px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">Strategic Intelligence Report</div>
                 </div>
             </div>
 
-            <div style="margin-bottom: 50px; text-align: center;">
-                <div style="font-size: 0.9rem; color: #00d2ff; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 3px;">Project Identity</div>
-                <h2 id="pdfGameName" style="font-size: 3.5rem; margin: 0; color: #fff; text-transform: uppercase; letter-spacing: -1px; font-weight: 900;">GAME TITLE</h2>
-                <p id="pdfGenrePlatform" style="font-size: 1.3rem; color: #00d2ff; font-weight: 600; margin: 10px 0; opacity: 0.8;">GENRE | PLATFORM</p>
+            <!-- Hero Title -->
+            <div style="text-align: center; margin-bottom: 100px; position: relative;">
+                <div style="display: inline-block; padding: 10px 25px; background: rgba(0,210,255,0.05); border-radius: 50px; color: #00d2ff; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 25px;">Project Identity</div>
+                <h2 id="pdfGameName" style="font-size: 5rem; line-height: 1; margin: 0; font-weight: 900; background: linear-gradient(to bottom, #ffffff 30%, #a0a0a0 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -2px; text-transform: uppercase;">STORM GATE</h2>
+                <div id="pdfGenrePlatform" style="font-size: 1.4rem; color: #00d2ff; font-weight: 500; margin-top: 20px; opacity: 0.9; letter-spacing: 2px;">ACTION RPG | STEAM & CONSOLE</div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px;">
-                <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border-left: 5px solid #00d2ff;">
-                    <h3 style="margin-top: 0; font-size: 1rem; text-transform: uppercase; color: #00d2ff; letter-spacing: 1px; margin-bottom: 25px;">Financial Performance</h3>
-                    <div style="margin: 20px 0;">
-                        <span style="display: block; font-size: 0.9rem; opacity: 0.6; margin-bottom: 5px;">EST. TOTAL REVENUE</span>
-                        <span id="pdfMaxRev" style="font-size: 2.2rem; font-weight: 900; color: #fff;">$0</span>
+            <!-- High Level Metrics Cards -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin-bottom: 60px;">
+                <!-- Card 1 -->
+                <div style="background: linear-gradient(135deg, #161b22 0%, #0d1117 100%); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 40px rgba(0,0,0,0.3); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top:0; left:0; width: 100%; height: 4px; background: #00d2ff;"></div>
+                    <div style="font-size: 1rem; color: #00d2ff; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;">Financial Forecast</div>
+                    <div style="margin-bottom: 25px;">
+                        <div style="font-size: 0.8rem; opacity: 0.4; letter-spacing: 1px; margin-bottom: 8px;">EST. TOTAL REVENUE</div>
+                        <div id="pdfMaxRev" style="font-size: 2.8rem; font-weight: 900;">$0</div>
                     </div>
-                    <div style="margin: 20px 0;">
-                        <span style="display: block; font-size: 0.9rem; opacity: 0.6; margin-bottom: 5px;">EST. NET PROFIT</span>
-                        <span id="pdfMaxProfit" style="font-size: 2.2rem; font-weight: 900; color: #00ff88;">$0</span>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.4; letter-spacing: 1px; margin-bottom: 8px;">EST. NET PROFIT</div>
+                        <div id="pdfMaxProfit" style="font-size: 2.8rem; font-weight: 900; color: #00ff88;">$0</div>
                     </div>
                 </div>
-                
-                <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border-left: 5px solid #00ff88;">
-                    <h3 style="margin-top: 0; font-size: 1rem; text-transform: uppercase; color: #00ff88; letter-spacing: 1px; margin-bottom: 25px;">Market Metrics</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div>
-                            <span style="display: block; font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px;">EST. COPIES</span>
-                            <span id="pdfSales" style="font-size: 1.6rem; font-weight: 900; color: #fff;">0</span>
-                        </div>
-                        <div>
-                            <span style="display: block; font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px;">BUZZ SCORE</span>
-                            <span id="pdfScore" style="font-size: 1.6rem; font-weight: 900; color: #00ff88;">0/10</span>
-                        </div>
-                        <div>
-                            <span style="display: block; font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px;">EST. BUDGET</span>
-                            <span id="pdfBudget" style="font-size: 1.6rem; font-weight: 900; color: #fff;">$0</span>
-                        </div>
-                        <div>
-                            <span style="display: block; font-size: 0.8rem; opacity: 0.6; margin-bottom: 5px;">WISHLISTS</span>
-                            <span id="pdfWishlists" style="font-size: 1.6rem; font-weight: 900; color: #00ff88;">0</span>
-                        </div>
+                <!-- Card 2 -->
+                <div style="background: linear-gradient(135deg, #161b22 0%, #0d1117 100%); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 40px rgba(0,0,0,0.3); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top:0; left:0; width: 100%; height: 4px; background: #00ff88;"></div>
+                    <div style="font-size: 1rem; color: #00ff88; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;">Market Traction</div>
+                    <div style="margin-bottom: 25px;">
+                        <div style="font-size: 0.8rem; opacity: 0.4; letter-spacing: 1px; margin-bottom: 8px;">EST. COPIES SOLD</div>
+                        <div id="pdfSales" style="font-size: 2.8rem; font-weight: 900;">0</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.4; letter-spacing: 1px; margin-bottom: 8px;">BUZZ QUALITY SCORE</div>
+                        <div id="pdfScore" style="font-size: 2.8rem; font-weight: 900; color: #00ff88;">0/10</div>
                     </div>
                 </div>
             </div>
 
-            <div style="background: rgba(0,210,255,0.08); padding: 35px; border-radius: 15px; margin-bottom: 40px;">
-                <h3 style="margin-top: 0; font-size: 1rem; text-transform: uppercase; color: #00d2ff; letter-spacing: 1px; margin-bottom: 15px;">AI Strategic Insight</h3>
-                <div id="pdfInsight" style="font-size: 1.1rem; line-height: 1.7; color: rgba(255,255,255,0.9); font-style: italic;">Detailed analytical insight generated by GamePredict.ai will be displayed here.</div>
+            <!-- Insight Box -->
+            <div style="background: rgba(0,210,255,0.05); border: 1px solid rgba(0,210,255,0.2); padding: 45px; border-radius: 25px; position: relative;">
+                <div style="position: absolute; top: -15px; left: 40px; background: #00d2ff; color: #000; padding: 4px 18px; border-radius: 5px; font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;">AI Strategic Insight</div>
+                <div id="pdfInsight" style="font-size: 1.2rem; line-height: 1.8; color: #fff; opacity: 0.9; font-style: italic; font-weight: 300;">Analytical insight loading...</div>
             </div>
 
-            <!-- Graphs Section (Page 2 usually) -->
-            <div style="page-break-before: always; padding-top: 40px;">
-                <h2 style="color: #00d2ff; border-bottom: 1px solid rgba(0,210,255,0.3); padding-bottom: 15px; margin-bottom: 30px;">Strategic Data Visualizations</h2>
-                
-                <!-- Full Width Chart 1: Sales -->
-                <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
-                    <h4 style="margin-top: 0; font-size: 1rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 2px;">Sales Evolution & Yearly Forecast</h4>
-                    <img id="pdfSalesChart" style="width: 100%; max-height: 400px; object-fit: contain; margin: 20px 0;">
-                    
-                    <!-- Table integrated right under the chart as requested -->
-                    <div id="pdfSalesTableContainer" style="width: 100%; margin-top: 20px;"></div>
+            <!-- Page 1 Footer Overlay -->
+            <div style="position: absolute; bottom: 40px; left: 50px; right: 50px; display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px;">
+                <div style="display: flex; gap: 40px;">
+                    <div><span style="opacity: 0.3; font-size: 0.6rem; text-transform: uppercase; display: block; margin-bottom: 5px;">Production Budget</span> <b id="pdfFooterBudget" style="font-size: 0.9rem;">$0</b></div>
+                    <div><span style="opacity: 0.3; font-size: 0.6rem; text-transform: uppercase; display: block; margin-bottom: 5px;">Captured Wishlists</span> <b id="pdfFooterWishlists" style="font-size: 0.9rem;">0</b></div>
                 </div>
-
-                <!-- Full Width Chart 2: Break Even -->
-                <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 30px; page-break-inside: avoid;">
-                    <h4 style="margin-top: 0; font-size: 1rem; color: #00ff88; text-transform: uppercase; letter-spacing: 2px;">Break-even Analysis</h4>
-                    <img id="pdfBreakEvenChart" style="width: 100%; max-height: 400px; object-fit: contain; margin-top: 20px;">
-                </div>
-
-                <!-- Full Width Chart 3: Pricing -->
-                <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 30px; page-break-inside: avoid;">
-                    <h4 style="margin-top: 0; font-size: 1rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 2px;">Pricing Simulation</h4>
-                    <img id="pdfPricingChart" style="width: 100%; max-height: 400px; object-fit: contain; margin-top: 20px;">
-                </div>
-
-                <!-- Marketing Efficiency (Table Only) -->
-                <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 30px; page-break-inside: avoid;">
-                    <h4 style="margin-top: 0; font-size: 1rem; color: #00ff88; text-transform: uppercase; letter-spacing: 2px;">Marketing Efficiency Model</h4>
-                    <div id="pdfMarketingTableContainer" style="width: 100%; margin-top: 20px;"></div>
+                <div style="text-align: right;">
+                    <span style="opacity: 0.3; font-size: 0.6rem; text-transform: uppercase; display: block; margin-bottom: 5px;">Verification ID</span>
+                    <span style="color: #00d2ff; font-weight: 800; font-size: 0.8rem;">GP-STRAT-2026-X</span>
                 </div>
             </div>
+        </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; text-align: center; opacity: 0.7;">
-                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px;">
-                    <small style="display:block; font-size: 0.7rem; opacity: 0.6;">BUDGET</small>
-                    <b id="pdfFooterBudget">$0</b>
+        <!-- Page 2: Strategic Charts -->
+        <div style="padding: 60px; min-height: 100vh; page-break-before: always; background: #0b0e14;">
+            <div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; margin-bottom: 40px;">
+                <h2 style="font-size: 2rem; color: #fff; font-weight: 800; margin: 0; letter-spacing: -0.5px;">Advanced Analytics <span style="color: #00d2ff;">& Forecasts</span></h2>
+            </div>
+            
+            <!-- Full Width Chart 1: Sales -->
+            <div style="background: #161b22; padding: 35px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 40px;">
+                <h4 style="margin: 0 0 25px 0; font-size: 1rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 2px;">Sales Evolution & Yearly Milestone Forecast</h4>
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 15px;">
+                    <img id="pdfSalesChart" style="width: 100%; max-height: 380px; object-fit: contain;">
                 </div>
-                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px;">
-                    <small style="display:block; font-size: 0.7rem; opacity: 0.6;">WISHLISTS</small>
-                    <b id="pdfFooterWishlists">0</b>
+                <div id="pdfSalesTableContainer" style="width: 100%; margin-top: 35px;"></div>
+            </div>
+
+            <!-- Mid Page Grid -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+                <div style="background: #161b22; padding: 35px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05);">
+                    <h4 style="margin: 0 0 25px 0; font-size: 1rem; color: #00ff88; text-transform: uppercase; letter-spacing: 2px;">Break-even Analysis</h4>
+                    <img id="pdfBreakEvenChart" style="width: 100%; height: auto; border-radius: 10px;">
                 </div>
-                <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px;">
-                    <small style="display:block; font-size: 0.7rem; opacity: 0.6;">CONFIDENCE</small>
-                    <b id="pdfFooterConfidence">HIGH</b>
+                <div style="background: #161b22; padding: 35px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05);">
+                    <h4 style="margin: 0 0 25px 0; font-size: 1rem; color: #00d2ff; text-transform: uppercase; letter-spacing: 2px;">Pricing Elasticity Model</h4>
+                    <img id="pdfPricingChart" style="width: 100%; height: auto; border-radius: 10px;">
                 </div>
             </div>
 
-            <div style="margin-top: 60px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px;">
+            <!-- Marketing Table Section -->
+            <div style="background: #161b22; padding: 35px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h4 style="margin: 0; font-size: 1rem; color: #00ff88; text-transform: uppercase; letter-spacing: 2px;">Marketing Efficiency Matrix</h4>
+                    <span style="background: rgba(0,255,136,0.1); color: #00ff88; padding: 4px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 800;">ROI SIMULATION</span>
+                </div>
+                <div id="pdfMarketingTableContainer" style="width: 100%;"></div>
+            </div>
+            
+            <div style="margin-top: 60px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 40px;">
                 <p style="font-size: 0.8rem; opacity: 0.5; letter-spacing: 2px; margin: 0;">REPORT SECURED AND VERIFIED BY GAMEPREDICT.AI TECHNOLOGY</p>
-                <p style="font-size: 0.7rem; opacity: 0.3; margin-top: 5px;">© 2026 GAMEPREDICT.AI ALL RIGHTS RESERVED.</p>
+                <p style="font-size: 0.7rem; opacity: 0.2; margin-top: 10px;">PROPRIETARY 2026 GAMEPREDICT.AI ALL RIGHTS RESERVED.</p>
             </div>
         </div>
     </div>
 
-    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v72</div>
-    <script src="script.js?v=72"></script>
+    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v73</div>
+    <script src="script.js?v=73"></script>
 </body>
 
 </html>
