@@ -897,12 +897,12 @@ class GameRevenuePredictor:
         # Determine year-end milestones and annual financials
         year_milestones = []
         evolution_revenue = []
-        evolution_profit = []
+        evolution_profit = [] # Cumulative
+        evolution_profit_annual = [] # Non-cumulative
         running_total_sales = 0
         running_total_revenue = 0
         
         # Determine DLC revenue share factor if any
-        # total_dlc_net_revenue was calculated earlier
         dlc_share_per_unit = (total_dlc_net_revenue / final_sales_display) if final_sales_display > 0 else 0
         
         for i_y, y_sales in enumerate(evolution_sales):
@@ -914,10 +914,11 @@ class GameRevenuePredictor:
             total_y_net_rev = y_rev + y_dlc_rev
             
             evolution_revenue.append(total_y_net_rev)
+            evolution_profit_annual.append(total_y_net_rev) # Operating profit for that year
             
             running_total_revenue += total_y_net_rev
             
-            # CUMULATIVE PROFIT (The formula the user wants: Total Revenue to date - Total Budget)
+            # CUMULATIVE PROFIT (Revenue to date - Total Budget)
             cum_profit_at_year = running_total_revenue - budget
             evolution_profit.append(float(cum_profit_at_year))
             
@@ -1122,6 +1123,7 @@ class GameRevenuePredictor:
             "evolution_sales": evolution_sales,
             "evolution_revenue": evolution_revenue,
             "evolution_profit": evolution_profit,
+            "evolution_profit_annual": evolution_profit_annual,
             "breakeven_sales_steps": sales_steps.tolist(),
             "breakeven_profits": cumulative_profits,
             "year_milestones": year_milestones,

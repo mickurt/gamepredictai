@@ -885,7 +885,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             data.evolution_years.forEach((year, i) => {
                 const sales = data.evolution_sales[i] || 0;
                 const revenue = data.evolution_revenue[i] || 0;
-                const profit = data.evolution_profit[i] || 0;
+                const annualProfit = data.evolution_profit_annual ? data.evolution_profit_annual[i] : (data.evolution_revenue[i] || 0);
+                const cumProfit = data.evolution_profit[i] || 0;
                 
                 const row = document.createElement('tr');
                 row.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
@@ -894,9 +895,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <td style="font-weight:600; color:var(--primary); padding: 12px;">${year}</td>
                     <td style="padding: 12px; font-weight: 500;">${sales.toLocaleString()} <span style="font-size:0.7rem; opacity:0.5;">units</span></td>
                     <td style="padding: 12px; color:#00d2ff; font-weight:600;">$${Math.round(revenue).toLocaleString()}</td>
-                    <td style="padding: 12px; color:${profit >= 0 ? '#00ff88' : '#ff4444'}; font-weight:700;">
-                        $${Math.round(profit).toLocaleString()}
-                        ${profit < 0 ? '<span style="font-size:0.7rem; font-weight:400; display:block; opacity:0.6;">(Investment Phase)</span>' : ''}
+                    <td style="padding: 12px; color:#9b59b6; font-weight:600;">$${Math.round(annualProfit).toLocaleString()}</td>
+                    <td style="padding: 12px; color:${cumProfit >= 0 ? '#00ff88' : '#ff4444'}; font-weight:700;">
+                        $${Math.round(cumProfit).toLocaleString()}
+                        ${cumProfit < 0 ? '<span style="font-size:0.7rem; font-weight:400; display:block; opacity:0.6;">(Investment Phase)</span>' : ''}
                     </td>
                 `;
                 tableBody.appendChild(row);
