@@ -1530,7 +1530,42 @@ document.addEventListener('DOMContentLoaded', async () => {
             captureChart('salesChart', 'pdfSalesChart');
             captureChart('profitSalesChart', 'pdfBreakEvenChart');
             captureChart('pricingChart', 'pdfPricingChart');
-            captureChart('marketingChart', 'pdfMarketingChart');
+            // Marketing Chart capture removed (user requested table only)
+
+            // --- GENERATE MARKETING TABLE FOR PDF ---
+            const mktContainer = document.getElementById('pdfMarketingTableContainer');
+            if (mktContainer && data.marketing_budgets) {
+                let mktHtml = `
+                    <table style="width: 100%; border-collapse: collapse; color: #fff; font-size: 0.85rem; background: rgba(255,255,255,0.03); border-radius: 10px;">
+                        <thead>
+                            <tr style="background: rgba(0,255,136,0.1); text-align: left;">
+                                <th style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">BUDGET ALLOCATION</th>
+                                <th style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">EXPECTED ROI (%)</th>
+                                <th style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">EFFICIENCY LEVEL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                data.marketing_budgets.forEach((budget, index) => {
+                    const roi = data.marketing_rois[index];
+                    let level = "Optimal";
+                    let color = "#00ff88";
+                    if (roi < 150) { level = "Diminishing"; color = "#ff4444"; }
+                    else if (roi < 250) { level = "Moderate"; color = "#f39c12"; }
+
+                    mktHtml += `
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 10px; font-weight: 600;">$${Math.floor(budget).toLocaleString()}</td>
+                            <td style="padding: 10px;">${roi.toFixed(1)}%</td>
+                            <td style="padding: 10px; color: ${color}; font-weight: 800;">${level}</td>
+                        </tr>
+                    `;
+                });
+
+                mktHtml += `</tbody></table>`;
+                mktContainer.innerHTML = mktHtml;
+            }
 
             // --- GENERATE TABLE FOR PDF ---
             const tableContainer = document.getElementById('pdfSalesTableContainer');
@@ -1580,5 +1615,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v68 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v70 active");
 });

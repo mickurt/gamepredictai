@@ -363,14 +363,8 @@
                 </div>
             </form>
         </div>
-
         <!-- Main Content / Results -->
         <div class="main-content" style="position: relative;">
-            <button id="exportPdfBtn" class="btn-primary" 
-                    onclick="exportMarketingBrochure()"
-                    style="display:none; position: absolute; top: 20px; right: 30px; padding: 12px 24px; font-size: 0.95rem; background: linear-gradient(135deg, #00d2ff 0%, #0078ff 100%); color: #fff; border: 3px solid #00ff88; font-weight: 800; border-radius: 10px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 20px rgba(0, 210, 255, 0.5); z-index: 99999; pointer-events: auto !important;">
-                📄 EXPORT PDF BROCHURE <span id="pdfStatus"></span>
-            </button>
             <div id="resultsArea" style="opacity: 0.5; pointer-events: none; transition: all 0.5s ease; position: relative;">
                 <div class="header-result" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
                     <h2 style="margin: 0;">Strategic Report</h2>
@@ -561,9 +555,15 @@
                     <p id="aiContext">Run a prediction to see AI analysis of your segment.</p>
                 </div>
 
-                <div style="margin-top: 20px; text-align: center;">
+                <div style="margin-top: 40px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px;">
+                    <button id="exportPdfBtn" class="btn-primary" 
+                            onclick="exportMarketingBrochure()"
+                            style="display:none; margin-bottom: 20px; padding: 14px 30px; font-size: 1rem; background: linear-gradient(135deg, #00d2ff 0%, #0078ff 100%); color: #fff; border: 2px solid #00ff88; font-weight: 800; border-radius: 12px; cursor: pointer; text-transform: uppercase;">
+                        📄 EXPORT MARKETING BROCHURE (PDF) <span id="pdfStatus"></span>
+                    </button>
+                    <br>
                     <button id="feedbackBtn" class="btn-secondary"
-                        style="padding: 10px 20px; font-size: 0.9rem; max-width: 250px; display: inline-block;">💬
+                        style="padding: 10px 20px; font-size: 0.9rem; max-width: 250px; display: inline-block; opacity: 0.6;">💬
                         Report Feedback / Issue</button>
                 </div>
             </div>
@@ -717,10 +717,10 @@
                     <img id="pdfPricingChart" style="width: 100%; max-height: 400px; object-fit: contain; margin-top: 20px;">
                 </div>
 
-                <!-- Full Width Chart 4: Marketing -->
+                <!-- Marketing Efficiency (Table Only) -->
                 <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 30px; page-break-inside: avoid;">
                     <h4 style="margin-top: 0; font-size: 1rem; color: #00ff88; text-transform: uppercase; letter-spacing: 2px;">Marketing Efficiency Model</h4>
-                    <img id="pdfMarketingChart" style="width: 100%; max-height: 400px; object-fit: contain; margin-top: 20px;">
+                    <div id="pdfMarketingTableContainer" style="width: 100%; margin-top: 20px;"></div>
                 </div>
             </div>
 
@@ -746,8 +746,8 @@
         </div>
     </div>
 
-    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v68</div>
-    <script src="script.js?v=68"></script>
+    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v70</div>
+    <script src="script.js?v=70"></script>
 </body>
 
 </html>
