@@ -836,6 +836,7 @@ class GameRevenuePredictor:
             print(f"🔒 Fixed Price Override: ${best_price} -> Profit: ${int(max_profit)} Sales: {int(final_sales_display)}")
 
         # --- DLC REVENUE CALCULATION ---
+        total_dlc_net_revenue = 0
         if num_dlcs and num_dlcs > 0 and dlc_price > 0:
             # Dynamic Attachment Rate based on Quality/Sentiment
             # If game is bad, nobody buys DLC. If game is masterpiece, 20%+ buy.
