@@ -510,7 +510,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert("Prediction Error:\n" + error.message);
         } finally {
             resultsArea.style.opacity = '1';
-            resultsArea.style.pointerEvents = 'all';
+            resultsArea.style.pointerEvents = 'auto';
             loader.style.display = 'none';
         }
     });
@@ -1518,5 +1518,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v57 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v58 active");
 });
