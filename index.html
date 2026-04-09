@@ -345,12 +345,13 @@
         </div>
 
         <!-- Main Content / Results -->
-        <div class="main-content">
+        <div class="main-content" style="position: relative;">
+            <button id="exportPdfBtn" class="btn-primary" 
+                    onclick="console.log('HTML Onclick triggered')"
+                    style="display:none; position: absolute; top: 20px; right: 30px; padding: 12px 24px; font-size: 0.9rem; background: linear-gradient(135deg, #00d2ff 0%, #0078ff 100%); color: #fff; border: none; font-weight: 800; border-radius: 10px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 20px rgba(0, 210, 255, 0.5); z-index: 9999; pointer-events: auto !important;">
+                📄 EXPORT PDF BROCHURE
+            </button>
             <div id="resultsArea" style="opacity: 0.5; pointer-events: none; transition: all 0.5s ease; position: relative;">
-                <button id="exportPdfBtn" class="btn-primary" 
-                        style="display:none; position: absolute; top: -45px; right: 0; padding: 10px 20px; font-size: 0.85rem; background: linear-gradient(135deg, #00d2ff 0%, #0078ff 100%); color: #fff; border: none; font-weight: 800; border-radius: 8px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4); z-index: 100;">
-                    📄 EXPORT PDF BROCHURE
-                </button>
                 <div class="header-result" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
                     <h2 style="margin: 0;">Strategic Report</h2>
                     <div id="sentimentResult" class="badge"
@@ -683,8 +684,8 @@
         </div>
     </div>
 
-    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v58</div>
-    <script src="script.js?v=58"></script>
+    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v59</div>
+    <script src="script.js?v=59"></script>
 </body>
 
 </html>
