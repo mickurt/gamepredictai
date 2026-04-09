@@ -347,7 +347,7 @@
         <!-- Main Content / Results -->
         <div class="main-content" style="position: relative;">
             <button id="exportPdfBtn" class="btn-primary" 
-                    style="display:none; position: absolute; top: 20px; right: 30px; padding: 12px 24px; font-size: 0.95rem; background: linear-gradient(135deg, #00d2ff 0%, #0078ff 100%); color: #fff; border: 3px solid #ff4444; font-weight: 800; border-radius: 10px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 20px rgba(0, 210, 255, 0.5); z-index: 99999; pointer-events: auto !important;">
+                    style="display:none; position: absolute; top: 20px; right: 30px; padding: 12px 24px; font-size: 0.95rem; background: linear-gradient(135deg, #00d2ff 0%, #0078ff 100%); color: #fff; border: none; font-weight: 800; border-radius: 10px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 20px rgba(0, 210, 255, 0.5); z-index: 99999; pointer-events: auto !important;">
                 📄 EXPORT PDF BROCHURE <span id="pdfStatus"></span>
             </button>
             <div id="resultsArea" style="opacity: 0.5; pointer-events: none; transition: all 0.5s ease; position: relative;">
@@ -611,8 +611,8 @@
 
     <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v54</div>
     
-    <div id="pdfTemplate" style="position: absolute; left: -9999px; top: 0; width: 850px; padding: 50px; background: #0b0e14; color: #fff; font-family: 'Outfit', sans-serif;">
-        <div style="border: 2px solid #00d2ff; padding: 40px; border-radius: 20px; position: relative; overflow: hidden; background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%);">
+    <div id="pdfTemplate" style="position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; width: 800px; padding: 40px; background: #0b0e14; color: #fff; font-family: 'Outfit', sans-serif; z-index: -1;">
+        <div style="border: 2px solid #00d2ff; padding: 30px; border-radius: 15px; background: #0b0e14;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
                 <div>
                     <h1 style="margin: 0; color: #00d2ff; font-size: 2.5rem; font-weight: 800; letter-spacing: 2px;">GAME<span style="color:#fff">PREDICT.AI</span></h1>
@@ -683,8 +683,8 @@
         </div>
     </div>
 
-    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v60</div>
-    <script src="script.js?v=60"></script>
+    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v61</div>
+    <script src="script.js?v=61"></script>
 </body>
 
 </html>
