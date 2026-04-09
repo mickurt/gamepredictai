@@ -1515,6 +1515,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             safeSet('pdfBudget', "$" + parseInt(document.getElementById('budget').value || 0).toLocaleString());
             safeSet('pdfWishlists', parseInt(data.wishlists || 0).toLocaleString());
+            
+            // Populate Footer duplicates
+            safeSet('pdfFooterBudget', "$" + parseInt(document.getElementById('budget').value || 0).toLocaleString());
+            safeSet('pdfFooterWishlists', parseInt(data.wishlists || 0).toLocaleString());
+            
             safeSetHTML('pdfInsight', data.context_review || "AI analysis completed.");
 
             // --- CAPTURE CHARTS AS IMAGES ---
@@ -1534,7 +1539,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // --- GENERATE MARKETING TABLE FOR PDF ---
             const mktContainer = document.getElementById('pdfMarketingTableContainer');
-            if (mktContainer && data.marketing_budgets) {
+            if (mktContainer && data.marketing_budgets && Array.isArray(data.marketing_budgets)) {
+                console.log("Generating Marketing Table...");
                 let mktHtml = `
                     <table style="width: 100%; border-collapse: collapse; color: #fff; font-size: 0.85rem; background: rgba(255,255,255,0.03); border-radius: 10px;">
                         <thead>
@@ -1548,7 +1554,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `;
 
                 data.marketing_budgets.forEach((budget, index) => {
-                    const roi = data.marketing_rois[index];
+                    const roi = (data.marketing_rois && data.marketing_rois[index]) ? data.marketing_rois[index] : 0;
                     let level = "Optimal";
                     let color = "#00ff88";
                     if (roi < 150) { level = "Diminishing"; color = "#ff4444"; }
@@ -1557,7 +1563,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     mktHtml += `
                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
                             <td style="padding: 10px; font-weight: 600;">$${Math.floor(budget).toLocaleString()}</td>
-                            <td style="padding: 10px;">${roi.toFixed(1)}%</td>
+                            <td style="padding: 10px;">${parseFloat(roi).toFixed(1)}%</td>
                             <td style="padding: 10px; color: ${color}; font-weight: 800;">${level}</td>
                         </tr>
                     `;
@@ -1565,6 +1571,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 mktHtml += `</tbody></table>`;
                 mktContainer.innerHTML = mktHtml;
+            } else {
+                console.warn("Marketing data missing or invalid:", data.marketing_budgets);
+                if (mktContainer) mktContainer.innerHTML = "<p style='color: #ff4444;'>Detailed Marketing data currently unavailable for this projection.</p>";
             }
 
             // --- GENERATE TABLE FOR PDF ---
@@ -1615,5 +1624,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v70 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v71 active");
 });
