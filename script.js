@@ -1513,6 +1513,52 @@ document.addEventListener('DOMContentLoaded', async () => {
             safeSet('pdfWishlists', parseInt(data.wishlists || 0).toLocaleString());
             safeSet('pdfInsight', data.context_review || "AI analysis completed.");
 
+            // --- CAPTURE CHARTS AS IMAGES ---
+            const captureChart = (canvasId, imgId) => {
+                const canvas = document.getElementById(canvasId);
+                const img = document.getElementById(imgId);
+                if (canvas && img) {
+                    img.src = canvas.toDataURL("image/png");
+                    img.style.display = "block";
+                }
+            };
+
+            captureChart('salesChart', 'pdfSalesChart');
+            captureChart('profitSalesChart', 'pdfBreakEvenChart');
+            captureChart('pricingChart', 'pdfPricingChart');
+            captureChart('marketingChart', 'pdfMarketingChart');
+
+            // --- GENERATE TABLE FOR PDF ---
+            const tableContainer = document.getElementById('pdfSalesTableContainer');
+            if (tableContainer && data.evolution_revenue_cumulative) {
+                let tableHtml = `
+                    <table style="width: 100%; border-collapse: collapse; color: #fff; font-size: 0.85rem; background: rgba(255,255,255,0.03); border-radius: 10px; overflow: hidden;">
+                        <thead>
+                            <tr style="background: rgba(0,210,255,0.2); text-align: left;">
+                                <th style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">YEAR</th>
+                                <th style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">EST. SALES</th>
+                                <th style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">REVENUES</th>
+                                <th style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">CUMULATIVE REVENUES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                data.evolution_revenue_cumulative.forEach(item => {
+                    tableHtml += `
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 10px;">${item.year}</td>
+                            <td style="padding: 10px;">${Math.floor(item.sales).toLocaleString()}</td>
+                            <td style="padding: 10px;">$${Math.floor(item.revenue).toLocaleString()}</td>
+                            <td style="padding: 10px; font-weight: 700; color: #00d2ff;">$${Math.floor(item.cumulative_revenue).toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+
+                tableHtml += `</tbody></table>`;
+                tableContainer.innerHTML = tableHtml;
+            }
+
             console.log("Template ready. Triggering Print Window...");
             if (statusEl) statusEl.textContent = "(✅ READY)";
             
@@ -1526,5 +1572,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v66 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v67 active");
 });
