@@ -1504,7 +1504,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             safeSet('pdfMaxRev', "$" + Math.floor(data.est_total_revenue || 0).toLocaleString());
             safeSet('pdfMaxProfit', "$" + Math.floor(data.max_profit || 0).toLocaleString());
             safeSet('pdfSales', Math.floor(data.est_total_sales || 0).toLocaleString());
-            safeSet('pdfScore', (data.sentiment_ia_score || "---") + "/10");
+            
+            // Try different keys for Buzz Score
+            const buzzVal = data.sentiment_ia_score || data.buzz_score || data.score || "---";
+            safeSet('pdfScore', buzzVal + "/10");
+            
             safeSet('pdfBudget', "$" + parseInt(document.getElementById('budget').value || 0).toLocaleString());
             safeSet('pdfWishlists', parseInt(data.wishlists || 0).toLocaleString());
             safeSet('pdfInsight', data.context_review || "AI analysis completed.");
@@ -1522,5 +1526,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v65 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v66 active");
 });

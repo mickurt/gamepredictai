@@ -10,13 +10,15 @@
     <link rel="stylesheet" href="style.css?v=45">
     <style>
         @media print {
+            @page { size: portrait; margin: 10mm; }
             body * { visibility: hidden !important; }
             #pdfTemplate, #pdfTemplate * { visibility: visible !important; }
             #pdfTemplate { 
-                position: fixed !important; 
+                position: absolute !important; 
                 left: 0 !important; 
                 top: 0 !important; 
                 width: 100% !important; 
+                height: auto !important;
                 opacity: 1 !important; 
                 z-index: 999999 !important; 
                 display: block !important;
@@ -24,7 +26,6 @@
                 print-color-adjust: exact !important;
                 -webkit-print-color-adjust: exact !important;
             }
-            @page { margin: 0; size: auto; }
         }
     </style>
 </head>
@@ -630,8 +631,8 @@
 
     <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v54</div>
     
-    <div id="pdfTemplate" style="position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; width: 800px; padding: 40px; background: #0b0e14; color: #fff; font-family: 'Outfit', sans-serif; z-index: -1;">
-        <div style="border: 2px solid #00d2ff; padding: 30px; border-radius: 15px; background: #0b0e14;">
+    <div id="pdfTemplate" style="position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; width: 100%; padding: 40px; background: #0b0e14; color: #fff; font-family: 'Outfit', sans-serif; z-index: -1;">
+        <div style="padding: 30px; border-radius: 15px; background: #0b0e14;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
                 <div>
                     <h1 style="margin: 0; color: #00d2ff; font-size: 2.5rem; font-weight: 800; letter-spacing: 2px;">GAME<span style="color:#fff">PREDICT.AI</span></h1>
@@ -712,8 +713,8 @@
         </div>
     </div>
 
-    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v65</div>
-    <script src="script.js?v=65"></script>
+    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v66</div>
+    <script src="script.js?v=66"></script>
 </body>
 
 </html>
