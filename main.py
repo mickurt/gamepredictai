@@ -428,6 +428,18 @@ async def predict(
         from fastapi.responses import JSONResponse
         return JSONResponse(status_code=500, content={"message": str(e)})
 
+@app.get("/api/predictions/{user_id}")
+async def get_user_predictions(user_id: str):
+    if not supabase:
+        return JSONResponse(status_code=503, content={"message": "Database disconnected."})
+    
+    try:
+        # Get last 20 predictions for this user
+        res = supabase.table('predictions').select('*').eq('user_id', user_id).order('created_at', desc=True).limit(50).execute()
+        return res.data
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"message": str(e)})
+
 # Mount Static Files (Frontend)
 # We mount this LAST to avoid conflicts with API routes
 static_dir = os.path.join(os.path.dirname(__file__), "static")

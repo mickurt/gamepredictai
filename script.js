@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (signupForm) {
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('signupEmail').value;
+            const email = document.getElementById('signupEmail').value.toLowerCase().trim();
             const password = document.getElementById('signupPassword').value;
             const organization = document.getElementById('signupOrg').value;
             const msg = document.getElementById('authMessage');
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
+            const email = document.getElementById('loginEmail').value.toLowerCase().trim();
             const password = document.getElementById('loginPassword').value;
             const msg = document.getElementById('authMessage');
             msg.textContent = 'Logging in...';
@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const data = await res.json();
                 if (res.ok) {
                     window.currentUserId = data.user_id;
+                    localStorage.setItem('gamepredict_user_id', data.user_id);
                     document.getElementById('landingPage').style.display = 'none';
                     document.getElementById('dashboardApp').style.display = 'flex';
                 } else {
@@ -124,7 +125,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (lostPasswordForm) {
         lostPasswordForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('lostPasswordEmail').value;
+            const email = document.getElementById('lostPasswordEmail').value.toLowerCase().trim();
             const msg = document.getElementById('authMessage');
             msg.textContent = 'Sending reset link...';
             msg.style.color = '#fff';
@@ -368,7 +369,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const res = await fetch(`${API_BASE}/api/genres`);
         const genres = await res.json();
         genreSelect.innerHTML = '';
-        genres.forEach(g => {
+        Object.keys(genres).forEach(g => {
             const opt = document.createElement('option');
             opt.value = g;
             opt.textContent = g;
@@ -514,36 +515,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     function renderResults(data) {
-        // --- UPDATE PRIMARY CARDS ---
-        try {
-            const maxProfitEl = document.getElementById('maxProfit');
-            if (maxProfitEl) maxProfitEl.textContent = `$${Math.floor(data.max_profit || 0).toLocaleString()}`;
-            
-            const salesStr = data.est_total_sales ? data.est_total_sales.toLocaleString() : "---";
-            const benchEl = document.getElementById('benchmarkInfo');
-            if (benchEl) {
-                benchEl.innerHTML = `<div style="font-size:1.4rem; color:#fff">${salesStr} <span style="font-size:0.8rem">copies</span></div>`;
-                const salesCard = benchEl.parentElement;
-                if (salesCard && salesCard.querySelector('h3')) salesCard.querySelector('h3').textContent = "Est. Total Sales";
-            }
-        } catch(e) { console.error("Error rendering primary cards:", e); }
+        // document.getElementById('optPrice').textContent = `$${data.best_price.toFixed(2)}`;
+        // Format big numbers
+        document.getElementById('maxProfit').textContent = `$${Math.floor(data.max_profit).toLocaleString()}`;
         
         // --- SHOW BUZZ SCORE ---
-        try {
-            let displayScore = data.sentiment_ia_score || currentSentimentScore;
-            const displayReason = data.reason || currentBuzzReason;
-            const buzzBadge = document.getElementById('sentimentResult');
+        let displayScore = data.sentiment_ia_score || currentSentimentScore;
+        const displayReason = data.reason || currentBuzzReason;
+        const buzzBadge = document.getElementById('sentimentResult');
 
-            if (displayScore && buzzBadge) {
-                buzzBadge.style.display = 'inline-block';
-                const scoreEl = document.getElementById('buzzScore');
-                const textEl = document.getElementById('buzzText');
-                if (scoreEl) scoreEl.textContent = displayScore;
-                if (textEl) textEl.textContent = displayReason ? `(${displayReason})` : ""; 
-            } else if (buzzBadge) {
-                buzzBadge.style.display = 'none';
-            }
-        } catch(e) { console.error("Error rendering buzz score:", e); }
+        // Fallback: If no score from AI, we might have it in the result if engine calculated it
+        if (!displayScore && data.sentiment_ia_score === 0) displayScore = 0.1; // Ensure 0 is showable
+
+        if (displayScore && buzzBadge) {
+            buzzBadge.style.display = 'inline-block';
+            const scoreEl = document.getElementById('buzzScore');
+            const textEl = document.getElementById('buzzText');
+            if (scoreEl) scoreEl.textContent = displayScore;
+            if (textEl) textEl.textContent = displayReason ? `(${displayReason})` : ""; 
+            console.log("✅ Rendering Buzz Score:", displayScore);
+        } else if (buzzBadge) {
+            // Keep it hidden ONLY if truly no score
+            buzzBadge.style.display = 'none';
+        }
 
         // --- UPDATE WISHLISTS FIELD IF ESTIMATED ---
         const wishlistInput = document.getElementById('wishlists');
@@ -1311,5 +1305,119 @@ document.addEventListener('DOMContentLoaded', async () => {
             e.target.setCustomValidity("");
         };
     });
+
+    // --- HISTORY LOGIC ---
+    const historyBtn = document.getElementById('historyBtn');
+    const historyModal = document.getElementById('historyModal');
+    const closeHistory = document.getElementById('closeHistory');
+    const historyListContainer = document.getElementById('historyListContainer');
+
+    if (historyBtn) {
+        historyBtn.addEventListener('click', async () => {
+            const userId = window.currentUserId || localStorage.getItem('gamepredict_user_id');
+            if (!userId) {
+                alert("Please login to see your history.");
+                return;
+            }
+
+            historyModal.style.display = 'flex';
+            historyListContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--text-muted);">Fetching your history...</p>';
+
+            try {
+                const res = await fetch(`${API_BASE}/api/predictions/${userId}`);
+                const data = await res.json();
+
+                if (res.ok) {
+                    if (data.length === 0) {
+                        historyListContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--text-muted);">No saved predictions found.</p>';
+                        return;
+                    }
+
+                    let html = `
+                        <table class="history-table" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid var(--glass-border); text-align: left;">
+                                    <th style="padding: 12px; color: var(--text-muted);">DATE</th>
+                                    <th style="padding: 12px; color: var(--text-muted);">GAME</th>
+                                    <th style="padding: 12px; color: var(--text-muted);">PRICE</th>
+                                    <th style="padding: 12px; color: var(--text-muted);">EST. SALES</th>
+                                    <th style="padding: 12px; color: var(--text-muted);">ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+
+                    data.forEach(item => {
+                        const date = new Date(item.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                        const itemJson = JSON.stringify(item).replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+                        html += `
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
+                                <td style="padding: 15px; font-size: 0.85rem; color: var(--text-muted);">${date}</td>
+                                <td style="padding: 15px; font-weight: 600;">${item.game_name || 'Unnamed Project'}</td>
+                                <td style="padding: 15px; color: var(--primary); font-weight: bold;">$${item.fixed_price || item.best_price}</td>
+                                <td style="padding: 15px; font-weight: bold;">${(item.est_total_sales || 0).toLocaleString()}</td>
+                                <td style="padding: 15px;">
+                                    <button class="btn-secondary history-load-btn" style="padding: 5px 12px; font-size: 0.8rem; background: rgba(0, 210, 255, 0.1); color: #00d2ff; border: 1px solid rgba(0, 210, 255, 0.2);" data-item='${itemJson}'>LOAD</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+
+                    html += '</tbody></table>';
+                    historyListContainer.innerHTML = html;
+
+                    // Add listeners to load buttons
+                    document.querySelectorAll('.history-load-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const itemData = JSON.parse(e.target.getAttribute('data-item'));
+                            loadHistoryItem(itemData);
+                        });
+                    });
+                } else {
+                    historyListContainer.innerHTML = `<p style="text-align: center; padding: 40px; color: #ff4444;">Error: ${data.message}</p>`;
+                }
+            } catch (err) {
+                historyListContainer.innerHTML = `<p style="text-align: center; padding: 40px; color: #ff4444;">Failed to connect to history service.</p>`;
+            }
+        });
+    }
+
+    if (closeHistory) {
+        closeHistory.addEventListener('click', () => {
+            historyModal.style.display = 'none';
+        });
+    }
+
+    // Helper to load history item
+    window.loadHistoryItem = function(item) {
+        document.getElementById('gameName').value = item.game_name || '';
+        document.getElementById('genreSelect').value = item.genre;
+        document.getElementById('fixedPrice').value = item.fixed_price || '';
+        document.getElementById('budget').value = item.budget;
+        document.getElementById('wishlists').value = item.wishlists || '';
+        document.getElementById('sentiment').value = item.sentiment_target || '';
+        document.getElementById('month').value = item.month || '';
+        document.getElementById('langs').value = item.langs || '';
+        document.getElementById('similarGames').value = item.similar_games || '';
+        document.getElementById('prevSales').value = item.previous_sales || '';
+        document.getElementById('prevSentiment').value = item.previous_sentiment || '';
+        document.getElementById('prevBuzz').value = item.previous_buzz || '';
+        document.getElementById('numDlcs').value = item.num_dlcs || 0;
+        document.getElementById('dlcPrice').value = item.dlc_price || 0;
+        
+        historyModal.style.display = 'none';
+        
+        // Visual cue
+        const btn = document.querySelector('#predictionForm button[type="submit"]');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = "✨ RE-RUNNING...";
+        btn.style.opacity = "0.7";
+        
+        setTimeout(() => {
+            document.getElementById('predictionForm').dispatchEvent(new Event('submit'));
+            btn.innerHTML = originalText;
+            btn.style.opacity = "1";
+        }, 800);
+    };
 
 });

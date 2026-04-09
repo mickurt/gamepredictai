@@ -333,6 +333,7 @@
 
                 <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
                     <button type="submit" class="btn-primary" style="margin-top:0;">🚀 RUN PREDICTION</button>
+                    <button type="button" id="historyBtn" class="btn-secondary" style="background: rgba(0, 210, 255, 0.1); color: #00d2ff; border: 1px solid rgba(0, 210, 255, 0.2);">📜 MY HISTORY</button>
                     <button type="button" id="resetBtn" class="btn-secondary" style="background: rgba(255, 255, 255, 0.05);">🔄 NEW SEARCH</button>
                 </div>
 
@@ -345,12 +346,12 @@
         <!-- Main Content / Results -->
         <div class="main-content">
             <div id="resultsArea" style="opacity: 0.5; pointer-events: none; transition: all 0.5s ease;">
-                <div id="sentimentResult" class="badge"
-                    style="display:none; margin-bottom: 15px; border: 2px solid #00ff88; color: #00ff88; background: rgba(0, 255, 136, 0.15); padding: 12px 24px; border-radius: 12px; font-weight: 700; box-shadow: 0 0 15px rgba(0, 255, 136, 0.3); font-size: 1rem; width: 100%; box-sizing: border-box; text-align: left;">
-                    🔥 Buzz Score: <span id="buzzScore"></span>/10 <span id="buzzText" style="font-weight: 400; font-size: 0.85rem; margin-left: 8px; color: rgba(255,255,255,0.9);"></span>
-                </div>
-                <div class="header-result" style="display: flex; justify-content: space-between; align-items: center; gap: 15px;">
+                <div class="header-result" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
                     <h2>Strategic Report</h2>
+                    <div id="sentimentResult" class="badge"
+                        style="display:none; border: 2px solid #00ff88; color: #00ff88; background: rgba(0, 255, 136, 0.15); padding: 10px 20px; border-radius: 50px; font-weight: 700; box-shadow: 0 0 15px rgba(0, 255, 136, 0.3); font-size: 1rem;">
+                        🔥 Buzz Score: <span id="buzzScore"></span>/10 <span id="buzzText" style="font-weight: 400; font-size: 0.85rem; margin-left: 8px; color: rgba(255,255,255,0.9);"></span>
+                    </div>
                 </div>
 
                 <div class="highlight-cards" style="grid-template-columns: 1fr 1fr;">
@@ -571,7 +572,21 @@
 
     </div>
 
-    <script src="script.js?v=45"></script>
+    <!-- History Modal -->
+    <div id="historyModal" class="modal" style="display:none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;">
+        <div class="modal-content card-glass" style="width: 90%; max-width: 1000px; max-height: 85vh; overflow-y: auto; padding: 40px; border: 1px solid var(--glass-border); border-radius: 20px; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+            <span class="close-btn" id="closeHistory" style="position: absolute; right: 25px; top: 20px; font-size: 30px; color: var(--text-muted); cursor: pointer; transition: color 0.3s ease;">&times;</span>
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px;">
+                <h2 style="margin: 0; color: var(--primary); font-size: 1.8rem;">📜 Prediction History</h2>
+                <div style="background: rgba(0, 210, 255, 0.1); color: #00d2ff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Stored in Cloud</div>
+            </div>
+            <div id="historyListContainer">
+                <p style="text-align: center; padding: 40px; color: var(--text-muted);">Loading your database records...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=46"></script>
 </body>
 
 </html>
