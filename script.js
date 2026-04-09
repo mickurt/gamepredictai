@@ -522,18 +522,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Show Export PDF Button
         const pdfBtn = document.getElementById('exportPdfBtn');
         if (pdfBtn) {
-            console.log("Found Export Button, attaching listener...");
+            console.log("Activating Export Button...");
             pdfBtn.style.display = 'inline-block';
-            // Use EventListener for better stability
-            pdfBtn.replaceWith(pdfBtn.cloneNode(true)); // Clear previous listeners
-            const newPdfBtn = document.getElementById('exportPdfBtn');
-            newPdfBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log("🔥 EXPORT CLICKED (EventListener)");
-                newPdfBtn.style.borderColor = "#00ff88"; // Change border to green on click
-                document.getElementById('pdfStatus').textContent = "(⌛ WORKING...)";
-                exportMarketingBrochure(data);
-            });
         }
         
         // --- SHOW BUZZ SCORE ---
@@ -1483,55 +1473,54 @@ document.addEventListener('DOMContentLoaded', async () => {
         }, 800);
     };
 
-    function exportMarketingBrochure(data) {
-        console.log(">>> [DEBUG] Starting PDF Generation Sequence...");
-        alert("Action Received: Generating your Marketing Brochure...");
+    window.exportMarketingBrochure = function() {
+        const data = currentPredictionData;
+        console.log(">>> [DEBUG] GLOBAL EXPORT START", data);
         
+        const statusEl = document.getElementById('pdfStatus');
+        if (statusEl) statusEl.textContent = "(⌛ PREPARING...)";
+
         if (!data) {
-            console.error("No data found for PDF export");
-            alert("Error: Missing prediction data.");
-            document.getElementById('pdfStatus').textContent = "(❌ ERROR)";
+            alert("Please run a prediction first before exporting.");
             return;
         }
 
-        // Library check removed as we use native print() now
-        
-        // Populate Template
-        document.getElementById('pdfDate').textContent = "DATE: " + new Date().toLocaleDateString();
-        document.getElementById('pdfGameName').textContent = document.getElementById('gameName').value || "PROJECT UNKNOWN";
-        document.getElementById('pdfGenrePlatform').textContent = (document.getElementById('genre').options[document.getElementById('genre').selectedIndex].text) + " | " + 
-                                                                 (document.getElementById('platform').options[document.getElementById('platform').selectedIndex].text);
-        
-        document.getElementById('pdfMaxRev').textContent = "$" + Math.floor(data.est_total_revenue).toLocaleString();
-        document.getElementById('pdfMaxProfit').textContent = "$" + Math.floor(data.max_profit).toLocaleString();
-        document.getElementById('pdfSales').textContent = Math.floor(data.est_total_sales).toLocaleString();
-        document.getElementById('pdfScore').textContent = (data.sentiment_ia_score || "---") + "/10";
-        document.getElementById('pdfBudget').textContent = "$" + parseInt(document.getElementById('budget').value || 0).toLocaleString();
-        document.getElementById('pdfWishlists').textContent = parseInt(data.wishlists || 0).toLocaleString();
-        document.getElementById('pdfInsight').textContent = data.context_review || "Predictive analysis indicates strong market potential based on current genre benchmarks and platform engagement trends.";
-
-        const element = document.getElementById('pdfTemplate');
-        
-        const opt = {
-            margin: 0,
-            filename: `GamePredict_Brochure_${document.getElementById('pdfGameName').textContent}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true, logging: true, backgroundColor: '#0b0e14' },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-
-        // Generate via Native Print (Most Reliable)
         try {
-            console.log("Triggering Native Print Fallback...");
-            window.print();
-            document.getElementById('pdfStatus').textContent = "(✅ READY)";
-            setTimeout(() => { document.getElementById('pdfStatus').textContent = ""; }, 3000);
-        } catch (err) {
-            console.error("Print Error:", err);
-            alert("PRINT ERROR: " + err.message);
-            document.getElementById('pdfStatus').textContent = "(❌ FAIL)";
-        }
-    }
+            // Populate Template with safeguard
+            const safeSet = (id, val) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = val;
+            };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v63 active");
+            safeSet('pdfDate', "DATE: " + new Date().toLocaleDateString());
+            safeSet('pdfGameName', document.getElementById('gameName').value || "PROJECT UNKNOWN");
+            
+            try {
+                const genreText = document.getElementById('genre').options[document.getElementById('genre').selectedIndex].text;
+                const platformText = document.getElementById('platform').options[document.getElementById('platform').selectedIndex].text;
+                safeSet('pdfGenrePlatform', genreText + " | " + platformText);
+            } catch(e) { console.warn("Select mapping failed", e); }
+            
+            safeSet('pdfMaxRev', "$" + Math.floor(data.est_total_revenue || 0).toLocaleString());
+            safeSet('pdfMaxProfit', "$" + Math.floor(data.max_profit || 0).toLocaleString());
+            safeSet('pdfSales', Math.floor(data.est_total_sales || 0).toLocaleString());
+            safeSet('pdfScore', (data.sentiment_ia_score || "---") + "/10");
+            safeSet('pdfBudget', "$" + parseInt(document.getElementById('budget').value || 0).toLocaleString());
+            safeSet('pdfWishlists', parseInt(data.wishlists || 0).toLocaleString());
+            safeSet('pdfInsight', data.context_review || "AI analysis completed.");
+
+            console.log("Template ready. Triggering Print Window...");
+            if (statusEl) statusEl.textContent = "(✅ READY)";
+            
+            window.print();
+            
+            setTimeout(() => { if (statusEl) statusEl.textContent = ""; }, 3000);
+        } catch (err) {
+            console.error("Critical Export Error:", err);
+            alert("Export Failed: " + err.message);
+            if (statusEl) statusEl.textContent = "(❌ FAIL)";
+        }
+    };
+
+    console.log("🚀 GamePredict.ai App Loaded / Version v64 active");
 });
