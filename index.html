@@ -6,22 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gamepredict.ai - Premium Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css?v=45">
-    <style>
-        #pdfTemplate {
-            background-color: #0b0e14 !important;
-            color: #ffffff !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            display: block !important;
-        }
-        #pdfTemplate * {
-            color: #ffffff !important;
-            visibility: visible !important;
-        }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="style.css?v=46">
 </head>
 
 <body>
@@ -552,7 +539,7 @@
                     <button id="exportPdfBtn" class="btn-primary" 
                             onclick="exportMarketingBrochure()"
                             style="display:none; margin-bottom: 20px; padding: 14px 30px; font-size: 1rem; background: linear-gradient(135deg, #00d2ff 0%, #0078ff 100%); color: #fff; border: 2px solid #00ff88; font-weight: 800; border-radius: 12px; cursor: pointer; text-transform: uppercase;">
-                        📄 EXPORT MARKETING BROCHURE (PDF) <span id="pdfStatus"></span>
+                        📄 EXPORT MARKETING BROCHURE (PNG IMAGE) <span id="pdfStatus"></span>
                     </button>
                     <br>
                     <button id="feedbackBtn" class="btn-secondary"
@@ -739,8 +726,8 @@
         </div>
     </div>
 
-    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v75</div>
-    <script src="script.js?v=75"></script>
+    <div id="vTag" style="position: fixed; bottom: 10px; right: 10px; font-size: 0.65rem; color: rgba(255,255,255,0.2); pointer-events: none; z-index: 9999;">VERSION v73</div>
+    <script src="script.js?v=73"></script>
 </body>
 
 </html>

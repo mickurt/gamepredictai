@@ -1612,47 +1612,38 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tableContainer.innerHTML = tableHtml;
             }
 
-            // --- GENERATE PDF USING html2pdf.js ---
-            const pdfEl = document.getElementById('pdfTemplate');
+            console.log("Template ready. Generating Image using html2canvas...");
+            if (statusEl) statusEl.textContent = "(⏳ GENERATING IMAGE...)";
             
-            // Forces manual layout and visibility for capture
-            pdfEl.style.display = 'block';
-            pdfEl.style.position = 'fixed';
-            pdfEl.style.left = '-10000px'; // Hide but keep it in layout
-            pdfEl.style.top = '0';
-            pdfEl.style.zIndex = '-9999';
+            const pdfEl = document.getElementById('pdfTemplate');
+            // Make visible for capture
+            pdfEl.style.opacity = '1';
+            pdfEl.style.zIndex = '999999';
 
-            const opt = {
-                margin: 0,
-                filename: 'Marketing_Brochure_' + (document.getElementById('gameName').value || 'Game') + '.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2, 
-                    useCORS: true, 
-                    backgroundColor: '#0b0e14',
-                    letterRendering: true,
-                    logging: true,
-                    width: 794, // A4 pixel width at 96dpi (210mm)
-                },
-                jsPDF: { unit: 'px', format: [794, 1123], orientation: 'portrait' } 
-            };
+            html2canvas(pdfEl, {
+                backgroundColor: '#0b0e14',
+                scale: 2 // High resolution
+            }).then(canvas => {
+                // Restore visibility
+                pdfEl.style.opacity = '0';
+                pdfEl.style.zIndex = '-1';
+                
+                // Trigger download
+                const link = document.createElement('a');
+                link.download = `GamePredict_Report_${Date.now()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                if (statusEl) statusEl.textContent = "(✅ EXPORT SUCCESS)";
+                setTimeout(() => { if (statusEl) statusEl.textContent = ""; }, 3000);
+            }).catch(err => {
+                pdfEl.style.opacity = '0';
+                pdfEl.style.zIndex = '-1';
+                console.error("html2canvas Error:", err);
+                alert("Image Export Failed: " + err.message);
+                if (statusEl) statusEl.textContent = "(❌ FAIL)";
+            });
 
-            console.log("🚀 Starting HD PDF Capture...");
-            if (statusEl) statusEl.textContent = "(⌛ CAPTURING...)";
-
-            // Small delay to ensure all dynamic CSS/Images are painted
-            setTimeout(() => {
-                html2pdf().set(opt).from(pdfEl).save().then(() => {
-                    console.log("✅ PDF Successfully Downloaded");
-                    pdfEl.style.display = 'none';
-                    if (statusEl) statusEl.textContent = "(✅ DONE)";
-                    setTimeout(() => { if (statusEl) statusEl.textContent = ""; }, 3000);
-                }).catch(extErr => {
-                    console.error("❌ PDF Capture Error:", extErr);
-                    pdfEl.style.display = 'none';
-                    alert("Capture Error: " + extErr.message);
-                });
-            }, 500); // 500ms delay for safety
         } catch (err) {
             console.error("Critical Export Error:", err);
             alert("Export Failed: " + err.message);
@@ -1660,5 +1651,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v75 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v73 active");
 });
