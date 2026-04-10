@@ -1612,12 +1612,35 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tableContainer.innerHTML = tableHtml;
             }
 
-            console.log("Template ready. Triggering Print Window...");
-            if (statusEl) statusEl.textContent = "(✅ READY)";
+            // --- GENERATE PDF USING html2pdf.js ---
+            const pdfEl = document.getElementById('pdfTemplate');
+            pdfEl.style.display = 'block'; // Make visible for capture
+
+            const opt = {
+                margin: 0,
+                filename: 'Marketing_Brochure_' + (document.getElementById('gameName').value || 'Game') + '.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true, 
+                    backgroundColor: '#0b0e14',
+                    letterRendering: true
+                },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            console.log("🚀 Starting PDF Generation...");
             
-            window.print();
-            
-            setTimeout(() => { if (statusEl) statusEl.textContent = ""; }, 3000);
+            html2pdf().set(opt).from(pdfEl).save().then(() => {
+                console.log("✅ PDF Generated and Downloaded");
+                pdfEl.style.display = 'none';
+                if (statusEl) statusEl.textContent = "(✅ DOWNLOADED)";
+                setTimeout(() => { if (statusEl) statusEl.textContent = ""; }, 3000);
+            }).catch(extErr => {
+                console.error("❌ PDF Error:", extErr);
+                pdfEl.style.display = 'none';
+                alert("Error generating PDF: " + extErr.message);
+            });
         } catch (err) {
             console.error("Critical Export Error:", err);
             alert("Export Failed: " + err.message);
@@ -1625,5 +1648,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v72 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v73 active");
 });
