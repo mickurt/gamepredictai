@@ -1467,7 +1467,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         btn.style.opacity = "0.7";
         
         setTimeout(() => {
-            document.getElementById('predictionForm').dispatchEvent(new Event('submit'));
+            const form = document.getElementById('predictionForm');
+            if (form.requestSubmit) {
+                form.requestSubmit();
+            } else {
+                form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+            }
             btn.innerHTML = originalText;
             btn.style.opacity = "1";
         }, 800);
@@ -1668,5 +1673,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v75 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v76 active");
 });
