@@ -1628,19 +1628,36 @@ document.addEventListener('DOMContentLoaded', async () => {
                 pdfEl.style.opacity = '0';
                 pdfEl.style.zIndex = '-1';
                 
-                // Trigger download
-                const link = document.createElement('a');
-                link.download = `GamePredict_Report_${Date.now()}.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
+                // Construct PDF from sliced canvas
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const imgProps = pdf.getImageProperties(imgData);
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                let heightLeft = pdfHeight;
+                let position = 0;
+
+                pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, pdfHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft > 0) {
+                    position = heightLeft - pdfHeight; // Negative offset to move the image up
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, pdfHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                pdf.save(`GamePredict_Report_${Date.now()}.pdf`);
                 
                 if (statusEl) statusEl.textContent = "(✅ EXPORT SUCCESS)";
                 setTimeout(() => { if (statusEl) statusEl.textContent = ""; }, 3000);
             }).catch(err => {
                 pdfEl.style.opacity = '0';
                 pdfEl.style.zIndex = '-1';
-                console.error("html2canvas Error:", err);
-                alert("Image Export Failed: " + err.message);
+                console.error("html2canvas/jsPDF Error:", err);
+                alert("PDF Export Failed: " + err.message);
                 if (statusEl) statusEl.textContent = "(❌ FAIL)";
             });
 
@@ -1651,5 +1668,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v73 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v74 active");
 });
