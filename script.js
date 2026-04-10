@@ -272,6 +272,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const simI = document.getElementById('similarGames');
                     if (simI && !simI.value.trim()) { simI.value = data.similar_games; simI.style.borderColor = "#00ff88"; setTimeout(() => simI.style.borderColor = "", 2000); }
                 }
+                if (data.official_wishlist_count) {
+                    const wIn = document.getElementById('wishlists');
+                    if (wIn && (!wIn.value || parseFloat(wIn.value) <= 0)) { wIn.value = data.official_wishlist_count; wIn.style.borderColor = "#00ff88"; setTimeout(() => wIn.style.borderColor = "", 2000); }
+                }
             }
         } catch (e) {
             console.error("Buzz Analysis Error:", e);
@@ -1673,5 +1677,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    console.log("🚀 GamePredict.ai App Loaded / Version v76 active");
+    console.log("🚀 GamePredict.ai App Loaded / Version v77 active");
 });
