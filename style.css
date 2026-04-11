@@ -48,6 +48,7 @@ body {
     border-right: 1px solid var(--glass-border);
     overflow-y: auto;
     height: 100%;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -184,6 +185,7 @@ select.input-glass option {
     padding: 30px 40px 10px 40px;
     overflow-y: auto;
     height: 100%;
+    min-height: 0;
     position: relative;
     display: flex;
     flex-direction: column;
