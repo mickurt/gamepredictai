@@ -30,8 +30,10 @@ body {
 
 /* Glassmorphism Container */
 .glass-container {
-    width: 95vw;
-    height: 90vh;
+    width: 96vw;
+    height: auto;
+    max-height: 96vh;
+    min-height: 200px;
     background: var(--glass);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
@@ -310,7 +312,7 @@ select.input-glass option {
     align-items: center;
     background: var(--bg-gradient);
     z-index: 100;
-    padding-bottom: 80px;
+    padding-bottom: 20px;
 }
 
 .landing-container {
