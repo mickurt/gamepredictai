@@ -199,7 +199,7 @@ select.input-glass option {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .badge {
@@ -216,7 +216,7 @@ select.input-glass option {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .card {
@@ -253,7 +253,7 @@ select.input-glass option {
     width: 100%;
     height: 350px;
     /* Fixed height for stability */
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     position: relative;
     /* Important for Chart.js responsive mode */
 }
@@ -692,7 +692,7 @@ select.input-glass option {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     background: rgba(255, 255, 255, 0.02);
     border-radius: 12px;
     overflow: hidden;
