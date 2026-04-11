@@ -331,8 +331,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (ac) ac.innerHTML = "Perform a prediction to see AI insights.";
             
             // 4. Reset Results Area
-            resultsArea.style.opacity = '0.5';
-            resultsArea.style.pointerEvents = 'none';
+            resultsArea.style.display = 'none';
             
             // 5. Destroy Charts
             if (profitChartInstance) { profitChartInstance.destroy(); profitChartInstance = null; }
@@ -513,8 +512,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error(error);
             alert("Prediction Error:\n" + error.message);
         } finally {
-            resultsArea.style.opacity = '1';
-            resultsArea.style.pointerEvents = 'auto';
+            resultsArea.style.display = 'block';
+            setTimeout(() => {
+                resultsArea.style.opacity = '1';
+                resultsArea.style.pointerEvents = 'auto';
+            }, 10);
             loader.style.display = 'none';
         }
     });

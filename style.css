@@ -21,10 +21,11 @@ body {
     background: var(--bg-gradient);
     color: var(--text);
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-y: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding: 20px 0;
     width: 100%;
 }
 
@@ -253,7 +254,7 @@ select.input-glass option {
     border-radius: 16px;
     padding: 20px;
     width: 100%;
-    height: 350px;
+    height: 300px;
     /* Fixed height for stability */
     margin-bottom: 15px;
     position: relative;
